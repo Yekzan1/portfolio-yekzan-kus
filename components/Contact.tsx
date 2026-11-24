@@ -7,10 +7,6 @@ import { Bouton } from "./Bouton";
 export function Contact() {
   const [copieEmail, setCopieEmail] = useState(false);
   const [copieTel, setCopieTel] = useState(false);
-  const [nom, setNom] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [envoye, setEnvoye] = useState(false);
 
   const copier = (texte: string, type: "email" | "tel") => {
     navigator.clipboard.writeText(texte);
@@ -23,197 +19,161 @@ export function Contact() {
     }
   };
 
-  const soumettreFormulaire = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !message) return;
-    
-    // Ouvrir mailto pré-rempli pour garantie zéro perte et sans dépendance serveur
-    const sujet = encodeURIComponent(`Prise de contact alternance L3 — ${nom || "Recruteur"}`);
-    const corps = encodeURIComponent(`De: ${nom} (${email})\n\nMessage:\n${message}`);
-    window.location.href = `mailto:${INFOS_PERSONNELLES.email}?subject=${sujet}&body=${corps}`;
-    setEnvoye(true);
-  };
-
   return (
     <section id="contact" className="section section--creuse border-t border-[#c9a45c]/25">
       <div className="wrap">
         <div className="max-w-3xl mb-12">
-          <div className="badge">Contact & Échange</div>
+          <div className="badge">Me Contacter</div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2a1508] mt-3">
-            Échangeons sur votre projet d'alternance pour septembre 2027
+            Échangeons sur votre alternance pour septembre 2027
           </h2>
           <p className="text-base sm:text-lg text-[#5c4636] mt-4 leading-relaxed">
-            Vous recherchez un profil autonome, rigoureux et immédiatement opérationnel
-            en développement web, back-end ou intégration d'IA ? Je suis à votre disposition
-            pour un entretien ou un échange technique.
+            Je suis disponible pour convenir d'un premier échange téléphonique, d'une visio
+            ou d'une rencontre en personne sur le secteur de Villefranche-sur-Saône ou de Lyon.
           </p>
         </div>
 
-        {/* Grille : Coordonnées directes / Formulaire */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Colonne Coordonnées Directes */}
-          <div className="lg:col-span-5 bg-[#faf6ee] border border-[#c9a45c]/35 rounded-[28px] p-6 sm:p-8 shadow-md space-y-6">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#6b3319]">
-                Coordonnées directes
-              </span>
-              <h3 className="text-xl font-bold text-[#2a1508] mt-1">
-                Yekzan KUS
-              </h3>
-              <p className="text-xs text-[#5c4636] mt-0.5">
-                Candidat Alternance Licence 3 Informatique (1 an)
-              </p>
+        {/* Grille des coordonnées directes (sans formulaire) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+          {/* Carte 1 : Coordonnées directes */}
+          <div className="bg-[#faf6ee] border border-[#c9a45c]/35 rounded-[28px] p-7 sm:p-9 shadow-md flex flex-col justify-between gap-6">
+            <div className="space-y-6">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#6b3319]">
+                  Ligne directe
+                </span>
+                <h3 className="text-2xl font-bold text-[#2a1508] mt-1">
+                  Yekzan KUS
+                </h3>
+                <p className="text-xs sm:text-sm text-[#5c4636] mt-0.5">
+                  Étudiant BTS SIO SLAM • Futur Licence 3 Informatique
+                </p>
+              </div>
+
+              {/* Email */}
+              <div className="bg-white/90 p-4 sm:p-5 rounded-2xl border border-[#c9a45c]/25 flex items-center justify-between gap-3 shadow-xs">
+                <div className="truncate">
+                  <p className="text-[0.7rem] uppercase font-bold text-[#5c4636]">
+                    Email personnel
+                  </p>
+                  <a
+                    href={`mailto:${INFOS_PERSONNELLES.email}`}
+                    className="text-base sm:text-lg font-semibold text-[#2a1508] hover:text-[#c9a45c] transition-colors truncate block"
+                  >
+                    {INFOS_PERSONNELLES.email}
+                  </a>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copier(INFOS_PERSONNELLES.email, "email")}
+                  className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#2a1508]/5 text-[#6b3319] hover:bg-[#2a1508]/10 transition-colors shrink-0 cursor-pointer"
+                  aria-label="Copier l'adresse email"
+                >
+                  {copieEmail ? "✓ Copié" : "Copier"}
+                </button>
+              </div>
+
+              {/* Téléphone */}
+              <div className="bg-white/90 p-4 sm:p-5 rounded-2xl border border-[#c9a45c]/25 flex items-center justify-between gap-3 shadow-xs">
+                <div>
+                  <p className="text-[0.7rem] uppercase font-bold text-[#5c4636]">
+                    Téléphone direct
+                  </p>
+                  <a
+                    href={`tel:${INFOS_PERSONNELLES.telephoneBrut}`}
+                    className="text-base sm:text-lg font-semibold text-[#2a1508] hover:text-[#c9a45c] transition-colors block"
+                  >
+                    {INFOS_PERSONNELLES.telephone}
+                  </a>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copier(INFOS_PERSONNELLES.telephone, "tel")}
+                  className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#2a1508]/5 text-[#6b3319] hover:bg-[#2a1508]/10 transition-colors shrink-0 cursor-pointer"
+                  aria-label="Copier le numéro de téléphone"
+                >
+                  {copieTel ? "✓ Copié" : "Copier"}
+                </button>
+              </div>
             </div>
 
-            {/* Email avec bouton copie */}
-            <div className="bg-white/90 p-4 rounded-2xl border border-[#c9a45c]/25 flex items-center justify-between gap-3 shadow-xs">
+            <div className="pt-2">
+              <a
+                href={`mailto:${INFOS_PERSONNELLES.email}?subject=Prise%20de%20contact%20Alternance%20L3`}
+                className="btn btn--or w-full justify-center !min-h-[3rem]"
+              >
+                M'écrire un e-mail
+              </a>
+            </div>
+          </div>
+
+          {/* Carte 2 : Mobilité, Liens & Document */}
+          <div className="bg-[#faf6ee] border border-[#c9a45c]/35 rounded-[28px] p-7 sm:p-9 shadow-md flex flex-col justify-between gap-6">
+            <div className="space-y-6">
               <div>
-                <p className="text-[0.7rem] uppercase font-bold text-[#5c4636]">
-                  Adresse e-mail
+                <span className="text-xs font-bold uppercase tracking-wider text-[#6b3319]">
+                  Modalités & Localisation
+                </span>
+                <h3 className="text-2xl font-bold text-[#2a1508] mt-1">
+                  Disponibilité & Mobilité
+                </h3>
+              </div>
+
+              <div className="bg-white/90 p-5 rounded-2xl border border-[#c9a45c]/25 space-y-3 shadow-xs text-xs sm:text-sm text-[#5c4636]">
+                <p className="flex items-start gap-2.5">
+                  <span className="text-[#c9a45c] font-bold mt-0.5">●</span>
+                  <span>
+                    <strong className="text-[#2a1508]">Zone géographique : </strong>
+                    Limas (69400), Villefranche-sur-Saône et Métropole de Lyon.
+                  </span>
                 </p>
+                <p className="flex items-start gap-2.5">
+                  <span className="text-[#c9a45c] font-bold mt-0.5">●</span>
+                  <span>
+                    <strong className="text-[#2a1508]">Mobilité : </strong>
+                    Permis B (en cours), mobilité quotidienne via réseau TER et TCL.
+                  </span>
+                </p>
+                <p className="flex items-start gap-2.5">
+                  <span className="text-[#c9a45c] font-bold mt-0.5">●</span>
+                  <span>
+                    <strong className="text-[#2a1508]">Contrat d'alternance : </strong>
+                    Rentrée de septembre 2027 (durée 1 an, Licence 3 Informatique).
+                  </span>
+                </p>
+              </div>
+
+              {/* Réseaux pro */}
+              <div className="grid grid-cols-2 gap-3">
                 <a
-                  href={`mailto:${INFOS_PERSONNELLES.email}`}
-                  className="text-sm font-semibold text-[#2a1508] hover:text-[#c9a45c] transition-colors"
+                  href={INFOS_PERSONNELLES.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3.5 rounded-xl bg-white/90 border border-[#c9a45c]/25 text-center text-xs font-semibold text-[#2a1508] hover:border-[#c9a45c] hover:bg-white transition-all block shadow-xs"
                 >
-                  {INFOS_PERSONNELLES.email}
+                  Profil LinkedIn ↗
+                </a>
+                <a
+                  href={INFOS_PERSONNELLES.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3.5 rounded-xl bg-white/90 border border-[#c9a45c]/25 text-center text-xs font-semibold text-[#2a1508] hover:border-[#c9a45c] hover:bg-white transition-all block shadow-xs"
+                >
+                  Compte GitHub ↗
                 </a>
               </div>
-              <button
-                type="button"
-                onClick={() => copier(INFOS_PERSONNELLES.email, "email")}
-                className="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#2a1508]/5 text-[#6b3319] hover:bg-[#2a1508]/10 transition-colors"
-                aria-label="Copier l'adresse email"
-              >
-                {copieEmail ? "✓ Copié !" : "Copier"}
-              </button>
             </div>
 
-            {/* Téléphone avec bouton copie */}
-            <div className="bg-white/90 p-4 rounded-2xl border border-[#c9a45c]/25 flex items-center justify-between gap-3 shadow-xs">
-              <div>
-                <p className="text-[0.7rem] uppercase font-bold text-[#5c4636]">
-                  Téléphone direct
-                </p>
-                <a
-                  href={`tel:${INFOS_PERSONNELLES.telephoneBrut}`}
-                  className="text-sm font-semibold text-[#2a1508] hover:text-[#c9a45c] transition-colors"
-                >
-                  {INFOS_PERSONNELLES.telephone}
-                </a>
-              </div>
-              <button
-                type="button"
-                onClick={() => copier(INFOS_PERSONNELLES.telephone, "tel")}
-                className="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#2a1508]/5 text-[#6b3319] hover:bg-[#2a1508]/10 transition-colors"
-                aria-label="Copier le numéro de téléphone"
-              >
-                {copieTel ? "✓ Copié !" : "Copier"}
-              </button>
-            </div>
-
-            {/* Localisation & Mobilité */}
-            <div className="space-y-2 pt-2 text-xs text-[#5c4636]">
-              <p className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#c9a45c]" />
-                <strong>Localisation : </strong> {INFOS_PERSONNELLES.localisation}
-              </p>
-              <p className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#c9a45c]" />
-                <strong>Mobilité : </strong> {INFOS_PERSONNELLES.permis} + réseau TER/TCL
-              </p>
-              <p className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#c9a45c]" />
-                <strong>Disponibilité : </strong> Septembre 2027 (rythme 1 an)
-              </p>
-            </div>
-
-            {/* Téléchargement direct du CV */}
             <div className="pt-2">
               <Bouton
                 href={INFOS_PERSONNELLES.cvPdf}
                 download="CV-Yekzan-KUS-Alternance-L3.pdf"
                 ton="fantome-clair"
-                className="w-full justify-center !min-h-[2.85rem]"
+                className="w-full justify-center !min-h-[3rem]"
               >
-                Télécharger mon CV complet (PDF)
+                Télécharger mon CV (PDF)
               </Bouton>
             </div>
-          </div>
-
-          {/* Formulaire de Contact */}
-          <div className="lg:col-span-7 bg-[#faf6ee] border border-[#c9a45c]/35 rounded-[28px] p-6 sm:p-8 shadow-md">
-            <h3 className="text-xl font-bold text-[#2a1508] mb-1">
-              Envoyer un message direct
-            </h3>
-            <p className="text-xs text-[#5c4636] mb-6">
-              Remplissez ce formulaire pour m'adresser votre demande ou convenir d'un rendez-vous.
-            </p>
-
-            {envoye ? (
-              <div className="bg-emerald-50 border border-emerald-300 p-6 rounded-2xl text-center space-y-2">
-                <span className="text-2xl">✓</span>
-                <h4 className="font-bold text-emerald-900 text-base">
-                  Votre client email s'est ouvert avec le message pré-rempli !
-                </h4>
-                <p className="text-xs text-emerald-700">
-                  Si la fenêtre ne s'est pas ouverte, vous pouvez m'écrire directement à{" "}
-                  <strong>{INFOS_PERSONNELLES.email}</strong>.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={soumettreFormulaire} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#5c4636] mb-1">
-                      Votre Nom / Entreprise
-                    </label>
-                    <input
-                      type="text"
-                      value={nom}
-                      onChange={(e) => setNom(e.target.value)}
-                      placeholder="Ex: Entreprise Tech / RH"
-                      className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#c9a45c]/30 text-sm text-[#2a1508] focus:outline-none focus:border-[#c9a45c]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#5c4636] mb-1">
-                      Votre Adresse Email *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="nom@entreprise.com"
-                      className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#c9a45c]/30 text-sm text-[#2a1508] focus:outline-none focus:border-[#c9a45c]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#5c4636] mb-1">
-                    Votre Message *
-                  </label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Présentez votre entreprise, le poste d'alternance ou proposez une date d'échange..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#c9a45c]/30 text-sm text-[#2a1508] focus:outline-none focus:border-[#c9a45c]"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-3.5 px-6 rounded-full bg-[#2a1508] text-[#faf6ee] font-semibold text-xs uppercase tracking-wider hover:bg-[#6b3319] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <span>Envoyer mon message</span>
-                  <span aria-hidden="true">→</span>
-                </button>
-              </form>
-            )}
           </div>
         </div>
       </div>

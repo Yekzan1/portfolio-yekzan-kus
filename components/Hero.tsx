@@ -141,14 +141,14 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Grille de métriques et résultats concrets */}
+        {/* Grille de repères concrets */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-8 border-t border-[#e8c97a]/15">
           <div className="bg-[#141210]/60 border border-[#e8c97a]/15 p-5 rounded-2xl">
             <p className="text-3xl sm:text-4xl font-bold text-[#e8c97a] font-serif">
               6
             </p>
             <p className="text-xs uppercase tracking-wider text-[#faf6ee]/70 mt-1">
-              Expériences en entreprise
+              Stages & missions réalisés
             </p>
           </div>
 
@@ -157,7 +157,7 @@ export function Hero() {
               2 sem.
             </p>
             <p className="text-xs uppercase tracking-wider text-[#faf6ee]/70 mt-1">
-              Livraison After'ish seul en prod
+              Délai de livraison After&apos;ish
             </p>
           </div>
 
@@ -172,10 +172,10 @@ export function Hero() {
 
           <div className="bg-[#141210]/60 border border-[#e8c97a]/15 p-5 rounded-2xl">
             <p className="text-3xl sm:text-4xl font-bold text-[#e8c97a] font-serif">
-              100%
+              L3
             </p>
             <p className="text-xs uppercase tracking-wider text-[#faf6ee]/70 mt-1">
-              Autonomie & rigueur
+              Cible Alternance 2027
             </p>
           </div>
         </div>

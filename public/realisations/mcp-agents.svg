@@ -1,0 +1,54 @@
+<svg width="1200" height="750" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+  
+  <rect x="70" y="50" width="1060" height="650" rx="14" fill="#090d16" stroke="#1e293b" stroke-width="2"/>
+  <rect x="70" y="50" width="1060" height="42" rx="14" fill="#161b22"/>
+  <rect x="70" y="78" width="1060" height="14" fill="#161b22"/>
+  <circle cx="98" cy="71" r="6" fill="#ef4444"/>
+  <circle cx="118" cy="71" r="6" fill="#f59e0b"/>
+  <circle cx="138" cy="71" r="6" fill="#10b981"/>
+  <text x="170" y="76" fill="#94a3b8" font-family="monospace" font-size="13">yekzan@station: ~/orchestration-agents-mcp (main)</text>
+
+  <text x="110" y="140" fill="#e8c97a" font-family="monospace" font-size="20" font-weight="bold">[Architecture : Flotte Multi-Agents &amp; Serveur MCP Custom]</text>
+  
+  <rect x="110" y="175" width="270" height="115" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="130" y="208" fill="#38bdf8" font-family="monospace" font-size="15" font-weight="bold">Coordinator Agent</text>
+  <text x="130" y="235" fill="#8b949e" font-family="monospace" font-size="13">• Analyse de requetes</text>
+  <text x="130" y="258" fill="#8b949e" font-family="monospace" font-size="13">• Dispatch &amp; orchestration</text>
+  <text x="130" y="280" fill="#8b949e" font-family="monospace" font-size="13">• Synthese de code</text>
+
+  <line x1="380" y1="232" x2="445" y2="232" stroke="#e8c97a" stroke-width="2" stroke-dasharray="4"/>
+  <polygon points="445,227 455,232 445,237" fill="#e8c97a"/>
+
+  <rect x="465" y="175" width="310" height="115" rx="8" fill="#161b22" stroke="#c9a45c" stroke-width="2"/>
+  <text x="485" y="208" fill="#e8c97a" font-family="monospace" font-size="15" font-weight="bold">Serveur MCP Local (stdio)</text>
+  <text x="485" y="235" fill="#8b949e" font-family="monospace" font-size="13">• Tools: inspect_ast, run_tests</text>
+  <text x="485" y="258" fill="#8b949e" font-family="monospace" font-size="13">• Gestion de l'arbre Git &amp; diffs</text>
+  <text x="485" y="280" fill="#8b949e" font-family="monospace" font-size="13">• Isolation &amp; execution securisee</text>
+
+  <line x1="775" y1="232" x2="840" y2="232" stroke="#e8c97a" stroke-width="2" stroke-dasharray="4"/>
+  <polygon points="840,227 850,232 840,237" fill="#e8c97a"/>
+
+  <rect x="860" y="175" width="230" height="115" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="880" y="208" fill="#34d399" font-family="monospace" font-size="15" font-weight="bold">Sous-Agents Specialises</text>
+  <text x="880" y="235" fill="#8b949e" font-family="monospace" font-size="13">• Subagent Refactor</text>
+  <text x="880" y="258" fill="#8b949e" font-family="monospace" font-size="13">• Subagent Test Runner</text>
+  <text x="880" y="280" fill="#8b949e" font-family="monospace" font-size="13">• Subagent Doc &amp; Typage</text>
+
+  <rect x="110" y="320" width="980" height="345" rx="8" fill="#030712" stroke="#1e293b" stroke-width="1"/>
+  <text x="135" y="360" fill="#10b981" font-family="monospace" font-size="14" font-weight="bold">$ claude --mcp-config ./mcp.json "Refactor auth pipeline &amp; run unit tests"</text>
+  <text x="135" y="395" fill="#64748b" font-family="monospace" font-size="13">[MCP] Connecting to server 'mcp-tooling-server' via stdio...</text>
+  <text x="135" y="425" fill="#38bdf8" font-family="monospace" font-size="13">[MCP] Registered capabilities: 7 tools, 2 resources, 4 prompts</text>
+  <text x="135" y="460" fill="#e2e8f0" font-family="monospace" font-size="13">[PLAN] Step 1: Parse AST on src/auth/*.ts</text>
+  <text x="135" y="488" fill="#e2e8f0" font-family="monospace" font-size="13">[PLAN] Step 2: Parallel execution of linting &amp; TypeScript strict validation</text>
+  <text x="135" y="520" fill="#34d399" font-family="monospace" font-size="13">[SUCCESS] Linting check: 0 errors • TypeScript v5.7 check: clean</text>
+  <text x="135" y="550" fill="#34d399" font-family="monospace" font-size="13">[TESTS] Vitest run: 28 passing tests across 4 test suites</text>
+  <text x="135" y="590" fill="#e8c97a" font-family="monospace" font-size="14" font-weight="bold">[WORKFLOW DONE] 3 files refactored, tests verified, branch clean.</text>
+  <text x="135" y="625" fill="#64748b" font-family="monospace" font-size="13">[STATUS] Commit staged • PR ready for review</text>
+</svg>

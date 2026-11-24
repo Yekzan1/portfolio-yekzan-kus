@@ -28,9 +28,8 @@ export function Realisations({
             Des projets réels livrés en autonomie, vérifiables en ligne
           </h2>
           <p className="text-base sm:text-lg text-[#5c4636] mt-4 leading-relaxed">
-            Pas de simples tutoriels ou de projets fictifs : voici les plateformes, moteurs
-            de recherche, applications SaaS et assistants IA que j'ai conçus et mis en
-            production lors de mes expériences professionnelles.
+            Applications, sites web et scripts d&apos;automatisation développés en entreprise
+            ou en R&amp;D personnelle, avec détails techniques et liens d&apos;accès directs.
           </p>
 
           {/* Filtres de catégorie */}
@@ -164,7 +163,7 @@ export function Realisations({
                       rel="noopener noreferrer"
                       className="px-4 py-2 rounded-full bg-[#2a1508] text-[#faf6ee] text-xs font-semibold uppercase tracking-wider hover:bg-[#6b3319] transition-colors flex items-center gap-1.5"
                     >
-                      <span>Voir le site</span>
+                      <span>{projet.libelleLien || "Voir le site"}</span>
                       <svg
                         className="w-3.5 h-3.5"
                         fill="none"
@@ -338,7 +337,7 @@ export function Realisations({
                     rel="noopener noreferrer"
                     className="btn btn--or !text-xs !min-h-[2.5rem]"
                   >
-                    Visiter le projet en ligne
+                    {projetSelectionne.libelleLien || "Visiter le projet"}
                   </a>
                 </div>
               </div>

@@ -11,9 +11,8 @@ export function Competences() {
             Compétences techniques structurées par pôles d'expertise
           </h2>
           <p className="text-base sm:text-lg text-[#5c4636] mt-4 leading-relaxed">
-            Un socle solide acquis en formation rigoureuse (BTS SIO SLAM, future Licence 3)
-            et forgé par la pratique quotidienne en production sur des architectures web
-            et des écosystèmes d'agents d'intelligence artificielle.
+            Technologies apprises en cursus informatique (BTS SIO SLAM, préparation à la
+            Licence 3) et appliquées lors de mes stages et projets personnels.
           </p>
         </div>
 

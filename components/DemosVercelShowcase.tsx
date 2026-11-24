@@ -16,9 +16,9 @@ export function DemosVercelShowcase() {
             Des démos Next.js & Vercel déployées et testables en production
           </h2>
           <p className="text-base sm:text-lg text-[#faf6ee]/75 mt-4 leading-relaxed">
-            Pour valider concrètement mes compétences en intégration front-end, temps de
-            chargement instantané (Lighthouse 100/100) et adaptation responsive, voici
-            un échantillon de démos techniques actives sur mon compte Vercel.
+            Pour illustrer concrètement ma maîtrise de Next.js, de Tailwind CSS et des
+            bonnes pratiques d'intégration (temps de chargement rapide et adaptation mobile),
+            voici une sélection de démos fonctionnelles hébergées sur Vercel.
           </p>
         </div>
 
@@ -105,24 +105,24 @@ export function DemosVercelShowcase() {
                 </a>
               </div>
 
-              {/* Métriques d'optimisation garanties */}
+              {/* Métriques d'optimisation ciblées */}
               <div className="grid grid-cols-3 gap-3 pt-2 text-center">
                 <div className="bg-white/5 p-3 rounded-xl border border-white/5">
-                  <span className="text-emerald-400 font-bold text-lg font-mono">100</span>
+                  <span className="text-[#e8c97a] font-bold text-sm font-mono">Next.js 15</span>
                   <p className="text-[0.65rem] uppercase tracking-wider text-[#faf6ee]/60 mt-0.5">
-                    Performance
+                    Architecture App Router
                   </p>
                 </div>
                 <div className="bg-white/5 p-3 rounded-xl border border-white/5">
-                  <span className="text-emerald-400 font-bold text-lg font-mono">100</span>
+                  <span className="text-[#e8c97a] font-bold text-sm font-mono">Tailwind CSS</span>
                   <p className="text-[0.65rem] uppercase tracking-wider text-[#faf6ee]/60 mt-0.5">
-                    Accessibilité
+                    Responsive &amp; Mobile-first
                   </p>
                 </div>
                 <div className="bg-white/5 p-3 rounded-xl border border-white/5">
-                  <span className="text-emerald-400 font-bold text-lg font-mono">100</span>
+                  <span className="text-[#e8c97a] font-bold text-sm font-mono">Lighthouse</span>
                   <p className="text-[0.65rem] uppercase tracking-wider text-[#faf6ee]/60 mt-0.5">
-                    SEO & Best Practices
+                    Optimisé SEO &amp; Perf
                   </p>
                 </div>
               </div>
