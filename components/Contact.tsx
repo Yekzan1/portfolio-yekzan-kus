@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { INFOS_PERSONNELLES } from "@/lib/data";
-import { Bouton } from "./Bouton";
 
 export function Contact() {
   const [copieEmail, setCopieEmail] = useState(false);
@@ -23,30 +22,31 @@ export function Contact() {
     <section id="contact" className="section section--creuse border-t border-[#c9a45c]/25">
       <div className="wrap">
         <div className="max-w-3xl mb-12">
-          <div className="badge">Me Contacter</div>
+          <div className="badge">Contact</div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2a1508] mt-3">
-            Échangeons sur votre alternance pour septembre 2027
+            Me contacter
           </h2>
           <p className="text-base sm:text-lg text-[#5c4636] mt-4 leading-relaxed">
-            Je suis disponible pour convenir d'un premier échange téléphonique, d'une visio
-            ou d'une rencontre en personne sur le secteur de Villefranche-sur-Saône ou de Lyon.
+            Disponible pour un échange technique, un entretien ou toute opportunité de collaboration
+            (notamment pour mon alternance en Licence 3 Informatique à partir de septembre 2027
+            sur le secteur de Villefranche-sur-Saône et de Lyon).
           </p>
         </div>
 
-        {/* Grille des coordonnées directes (sans formulaire) */}
+        {/* Grille des coordonnées directes */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           {/* Carte 1 : Coordonnées directes */}
           <div className="bg-[#faf6ee] border border-[#c9a45c]/35 rounded-[28px] p-7 sm:p-9 shadow-md flex flex-col justify-between gap-6">
             <div className="space-y-6">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#6b3319]">
-                  Ligne directe
+                  Coordonnées
                 </span>
                 <h3 className="text-2xl font-bold text-[#2a1508] mt-1">
                   Yekzan KUS
                 </h3>
                 <p className="text-xs sm:text-sm text-[#5c4636] mt-0.5">
-                  Étudiant BTS SIO SLAM • Futur Licence 3 Informatique
+                  Développeur Web • BTS SIO SLAM • Licence 3 Informatique
                 </p>
               </div>
 
@@ -99,15 +99,15 @@ export function Contact() {
 
             <div className="pt-2">
               <a
-                href={`mailto:${INFOS_PERSONNELLES.email}?subject=Prise%20de%20contact%20Alternance%20L3`}
+                href={`mailto:${INFOS_PERSONNELLES.email}?subject=Prise%20de%20contact%20-%20Portfolio`}
                 className="btn btn--or w-full justify-center !min-h-[3rem]"
               >
-                M'écrire un e-mail
+                M'envoyer un email
               </a>
             </div>
           </div>
 
-          {/* Carte 2 : Mobilité, Liens & Document */}
+          {/* Carte 2 : Mobilité & Réseaux */}
           <div className="bg-[#faf6ee] border border-[#c9a45c]/35 rounded-[28px] p-7 sm:p-9 shadow-md flex flex-col justify-between gap-6">
             <div className="space-y-6">
               <div>
@@ -131,14 +131,14 @@ export function Contact() {
                   <span className="text-[#c9a45c] font-bold mt-0.5">●</span>
                   <span>
                     <strong className="text-[#2a1508]">Mobilité : </strong>
-                    Permis B (en cours), mobilité quotidienne via réseau TER et TCL.
+                    Permis B en cours, liaisons quotidiennes assurées par les réseaux TER et TCL.
                   </span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <span className="text-[#c9a45c] font-bold mt-0.5">●</span>
                   <span>
-                    <strong className="text-[#2a1508]">Contrat d'alternance : </strong>
-                    Rentrée de septembre 2027 (durée 1 an, Licence 3 Informatique).
+                    <strong className="text-[#2a1508]">Rythme visé : </strong>
+                    Contrat d&apos;alternance de 1 an dès la rentrée de septembre 2027.
                   </span>
                 </p>
               </div>
@@ -159,20 +159,19 @@ export function Contact() {
                   rel="noopener noreferrer"
                   className="p-3.5 rounded-xl bg-white/90 border border-[#c9a45c]/25 text-center text-xs font-semibold text-[#2a1508] hover:border-[#c9a45c] hover:bg-white transition-all block shadow-xs"
                 >
-                  Compte GitHub ↗
+                  Profil GitHub ↗
                 </a>
               </div>
             </div>
 
             <div className="pt-2">
-              <Bouton
+              <a
                 href={INFOS_PERSONNELLES.cvPdf}
-                download="CV-Yekzan-KUS-Alternance-L3.pdf"
-                ton="fantome-clair"
-                className="w-full justify-center !min-h-[3rem]"
+                download="CV-Yekzan-KUS.pdf"
+                className="btn btn--fantome-clair w-full justify-center !min-h-[3rem]"
               >
                 Télécharger mon CV (PDF)
-              </Bouton>
+              </a>
             </div>
           </div>
         </div>

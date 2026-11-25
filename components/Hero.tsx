@@ -5,7 +5,7 @@ import { Bouton } from "./Bouton";
 
 export function Hero() {
   return (
-    <section className="section section--heros min-h-[92vh] flex items-center pt-32 pb-20 relative overflow-hidden">
+    <section className="section section--heros min-h-[88vh] flex items-center pt-32 pb-20 relative overflow-hidden">
       {/* Halo lumineux d'ambiance */}
       <div
         className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#c9a45c]/10 rounded-full blur-[140px] pointer-events-none"
@@ -16,7 +16,7 @@ export function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Colonne Gauche : Texte & Accroche */}
           <div className="lg:col-span-7 flex flex-col items-start gap-6">
-            {/* Badge Disponibilité */}
+            {/* Badge Disponibilité sobre */}
             <div className="badge badge--vert">
               <span className="text-[#faf6ee] font-semibold">
                 {INFOS_PERSONNELLES.statutAlternance}
@@ -27,18 +27,18 @@ export function Hero() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#faf6ee] leading-[1.08]">
               Yekzan KUS <br />
               <span className="text-[#e8c97a] font-normal italic">
-                Développeur Web & Ingénieur IA
+                Développeur Web & Concepteur d&apos;Applications
               </span>
             </h1>
 
-            {/* Sous-titre & Positionnement */}
+            {/* Positionnement sobre et factuel */}
             <p className="text-base sm:text-lg text-[#faf6ee]/85 max-w-2xl leading-relaxed">
               Étudiant en 2<sup>e</sup> année de{" "}
               <strong className="text-[#faf6ee]">BTS SIO option SLAM</strong> (Business
-              School by CSND au Campus du Beaujolais, Limas), futur étudiant en{" "}
-              <strong className="text-[#e8c97a]">Licence 3 Informatique</strong> dès
-              septembre 2027. Je conçois des applications web performantes et j'intègre
-              des architectures d'automatisation et d'IA générative directement en production.
+              School by CSND, Limas), futur étudiant en{" "}
+              <strong className="text-[#e8c97a]">Licence 3 Informatique</strong>. J&apos;interviens
+              sur la conception de sites web, le développement full-stack (Next.js, PHP, React, SQL)
+              et l&apos;automatisation de flux de travail.
             </p>
 
             {/* Actions & Réseaux */}
@@ -49,7 +49,7 @@ export function Hero() {
 
               <Bouton
                 href={INFOS_PERSONNELLES.cvPdf}
-                download="CV-Yekzan-KUS-Alternance-L3.pdf"
+                download="CV-Yekzan-KUS.pdf"
                 ton="fantome"
               >
                 Télécharger le CV (PDF)
@@ -87,7 +87,7 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Bandeau d'infos clés : mobilité & permis */}
+            {/* Infos localisation & rythme */}
             <div className="flex flex-wrap gap-y-2 gap-x-6 text-xs text-[#faf6ee]/70 border-t border-white/10 pt-4 mt-2">
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#c9a45c]" />
@@ -104,10 +104,9 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Colonne Droite : Photo & Cadre d'Excellence */}
+          {/* Colonne Droite : Photo professionnelle */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative group">
-              {/* Cadre arrière décalé façon Corvio */}
               <div
                 className="absolute -inset-3 rounded-[32px] bg-gradient-to-tr from-[#c9a45c]/40 via-transparent to-[#e8c97a]/20 blur-sm group-hover:blur-md transition-all duration-500"
                 aria-hidden="true"
@@ -123,16 +122,14 @@ export function Hero() {
                     sizes="(max-width: 768px) 320px, 380px"
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
-                  {/* Dégradé léger en bas de la photo pour lisibilité */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0d0b09]/80 via-transparent to-transparent" />
 
-                  {/* Badge flottant sur l'image */}
                   <div className="absolute bottom-4 left-4 right-4 bg-[#0d0b09]/90 border border-[#e8c97a]/30 p-3 rounded-xl backdrop-blur-md">
                     <p className="text-xs font-semibold text-[#faf6ee]">
                       Yekzan KUS
                     </p>
                     <p className="text-[0.7rem] text-[#e8c97a]">
-                      Développeur Web & Automatisation IA
+                      Développeur Web & Concepteur d&apos;Applications
                     </p>
                   </div>
                 </div>
@@ -141,14 +138,14 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Grille de repères concrets */}
+        {/* Chiffres factuels */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-8 border-t border-[#e8c97a]/15">
           <div className="bg-[#141210]/60 border border-[#e8c97a]/15 p-5 rounded-2xl">
             <p className="text-3xl sm:text-4xl font-bold text-[#e8c97a] font-serif">
               6
             </p>
             <p className="text-xs uppercase tracking-wider text-[#faf6ee]/70 mt-1">
-              Stages & missions réalisés
+              Stages et missions réalisés
             </p>
           </div>
 
@@ -157,25 +154,25 @@ export function Hero() {
               2 sem.
             </p>
             <p className="text-xs uppercase tracking-wider text-[#faf6ee]/70 mt-1">
-              Délai de livraison After&apos;ish
+              Livraison plateforme After&apos;ish
             </p>
           </div>
 
           <div className="bg-[#141210]/60 border border-[#e8c97a]/15 p-5 rounded-2xl">
             <p className="text-3xl sm:text-4xl font-bold text-[#e8c97a] font-serif">
-              +20
+              3 jours
             </p>
             <p className="text-xs uppercase tracking-wider text-[#faf6ee]/70 mt-1">
-              Projets & démos en ligne
+              Développement portail UNSA
             </p>
           </div>
 
           <div className="bg-[#141210]/60 border border-[#e8c97a]/15 p-5 rounded-2xl">
             <p className="text-3xl sm:text-4xl font-bold text-[#e8c97a] font-serif">
-              L3
+              100%
             </p>
             <p className="text-xs uppercase tracking-wider text-[#faf6ee]/70 mt-1">
-              Cible Alternance 2027
+              Liens réels et vérifiables
             </p>
           </div>
         </div>

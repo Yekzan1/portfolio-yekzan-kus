@@ -1,58 +1,62 @@
-# Portfolio Professionnel — Yekzan KUS
-> Candidat Alternance Licence 3 Informatique (Septembre 2027 • Rythme 1 an • Secteur Villefranche-sur-Saône / Lyon)
+# Portfolio — Yekzan KUS
 
-Portfolio personnel développé avec **Next.js (App Router)**, **React 19**, **TypeScript** et **Tailwind CSS**. Conçu pour présenter mes compétences techniques, mes 6 expériences professionnelles, mes réalisations en production et mon savoir-faire en développement web et ingénierie d'agents IA.
+Portfolio de **Yekzan KUS**, développeur web et concepteur d'applications (BTS SIO option SLAM, Licence 3 Informatique).
+
+Ce projet présente mes réalisations réelles issues de mes stages en agence de communication web, mes applications déployées et mes outils d'automatisation.
 
 ---
 
-## 🚀 Projets & Réalisations Mis en Avant
+## 🚀 Réalisations en Entreprise
 
-* **Plateforme & Portail After'ish (`afterish.agence-nexusflow.com`)** : Application associative complète livrée seul en 2 semaines chez Nexus Flow (adhésion HelloAsso, espace membres, événements, chatbot, conformité RGPD CookieYes). 200 membres inscrits dès le lancement dont 23 adhésions payantes.
-* **Assistant IA & Refonte CRM (HF Concept — Nexus Flow)** : Refonte en production d'un CRM SaaS et interfaçage de l'API Infomaniak pour créer un assistant IA capable d'interroger les données clients, qualifier les demandes et planifier automatiquement des rendez-vous.
-* **Workflows Multi-Agents & Serveurs MCP** : Orchestration avancée d'agents de code autonomes (Claude Code, Codex, Antigravity CLI), conception de serveurs MCP et création de Skills GitHub personnalisés.
-* **UNSA Défense — Moteur de Recherche PHP (Rougevert Communication)** : Conception et mise en ligne en autonomie en 3 jours d'un portail syndical avec moteur de recherche interne en PHP natif et analytics.
-* **Écosystème Web & PrestaShop (Unimage Communication)** : Développement autonome de deux sites vitrines (WordPress, Elementor, Spectra, CSS/PHP/JS) et d'un site e-commerce PrestaShop complet.
-* **Web Scraping & Automatisation Python (Martingale & Céleste)** : Script Python d'extraction et de structuration des données d'entreprises (Pages Jaunes) avec export CSV automatique.
-* **Démos Vercel Actives** : Échantillon de démos techniques interactives (La Botte Caladoise, Abbaye Caladoise, Dynam'Ostéo, Corvio Space, etc.) validant le respect des scores Lighthouse 100/100.
+* **After'ish (`afterish.agence-nexusflow.com`)** : Plateforme associative complète livrée en autonomie en 2 semaines lors de mon stage chez **Nexus Flow** (adhésions en ligne via HelloAsso, espace membres, billetterie d'événements, gestion des dons et conformité RGPD via CookieYes). 200 membres inscrits dès le lancement, dont 23 adhésions payantes.
+* **CRM & Assistant IA (`hf.agence-nexusflow.com`)** : Refonte de l'interface du CRM SaaS utilisé par le client HF Concept (Nexus Flow) et interfaçage de l'API Infomaniak pour raccorder un assistant IA capable d'accéder aux données clients, de planifier les rendez-vous et de rediriger l'utilisateur vers la vue demandée.
+* **UNSA Défense (`unsa-defense.org`)** : Portail officiel développé et mis en ligne en autonomie en 3 jours lors de mon stage chez **Rougevert Communication**, intégrant un moteur de recherche documentaire en PHP natif (MySQL) et le suivi Google Analytics.
+* **Sites Vitrines Satellites (`agence-site-internet-lyon.fr`)** : Développement en autonomie sous WordPress (Elementor, Spectra, intégration CSS, PHP et JavaScript) lors de mon stage chez **Unimage Communication** avec conformité RGPD CookieYes.
+* **Boutique E-Commerce Cadeosport (`cadeo-sport.fr`)** : Création en autonomie d'un site marchand complet sous PrestaShop (catalogue produits, modes de livraison et paiement sécurisé) chez **Unimage Communication**.
+* **Bow Studio & Scraping Python (`creation-site-web-lyon.fr`)** : Développement d'un site vitrine sous WordPress avec Divi et Rank Math SEO, complété par l'écriture d'un script Python (BeautifulSoup) pour l'extraction de données locales et l'export CSV lors de mon stage chez **Martingale & Céleste**.
+* **Workflows & Serveurs MCP** : Orchestration d'agents de code (Claude Code, Antigravity CLI) raccordés à des serveurs locaux conformes au protocole MCP (Model Context Protocol).
+
+---
+
+## 💻 Projets Web & Applicatifs Déployés
+
+* **MindLoop (`https://mindloop-mu.vercel.app/`)** : Application cartographique et réseau social interactif développée avec React, TypeScript et Supabase.
+* **Capte (Yekzan AI Platform)** : Application SaaS d'extraction documentaire et génération automatique de quiz d'apprentissage via l'API Gemini et Supabase.
+* **Portail Municipal d'Arnas (`https://arnas-reservation.vercel.app/`)** : Plateforme web de réservation en ligne d'équipements publics municipaux.
 
 ---
 
 ## 🛠️ Stack Technique
 
-* **Framework & UI :** Next.js 15/16 (App Router, Server Components), React 19, TypeScript strict, Tailwind CSS
-* **Polices & Design :** Fraunces (titres sérif chaleureux) et Instrument Sans (texte lisible), contrastes conformes WCAG AA/AAA
-* **Back-End & Données :** PHP (POO, MVC, Laravel), Java, Python, SQL (MySQL, PostgreSQL / Supabase), Merise / UML
-* **Ingénierie IA :** Claude Code, Serveurs MCP, APIs LLM (Claude, Google Gemini, Infomaniak), Workflows multi-agents
-* **DevOps & Déploiement :** Git / GitHub, Vercel, Docker, Linux Debian, Windows Server, VMware
+* **Front-End :** Next.js 15 (App Router, Server Components), React 19, TypeScript strict, Tailwind CSS
+* **Back-End & Données :** PHP (POO, MVC, Laravel), Java, Python, SQL (MySQL, PostgreSQL / Supabase)
+* **CMS & E-Commerce :** WordPress (Elementor, Divi, Spectra), PrestaShop
+* **DevOps & Environnements :** Git / GitHub, Vercel, Docker, Linux Debian, Windows Server, Suite JetBrains, VS Code
 
 ---
 
-## 📦 Installation & Lancement Local
+## 📦 Lancement Local
 
 ```bash
-# Cloner le dépôt
-git clone https://github.com/Yekzan1/portfolio-yekzan-kus.git
-cd portfolio-yekzan-kus
-
-# Installer les dépendances
+# Installation des dépendances
 npm install
 
-# Lancer en environnement de développement
+# Serveur de développement
 npm run dev
 
-# Compiler pour la production
+# Build de production
 npm run build
 
-# Démarrer le serveur de production
+# Démarrage
 npm start
 ```
 
 ---
 
-## 📄 Contact & Coordonnées
+## 📄 Contact
 
 * **Email :** [yekzankus@icloud.com](mailto:yekzankus@icloud.com)
-* **Téléphone :** [07 85 26 68 22](tel:+33785266822)
-* **Localisation :** Limas (69400) / Villefranche-sur-Saône / Lyon
-* **LinkedIn :** [linkedin.com/in/yekzan-kus-674483325](https://www.linkedin.com/in/yekzan-kus-674483325/)
+* **Téléphone :** 07 85 26 68 22
 * **GitHub :** [github.com/Yekzan1](https://github.com/Yekzan1)
+* **LinkedIn :** [linkedin.com/in/yekzan-kus-674483325](https://www.linkedin.com/in/yekzan-kus-674483325/)
+* **Localisation :** Limas (69400) / Villefranche-sur-Saône / Lyon

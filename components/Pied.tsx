@@ -13,17 +13,16 @@ export function Pied() {
               {INFOS_PERSONNELLES.nom}
             </span>
             <span className="text-xs text-[#e8c97a] mt-0.5">
-              Candidat Alternance Licence 3 Informatique • Septembre 2027
+              Développeur Web & Concepteur d&apos;Applications
             </span>
             <p className="text-xs text-[#faf6ee]/50 max-w-md mt-2">
-              Étudiant en BTS SIO SLAM à Business School by CSND (Limas). Concepteur
-              d'applications web et intégrateur de solutions d'automatisation et d'IA.
+              BTS SIO SLAM (Business School by CSND, Limas) • Licence 3 Informatique (rentrée 2027).
             </p>
           </div>
 
           <div className="flex items-center gap-6 text-xs uppercase tracking-wider font-semibold">
             <a href="#projets" className="hover:text-[#e8c97a] transition-colors">
-              Projets
+              Réalisations
             </a>
             <a href="#competences" className="hover:text-[#e8c97a] transition-colors">
               Compétences
@@ -65,7 +64,7 @@ export function Pied() {
               LinkedIn
             </a>
             <span>•</span>
-            <span>Mobilité : Limas / Villefranche / Lyon</span>
+            <span>Limas / Villefranche-sur-Saône / Lyon</span>
           </div>
         </div>
       </div>

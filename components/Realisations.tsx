@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { REALISATIONS, Realisation } from "@/lib/data";
+import { REALISATIONS, PROJETS_APPLICATIFS, Realisation } from "@/lib/data";
 import { Bouton } from "./Bouton";
 
 export function Realisations({
@@ -10,7 +10,7 @@ export function Realisations({
 }: {
   onOuvrirRecommandation: (id: string) => void;
 }) {
-  const [filtre, setFiltre] = useState<"tous" | "ia" | "fullstack">("tous");
+  const [filtre, setFiltre] = useState<"tous" | "ia" | "fullstack" | "web">("tous");
   const [projetSelectionne, setProjetSelectionne] = useState<Realisation | null>(null);
 
   const projetsFiltres =
@@ -23,13 +23,13 @@ export function Realisations({
       <div className="wrap">
         {/* En-tête de section */}
         <div className="max-w-3xl mb-12">
-          <div className="badge">Études de cas & Réalisations</div>
+          <div className="badge">Réalisations & Projets Réels</div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2a1508] mt-3">
-            Des projets réels livrés en autonomie, vérifiables en ligne
+            Mes réalisations en entreprise et mes projets en ligne
           </h2>
           <p className="text-base sm:text-lg text-[#5c4636] mt-4 leading-relaxed">
-            Applications, sites web et scripts d&apos;automatisation développés en entreprise
-            ou en R&amp;D personnelle, avec détails techniques et liens d&apos;accès directs.
+            Retrouvez les sites web, applications et outils développés lors de mes stages
+            en agence de communication et mes projets techniques, tous vérifiables avec leurs liens réels.
           </p>
 
           {/* Filtres de catégorie */}
@@ -43,18 +43,7 @@ export function Realisations({
                   : "bg-white/60 text-[#5c4636] hover:bg-white border border-[#c9a45c]/20"
               }`}
             >
-              Tous les projets ({REALISATIONS.length})
-            </button>
-            <button
-              type="button"
-              onClick={() => setFiltre("ia")}
-              className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
-                filtre === "ia"
-                  ? "bg-[#2a1508] text-[#faf6ee] shadow-md"
-                  : "bg-white/60 text-[#5c4636] hover:bg-white border border-[#c9a45c]/20"
-              }`}
-            >
-              Ingénierie IA & Données
+              Tous ({REALISATIONS.length})
             </button>
             <button
               type="button"
@@ -65,7 +54,29 @@ export function Realisations({
                   : "bg-white/60 text-[#5c4636] hover:bg-white border border-[#c9a45c]/20"
               }`}
             >
-              Full-Stack, Web & PHP
+              Full-Stack & PHP
+            </button>
+            <button
+              type="button"
+              onClick={() => setFiltre("web")}
+              className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
+                filtre === "web"
+                  ? "bg-[#2a1508] text-[#faf6ee] shadow-md"
+                  : "bg-white/60 text-[#5c4636] hover:bg-white border border-[#c9a45c]/20"
+              }`}
+            >
+              Web & E-Commerce
+            </button>
+            <button
+              type="button"
+              onClick={() => setFiltre("ia")}
+              className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
+                filtre === "ia"
+                  ? "bg-[#2a1508] text-[#faf6ee] shadow-md"
+                  : "bg-white/60 text-[#5c4636] hover:bg-white border border-[#c9a45c]/20"
+              }`}
+            >
+              Automatisation & IA
             </button>
           </div>
         </div>
@@ -77,7 +88,6 @@ export function Realisations({
               key={projet.id}
               className="bg-[#faf6ee] border border-[#c9a45c]/30 rounded-[28px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group"
             >
-              {/* Cadre écran façon Corvio */}
               <div className="p-4 sm:p-5 pb-0">
                 <div className="fiche__vignette--ecran">
                   <div className="fiche__barre">
@@ -94,7 +104,7 @@ export function Realisations({
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#141210]">
                     <Image
                       src={projet.image}
-                      alt={`Capture d'écran du projet ${projet.titre}`}
+                      alt={`Capture d'écran de ${projet.titre}`}
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
@@ -106,7 +116,6 @@ export function Realisations({
               {/* Corps de la fiche */}
               <div className="p-6 sm:p-8 flex flex-col flex-grow justify-between gap-6">
                 <div>
-                  {/* Métadonnées & badges */}
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                     <span className="text-[0.7rem] uppercase font-bold tracking-widest text-[#6b3319] bg-[#c9a45c]/15 px-3 py-1 rounded-full">
                       {projet.badge}
@@ -120,19 +129,17 @@ export function Realisations({
                     {projet.titre}
                   </h3>
 
-                  {/* Résumé du problème & solution */}
                   <div className="space-y-2 text-sm text-[#5c4636] leading-relaxed">
                     <p>
-                      <strong className="text-[#2a1508]">Problème résolu : </strong>
-                      {projet.probleme}
+                      <strong className="text-[#2a1508]">Contexte : </strong>
+                      {projet.contexte}
                     </p>
                     <p>
-                      <strong className="text-[#2a1508]">Solution apportée : </strong>
+                      <strong className="text-[#2a1508]">Ce que j'ai développé : </strong>
                       {projet.solution}
                     </p>
                   </div>
 
-                  {/* Stack technique */}
                   <div className="flex flex-wrap gap-1.5 mt-4">
                     {projet.stack.map((techno) => (
                       <span
@@ -145,14 +152,14 @@ export function Realisations({
                   </div>
                 </div>
 
-                {/* Résultats & Actions */}
+                {/* Actions et liens */}
                 <div className="pt-4 border-t border-[#c9a45c]/20 flex flex-wrap items-center justify-between gap-3">
                   <button
                     type="button"
                     onClick={() => setProjetSelectionne(projet)}
                     className="text-xs font-semibold text-[#6b3319] hover:text-[#2a1508] flex items-center gap-1.5 underline underline-offset-4 cursor-pointer"
                   >
-                    <span>Consulter l'étude de cas complète</span>
+                    <span>Détails & résultats</span>
                     <span aria-hidden="true">→</span>
                   </button>
 
@@ -163,7 +170,7 @@ export function Realisations({
                       rel="noopener noreferrer"
                       className="px-4 py-2 rounded-full bg-[#2a1508] text-[#faf6ee] text-xs font-semibold uppercase tracking-wider hover:bg-[#6b3319] transition-colors flex items-center gap-1.5"
                     >
-                      <span>{projet.libelleLien || "Voir le site"}</span>
+                      <span>{projet.libelleLien || "Consulter le site"}</span>
                       <svg
                         className="w-3.5 h-3.5"
                         fill="none"
@@ -178,6 +185,30 @@ export function Realisations({
                         />
                       </svg>
                     </a>
+
+                    {projet.urlSecours && (
+                      <a
+                        href={projet.urlSecours}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-2 rounded-full bg-white/80 text-[#2a1508] border border-[#c9a45c]/30 text-xs font-semibold hover:bg-white transition-colors flex items-center gap-1"
+                      >
+                        <span>{projet.libelleSecours || "Autre site"}</span>
+                        <svg
+                          className="w-3 h-3"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -185,18 +216,89 @@ export function Realisations({
           ))}
         </div>
 
-        {/* Bannière de transition vers les lettres de recommandation */}
+        {/* Section Projets applicatifs & académiques */}
+        <div className="mt-20 pt-12 border-t border-[#c9a45c]/25">
+          <div className="max-w-2xl mb-8">
+            <span className="text-xs uppercase font-bold tracking-widest text-[#6b3319]">
+              Projets Web & Applicatifs
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold text-[#2a1508] mt-1">
+              Applications déployées & projets techniques
+            </h3>
+            <p className="text-sm text-[#5c4636] mt-2">
+              Applications web complètes développées avec React, Next.js et Supabase, testables directement.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {PROJETS_APPLICATIFS.map((app, idx) => (
+              <div
+                key={idx}
+                className="bg-[#faf6ee] border border-[#c9a45c]/30 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between gap-4"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[0.68rem] uppercase font-bold tracking-wider text-[#6b3319] bg-[#c9a45c]/15 px-2.5 py-0.5 rounded">
+                      {app.type}
+                    </span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                  </div>
+                  <h4 className="text-lg font-bold text-[#2a1508]">{app.titre}</h4>
+                  <p className="text-xs text-[#5c4636] mt-2 leading-relaxed">
+                    {app.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1 mt-3">
+                    {app.stack.map((t) => (
+                      <span
+                        key={t}
+                        className="text-[0.68rem] px-2 py-0.5 rounded bg-[#2a1508]/5 text-[#2a1508] border border-[#c9a45c]/20"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-[#c9a45c]/15 flex items-center gap-3">
+                  <a
+                    href={app.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-1.5 rounded-full bg-[#2a1508] text-[#faf6ee] text-xs font-semibold hover:bg-[#6b3319] transition-colors flex items-center gap-1.5"
+                  >
+                    <span>Tester l'application</span>
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                  {app.github && (
+                    <a
+                      href={app.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-semibold text-[#5c4636] hover:text-[#2a1508] underline underline-offset-2"
+                    >
+                      Code source
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bannière vers les lettres de recommandation */}
         <div className="mt-16 bg-[#141210] border border-[#e8c97a]/20 rounded-[28px] p-6 sm:p-8 text-[#faf6ee] flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
           <div className="space-y-2">
             <span className="text-[0.7rem] uppercase tracking-widest font-bold text-[#e8c97a]">
-              Témoignages & Lettres de recommandation
+              Témoignages & Attestations
             </span>
             <h3 className="text-xl sm:text-2xl font-bold text-[#faf6ee]">
-              Des attestations réelles signées par mes employeurs
+              Lettres de recommandation signées par mes tuteurs de stage
             </h3>
             <p className="text-xs sm:text-sm text-[#faf6ee]/70 max-w-xl">
-              Consultez les lettres officielles délivrées par Nexus Flow, Unimage Communication,
-              Rougevert Communication et Martingale & Céleste attestant de mon travail en autonomie.
+              Consultez les attestations officielles délivrées par Nexus Flow, Unimage Communication,
+              Rougevert Communication et Martingale & Céleste confirmant mon travail en agence.
             </p>
           </div>
 
@@ -233,7 +335,7 @@ export function Realisations({
         </div>
       </div>
 
-      {/* Modale d'Étude de Cas Détaillée */}
+      {/* Modale d'Étude de Cas */}
       {projetSelectionne && (
         <div
           className="modale-overlay"
@@ -257,14 +359,13 @@ export function Realisations({
             <div className="space-y-6">
               <div>
                 <span className="text-xs uppercase font-bold tracking-widest text-[#e8c97a]">
-                  Étude de cas détaillée • {projetSelectionne.employeur} ({projetSelectionne.annee})
+                  Détail du projet • {projetSelectionne.employeur} ({projetSelectionne.annee})
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-bold text-[#faf6ee] mt-1">
                   {projetSelectionne.titre}
                 </h3>
               </div>
 
-              {/* Image en grand */}
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-[#e8c97a]/20">
                 <Image
                   src={projetSelectionne.image}
@@ -274,24 +375,23 @@ export function Realisations({
                 />
               </div>
 
-              {/* Grille Problème / Solution */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#141210] p-6 rounded-2xl border border-white/5">
                 <div>
                   <h4 className="text-xs uppercase font-bold tracking-wider text-[#e8c97a] mb-2">
-                    1. Contexte & Problème
+                    Contexte & Besoin
                   </h4>
                   <p className="text-sm text-[#faf6ee]/80 leading-relaxed mb-3">
                     {projetSelectionne.contexte}
                   </p>
                   <p className="text-sm text-[#faf6ee]/90 leading-relaxed">
-                    <strong>Défi technique : </strong>
+                    <strong>Objectif : </strong>
                     {projetSelectionne.probleme}
                   </p>
                 </div>
 
                 <div>
                   <h4 className="text-xs uppercase font-bold tracking-wider text-[#e8c97a] mb-2">
-                    2. Solution technique & Architecture
+                    Travail réalisé & Technologies
                   </h4>
                   <p className="text-sm text-[#faf6ee]/80 leading-relaxed">
                     {projetSelectionne.solution}
@@ -299,10 +399,9 @@ export function Realisations({
                 </div>
               </div>
 
-              {/* Résultats & Métriques */}
               <div>
                 <h4 className="text-xs uppercase font-bold tracking-wider text-[#e8c97a] mb-3">
-                  3. Résultats concrets mesurés
+                  Résultats & Livrables
                 </h4>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {projetSelectionne.resultats.map((res, idx) => (
@@ -317,7 +416,6 @@ export function Realisations({
                 </ul>
               </div>
 
-              {/* Stack & Liens */}
               <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex flex-wrap gap-1.5">
                   {projetSelectionne.stack.map((t) => (
@@ -337,7 +435,7 @@ export function Realisations({
                     rel="noopener noreferrer"
                     className="btn btn--or !text-xs !min-h-[2.5rem]"
                   >
-                    {projetSelectionne.libelleLien || "Visiter le projet"}
+                    {projetSelectionne.libelleLien || "Consulter le site"}
                   </a>
                 </div>
               </div>

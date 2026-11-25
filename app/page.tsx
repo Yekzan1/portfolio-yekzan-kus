@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Hero } from "@/components/Hero";
 import { Realisations } from "@/components/Realisations";
-import { DemosVercelShowcase } from "@/components/DemosVercelShowcase";
 import { Competences } from "@/components/Competences";
 import { Parcours } from "@/components/Parcours";
 import { Contact } from "@/components/Contact";
@@ -16,7 +15,6 @@ export default function HomePage() {
     <>
       <Hero />
       <Realisations onOuvrirRecommandation={(id) => setRecommandationActive(id)} />
-      <DemosVercelShowcase />
       <Competences />
       <Parcours />
       <Contact />

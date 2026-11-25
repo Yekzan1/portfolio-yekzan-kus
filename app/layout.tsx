@@ -20,9 +20,9 @@ const texte = Instrument_Sans({
 });
 
 const SITE_URL = "https://portfolio-yekzan-kus.vercel.app";
-const TITRE = "Yekzan KUS — Portfolio Développeur Web, Programmation & Automatisation IA";
+const TITRE = "Yekzan KUS — Développeur Web & Concepteur d'Applications";
 const DESCRIPTION =
-  "Portfolio de Yekzan KUS, étudiant en BTS SIO SLAM et futur Licence 3 Informatique. Recherche d'alternance de 1 an (septembre 2027) en développement web, programmation et automatisation IA sur Villefranche-sur-Saône et Lyon.";
+  "Portfolio de Yekzan KUS, développeur web (BTS SIO SLAM, Licence 3 Informatique). Présentation de réalisations concrètes en entreprise (After'ish, UNSA, WordPress, PrestaShop) et projets applicatifs réels.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -36,16 +36,16 @@ export const metadata: Metadata = {
   creator: INFOS_PERSONNELLES.nom,
   keywords: [
     "Yekzan KUS",
-    "Alternance L3 Informatique",
     "Développeur Web Lyon",
     "Développeur Villefranche-sur-Saône",
     "BTS SIO SLAM",
     "Next.js",
     "TypeScript",
-    "Automatisation IA",
-    "Serveurs MCP",
-    "Claude Code",
-    "PHP Laravel",
+    "PHP",
+    "WordPress",
+    "PrestaShop",
+    "Python",
+    "Alternance L3 Informatique",
   ],
   alternates: {
     canonical: "/",
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         url: "/partage.png",
         width: 1200,
         height: 630,
-        alt: "Portfolio Yekzan KUS - Candidat Alternance Licence 3 Informatique",
+        alt: "Portfolio Yekzan KUS - Développeur Web & Concepteur d'Applications",
       },
     ],
   },
@@ -102,7 +102,7 @@ const JSON_LD = {
       "@type": "Person",
       "@id": `${SITE_URL}/#person`,
       name: INFOS_PERSONNELLES.nom,
-      jobTitle: "Développeur Web & Automatisation IA",
+      jobTitle: "Développeur Web",
       description: DESCRIPTION,
       url: SITE_URL,
       image: `${SITE_URL}/yekzan.webp`,
@@ -127,11 +127,12 @@ const JSON_LD = {
         "Next.js",
         "TypeScript",
         "PHP",
+        "WordPress",
+        "PrestaShop",
         "Java",
         "Python",
-        "Orchestration Multi-Agents",
-        "Serveurs MCP",
         "PostgreSQL",
+        "MySQL",
       ],
     },
     {

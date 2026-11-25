@@ -5,7 +5,7 @@ import { INFOS_PERSONNELLES } from "@/lib/data";
 import { Bouton } from "./Bouton";
 
 const LIENS = [
-  { href: "#projets", label: "Projets & Études de cas" },
+  { href: "#projets", label: "Réalisations" },
   { href: "#competences", label: "Compétences" },
   { href: "#parcours", label: "Parcours" },
   { href: "#contact", label: "Contact" },
@@ -46,7 +46,7 @@ export function Navbar() {
               {INFOS_PERSONNELLES.nom}
             </span>
             <span className="text-[0.65rem] uppercase tracking-widest text-[#e8c97a]/80 font-medium">
-              Licence 3 Informatique 2027
+              Développeur Web
             </span>
           </div>
         </a>
@@ -68,7 +68,7 @@ export function Navbar() {
         <div className="hidden sm:flex items-center gap-3">
           <Bouton
             href={INFOS_PERSONNELLES.cvPdf}
-            download="CV-Yekzan-KUS-Alternance-L3.pdf"
+            download="CV-Yekzan-KUS.pdf"
             ton="or"
             className="!min-h-[2.5rem] !py-1 !px-4 !text-xs"
           >
@@ -117,7 +117,7 @@ export function Navbar() {
           <div className="pt-2">
             <Bouton
               href={INFOS_PERSONNELLES.cvPdf}
-              download="CV-Yekzan-KUS-Alternance-L3.pdf"
+              download="CV-Yekzan-KUS.pdf"
               ton="or"
               className="w-full justify-center"
               onClick={() => setMenuMobileOuvert(false)}
