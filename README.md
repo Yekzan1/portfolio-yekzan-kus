@@ -8,7 +8,7 @@ Ce projet présente mes réalisations réelles issues de mes stages en agence de
 
 ## 🚀 Réalisations en Entreprise
 
-* **After'ish (`afterish.agence-nexusflow.com`)** : Plateforme associative complète livrée en autonomie en 2 semaines lors de mon stage chez **Nexus Flow** (adhésions en ligne via HelloAsso, espace membres, billetterie d'événements, gestion des dons et conformité RGPD via CookieYes). 200 membres inscrits dès le lancement, dont 23 adhésions payantes.
+* **After'ish (`afterish.agence-nexusflow.com`)** : Plateforme associative complète livrée en autonomie en 2 semaines lors de mon stage chez **Nexus Flow** (adhésions en ligne via HelloAsso, espace membres, billetterie d'événements et gestion des dons). 200 membres inscrits dès le lancement, dont 23 adhésions payantes.
 * **CRM & Assistant IA (`hf.agence-nexusflow.com`)** : Refonte de l'interface du CRM SaaS utilisé par le client HF Concept (Nexus Flow) et interfaçage de l'API Infomaniak pour raccorder un assistant IA capable d'accéder aux données clients, de planifier les rendez-vous et de rediriger l'utilisateur vers la vue demandée.
 * **UNSA Défense (`unsa-defense.org`)** : Portail officiel développé et mis en ligne en autonomie en 3 jours lors de mon stage chez **Rougevert Communication**, intégrant un moteur de recherche documentaire en PHP natif (MySQL) et le suivi Google Analytics.
 * **Sites Vitrines Satellites (`agence-site-internet-lyon.fr`)** : Développement en autonomie sous WordPress (Elementor, Spectra, intégration CSS, PHP et JavaScript) lors de mon stage chez **Unimage Communication** avec conformité RGPD CookieYes.

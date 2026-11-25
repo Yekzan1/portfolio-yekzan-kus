@@ -86,13 +86,12 @@ export const REALISATIONS: Realisation[] = [
     image: "/realisations/afterish.webp",
     contexte: "Stage chez Nexus Flow. L'association professionnelle After'ish avait besoin d'une plateforme web pour fédérer sa communauté et gérer ses adhésions.",
     probleme: "Concevoir et mettre en ligne une solution complète en seulement 2 semaines d'autonomie : adhésions, espace membres, billetterie d'événements et conformité légale.",
-    solution: "Développement complet de l'application sous Next.js et TypeScript : intégration des formulaires de paiement HelloAsso, espace membre sécurisé, gestion de calendrier pour les rencontres, module de dons et intégration de la bannière RGPD CookieYes.",
-    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "API HelloAsso", "CookieYes RGPD", "Vercel"],
+    solution: "Développement complet de l'application sous Next.js et TypeScript : intégration des formulaires de paiement HelloAsso, espace membre sécurisé, calendrier des rencontres et module de dons en ligne.",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "API HelloAsso", "Vercel"],
     resultats: [
       "Plateforme livrée et opérationnelle en 2 semaines",
       "200 membres inscrits dès le lancement officiel, dont 23 adhésions payantes",
-      "4 articles de fond et 3 événements majeurs publiés",
-      "Conformité RGPD validée avec gestion des consentements"
+      "4 articles de fond et 3 événements majeurs publiés"
     ],
     miseEnAvant: true,
   },
@@ -367,7 +366,6 @@ export const EXPERIENCES: Experience[] = [
       "Développement en autonomie en 2 semaines de la plateforme After'ish (adhésions HelloAsso, espace membres, calendrier d'événements)",
       "Refonte de l'interface du CRM (HF Concept) sous Next.js et TypeScript",
       "Intégration de l'API Infomaniak pour ajouter un assistant IA connecté aux fiches clients et à la prise de rendez-vous",
-      "Mise en place de la conformité RGPD avec CookieYes",
     ],
     tags: ["Next.js", "TypeScript", "API Infomaniak", "HelloAsso", "Tailwind CSS", "PostgreSQL"],
   },
