@@ -165,7 +165,7 @@ export default function Page() {
           <div className="shrink-0">
             <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 rounded-2xl overflow-hidden border-2 border-gray-200 shadow-md">
               <Image
-                src="/yekzan.webp"
+                src="/photo-cv.webp"
                 alt="Photo de Yekzan KUS"
                 fill
                 priority

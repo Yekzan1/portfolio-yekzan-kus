@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/icon.svg",
+    apple: "/photo-cv.webp",
   },
 };
 
