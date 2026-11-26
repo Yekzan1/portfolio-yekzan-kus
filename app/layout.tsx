@@ -1,22 +1,21 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { INFOS_PERSONNELLES } from "@/lib/data";
 
 const SITE_URL = "https://portfolio-yekzan-kus.vercel.app";
-const TITRE = "Yekzan KUS — Développeur Web";
+const TITRE = "Yekzan KUS — Développeur Web & Concepteur d'Applications";
 const DESCRIPTION =
-  "Portfolio de Yekzan KUS, étudiant en BTS SIO option SLAM et futur Licence 3 Informatique. Réalisations de stages en agence web (After'ish, UNSA Défense, WordPress, PrestaShop) et projets applicatifs.";
+  "Portfolio de Yekzan KUS, étudiant en 2e année de BTS SIO SLAM à Limas (Business School by CSND) et futur étudiant en Licence 3 Informatique. Réalisations de stages en agence web et projets applicatifs.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: TITRE,
   description: DESCRIPTION,
-  authors: [{ name: INFOS_PERSONNELLES.nom, url: INFOS_PERSONNELLES.github }],
+  authors: [{ name: "Yekzan KUS", url: "https://github.com/Yekzan1" }],
   openGraph: {
     type: "website",
     locale: "fr_FR",
     url: SITE_URL,
-    siteName: "Portfolio Yekzan KUS",
+    siteName: "Yekzan KUS — Portfolio",
     title: TITRE,
     description: DESCRIPTION,
   },
