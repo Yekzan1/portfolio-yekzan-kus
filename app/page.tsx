@@ -13,17 +13,22 @@ import {
 } from "@/lib/data";
 
 type Projet = (typeof REALISATIONS)[number];
+type Experience = (typeof AUTRES_REALISATIONS)[number];
 
 const pseudoCodeInscription = `valider les informations saisies\ncreer le compte utilisateur\ncreer l'espace de travail\n\nsi une etape echoue :\n    supprimer les elements deja crees\n    retourner une erreur explicite\n\nsinon :\n    attribuer le role administrateur\n    ouvrir l'espace de travail`;
 
 export default function Page() {
   const [projetOuvert, setProjetOuvert] = useState<Projet | null>(null);
+  const [experienceOuverte, setExperienceOuverte] = useState<Experience | null>(null);
   const [menuOuvert, setMenuOuvert] = useState(false);
 
   useEffect(() => {
-    if (!projetOuvert) return;
+    if (!projetOuvert && !experienceOuverte) return;
     const fermerAvecEchap = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setProjetOuvert(null);
+      if (event.key === "Escape") {
+        setProjetOuvert(null);
+        setExperienceOuverte(null);
+      }
     };
     const overflowInitial = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -32,9 +37,36 @@ export default function Page() {
       document.body.style.overflow = overflowInitial;
       window.removeEventListener("keydown", fermerAvecEchap);
     };
-  }, [projetOuvert]);
+  }, [projetOuvert, experienceOuverte]);
 
   const fermerMenu = () => setMenuOuvert(false);
+  const capturesProjet = projetOuvert
+    ? [
+        {
+          image: projetOuvert.image,
+          alt: projetOuvert.imageAlt,
+          legende: projetOuvert.id === "afterish" ? "Page d’accueil After’ish" : "Page de présentation de Nexus Flow OS",
+          width: 1920,
+          height: 1200,
+        },
+        ...(projetOuvert.id === "nexus-flow"
+          ? [{
+              image: "/realisations/portfolio/saas-dashboard.webp",
+              alt: "Tableau de bord commercial de Nexus Flow OS",
+              legende: "Tableau de bord du CRM",
+              width: 2466,
+              height: 1620,
+            }]
+          : []),
+        {
+          image: projetOuvert.capture.image,
+          alt: projetOuvert.capture.alt,
+          legende: projetOuvert.capture.legende,
+          width: projetOuvert.id === "afterish" ? 1299 : 2466,
+          height: projetOuvert.id === "afterish" ? 675 : 1620,
+        },
+      ]
+    : [];
 
   return (
     <div className="portfolio-page">
@@ -81,7 +113,7 @@ export default function Page() {
           <div className="project-cards">
             {REALISATIONS.map((projet) => (
               <article className="featured-card" key={projet.id}>
-                <div className="featured-image"><Image src={projet.image} alt={projet.imageAlt} fill sizes="(max-width: 900px) 100vw, 42vw" /></div>
+                <div className={`featured-image${projet.id === "nexus-flow" ? " featured-image--contain" : ""}`}><Image src={projet.image} alt={projet.imageAlt} fill sizes="(max-width: 900px) 100vw, 42vw" /></div>
                 <div className="featured-content">
                   <div className="card-meta"><span>{projet.entreprise}</span><span>{projet.periode}</span></div>
                   <p className="card-kicker">{projet.id === "afterish" ? "Site associatif · WordPress" : "CRM multi-entreprise"}</p>
@@ -102,15 +134,22 @@ export default function Page() {
 
         <section id="parcours" className="content-section">
           <div className="section-title"><div><h2>Autres expériences</h2><p>Les sites et outils que j’ai réalisés au cours de mes stages.</p></div></div>
-          <div className="experience-cards">{AUTRES_REALISATIONS.filter((experience) => experience.id !== undefined).map((experience) => <article className="experience-card" key={experience.entreprise}>
-            <header className="experience-card-header"><div><p className="experience-date">{experience.entreprise} · {experience.periode}</p><h3>{experience.role}</h3></div></header>
-            <div className="experience-gallery">{experience.captures?.map((capture) => <figure className="experience-capture" key={capture.src}>
-              {capture.url ? <a className="experience-shot" href={capture.url} target="_blank" rel="noreferrer" aria-label={`Ouvrir ${capture.titre}`}><Image src={capture.src} alt={capture.alt} fill sizes="(max-width: 700px) 100vw, 32vw" /></a> : <div className="experience-shot"><Image src={capture.src} alt={capture.alt} fill sizes="(max-width: 700px) 100vw, 32vw" /></div>}
-              <figcaption><span>{capture.titre}</span>{capture.url && <a href={capture.url} target="_blank" rel="noreferrer">Voir le site ↗</a>}</figcaption>
-            </figure>)}</div>
-            <div className="experience-card-copy"><p className="experience-summary">{experience.description}</p><ul className="experience-tasks">{experience.missions?.map((mission) => <li key={mission}>{mission}</li>)}</ul><p className="technology-line">{experience.technologies}</p></div>
-          </article>)}
-          {AUTRES_REALISATIONS.filter((experience) => experience.id === undefined).map((experience) => <article className="experience-card experience-no-image" key={experience.entreprise}><header className="experience-card-header"><div><p className="experience-date">{experience.entreprise} · {experience.periode}</p><h3>{experience.role}</h3></div></header><div className="experience-card-copy"><p>{experience.description}</p></div></article>)}</div>
+          <div className="experience-cards">{AUTRES_REALISATIONS.map((experience) => {
+            const preview = experience.captures[0];
+            return <article className="experience-card" key={experience.id}>
+              {preview.url
+                ? <a className="experience-card-preview" href={preview.url} target="_blank" rel="noreferrer" aria-label={`Ouvrir le site : ${preview.titre}`}><Image src={preview.src} alt={preview.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 500px" /></a>
+                : <button className="experience-card-preview" type="button" onClick={() => setExperienceOuverte(experience)} aria-label={`Voir les détails : ${experience.entreprise}`}><Image src={preview.src} alt={preview.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 500px" /></button>}
+              <div className="experience-card-body">
+                <header className="experience-card-header"><div><p className="experience-date">{experience.entreprise} · {experience.periode}</p><h3>{experience.role}</h3></div></header>
+                <div className="experience-card-copy"><p className="experience-summary">{experience.description}</p><p className="technology-line">{experience.technologies}</p></div>
+                <div className="experience-card-actions">
+                  {experience.captures.filter((capture) => capture.url).map((capture) => <a className="button button-light" key={capture.src} href={capture.url} target="_blank" rel="noreferrer">{"lienLabel" in capture ? capture.lienLabel : "Voir le site"}<span aria-hidden="true"> ↗</span></a>)}
+                  <button className="button button-dark" type="button" onClick={() => setExperienceOuverte(experience)}>Voir les détails</button>
+                </div>
+              </div>
+            </article>;
+          })}</div>
         </section>
 
         <section className="content-section">
@@ -134,10 +173,21 @@ export default function Page() {
           <p className="modal-intro">{projetOuvert.introduction}</p>
           <div className="modal-results">{projetOuvert.resultats.map((resultat) => <div key={resultat.libelle}><strong>{resultat.valeur}</strong><span>{resultat.libelle}</span></div>)}</div>
           <div className="modal-section"><h3>Ce que j’ai fait</h3><ul>{projetOuvert.mission.map((mission) => <li key={mission}>{mission}</li>)}</ul></div>
-          <div className="modal-section"><h3>Captures du projet</h3><div className="modal-gallery"><figure><Image src={projetOuvert.image} alt={projetOuvert.imageAlt} width={1920} height={1200} sizes="(max-width: 720px) 100vw, 50vw" /><figcaption>{projetOuvert.id === "afterish" ? "Page d’accueil After’ish" : "Tableau de bord Nexus Flow OS"}</figcaption></figure><figure><Image src={projetOuvert.capture.image} alt={projetOuvert.capture.alt} width={projetOuvert.id === "afterish" ? 1299 : 2466} height={projetOuvert.id === "afterish" ? 675 : 1620} sizes="(max-width: 720px) 100vw, 50vw" /><figcaption>{projetOuvert.capture.legende}</figcaption></figure></div></div>
+          <div className="modal-section"><h3>Captures du projet</h3><div className="modal-gallery">{capturesProjet.map((capture) => <figure key={capture.image}><Image src={capture.image} alt={capture.alt} width={capture.width} height={capture.height} sizes="(max-width: 720px) 100vw, 50vw" /><figcaption>{capture.legende}</figcaption></figure>)}</div></div>
           {projetOuvert.code && <div className="modal-section"><h3>Exemple de code PHP</h3><p>{projetOuvert.code.explication}</p><div className="code-window"><div>{projetOuvert.code.fichier}</div><pre><code>{projetOuvert.code.extrait}</code></pre></div></div>}
           {projetOuvert.id === "nexus-flow" && <div className="modal-section"><h3>Logique du parcours d’inscription</h3><p>Schéma simplifié du traitement que j’ai corrigé, présenté en pseudo-code.</p><div className="code-window"><div>Inscription · étapes et nettoyage en cas d’échec</div><pre><code>{pseudoCodeInscription}</code></pre></div><ol className="modal-steps">{projetOuvert.etapesInscription?.map((etape) => <li key={etape}>{etape}</li>)}</ol></div>}
           <div className="modal-bottom"><span className="technology-line">{projetOuvert.technologies}</span><a className="button button-dark" href={projetOuvert.lien} target="_blank" rel="noreferrer">{projetOuvert.id === "afterish" ? "Aller sur le site" : "Ouvrir la connexion"}<span aria-hidden="true"> ↗</span></a></div>
+        </section>
+      </div>}
+
+      {experienceOuverte && <div className="modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setExperienceOuverte(null); }}>
+        <section className="project-modal" role="dialog" aria-modal="true" aria-labelledby="experience-modal-title">
+          <div className="modal-heading"><div><p className="card-meta">{experienceOuverte.entreprise} · {experienceOuverte.periode}</p><h2 id="experience-modal-title">{experienceOuverte.role}</h2></div><button className="modal-close" type="button" aria-label="Fermer les détails" onClick={() => setExperienceOuverte(null)}>×</button></div>
+          <p className="modal-intro">{experienceOuverte.description}</p>
+          <div className="modal-section"><h3>Missions réalisées</h3><ul>{experienceOuverte.missions.map((mission) => <li key={mission}>{mission}</li>)}</ul></div>
+          <div className="modal-section"><h3>Captures des sites et outils</h3><div className="modal-gallery experience-detail-gallery">{experienceOuverte.captures.map((capture) => <figure key={capture.src}><div className="experience-detail-shot"><Image src={capture.src} alt={capture.alt} fill sizes="(max-width: 720px) 100vw, 50vw" /></div><figcaption>{capture.titre}{capture.url && <> · <a href={capture.url} target="_blank" rel="noreferrer">{"lienLabel" in capture ? capture.lienLabel : "Voir le site"} ↗</a></>}</figcaption></figure>)}</div></div>
+          {"code" in experienceOuverte && experienceOuverte.code && <div className="modal-section"><h3>Code Python du stage</h3><p>Extraits des scripts conservés dans mes archives. Les fichiers téléchargeables reprennent les versions réalisées pendant le stage.</p>{experienceOuverte.code.map((source) => <div className="experience-code-item" key={source.fichier}><h4>{source.titre}</h4><p>{source.explication}</p><div className="code-window"><div>{source.fichier.split("/").pop()}</div><pre><code>{source.extrait}</code></pre></div><a className="button button-light code-download" href={source.fichier} download>{source.nomFichier}</a></div>)}</div>}
+          <div className="modal-bottom experience-modal-bottom"><span className="technology-line">{experienceOuverte.technologies}</span><div className="experience-modal-actions">{experienceOuverte.captures.filter((capture) => capture.url).map((capture) => <a className="button button-dark" key={capture.src} href={capture.url} target="_blank" rel="noreferrer">{"lienLabel" in capture ? capture.lienLabel : "Voir le site"}<span aria-hidden="true"> ↗</span></a>)}</div></div>
         </section>
       </div>}
     </div>

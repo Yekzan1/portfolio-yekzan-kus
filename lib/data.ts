@@ -70,8 +70,8 @@ export const REALISATIONS = [
     sousTitre: "Fiabiliser les inscriptions d’un CRM multi-entreprise",
     introduction:
       "Nexus Flow OS regroupe le suivi commercial, les devis et factures, le support client et les relances. Pendant mon stage, j’ai travaillé sur la fiabilité de l’inscription, les contrôles de séparation des comptes et la recette fonctionnelle.",
-    image: "/realisations/portfolio/saas-dashboard.webp",
-    imageAlt: "Tableau de bord commercial de Nexus Flow OS",
+    image: "/realisations/nexusflow-1216.webp",
+    imageAlt: "Page d’accueil de Nexus Flow OS et aperçu du CRM",
     lien: "https://accounts.agence-nexusflow.com/sign-in?redirect_url=https%3A%2F%2Fhf.agence-nexusflow.com%2Fdashboard",
     lienLabel: "Ouvrir le portail de connexion",
     resultats: [
@@ -122,12 +122,14 @@ export const AUTRES_REALISATIONS = [
         alt: "Page d’accueil du site Agence Site Internet Lyon",
         titre: "Site WordPress · Lyon",
         url: "https://www.agence-site-internet-lyon.fr/",
+        lienLabel: "Voir le site · Lyon",
       },
       {
         src: "/realisations/villefranche-1216.webp",
         alt: "Page d’accueil du site Création Site Internet Villefranche-sur-Saône",
         titre: "Site WordPress · Villefranche",
         url: "https://www.creation-site-internet-villefranche.fr/",
+        lienLabel: "Voir le site · Villefranche",
       },
       {
         src: "/realisations/experiences/cadeo-catalogue.webp",
@@ -157,6 +159,8 @@ export const AUTRES_REALISATIONS = [
         src: "/realisations/experiences/unsa-recherche.webp",
         alt: "Page de résultats du moteur de recherche de fiches métier de l’UNSA",
         titre: "Recherche de fiches métier · UNSA",
+        url: "https://www.unsa-defense.org/",
+        lienLabel: "Voir le site UNSA",
       },
       {
         src: "/realisations/experiences/rougevert-poemes.webp",
@@ -184,15 +188,70 @@ export const AUTRES_REALISATIONS = [
         src: "/realisations/martingale-1216.webp",
         alt: "Page d’accueil du site WordPress de Martingale & Céleste",
         titre: "Site WordPress · Divi",
+        url: "https://martingale-et-celeste.fr/",
+        lienLabel: "Voir le site",
       },
     ],
-  },
-  {
-    entreprise: "Pharmagest · IK Formation",
-    periode: "2022 – 2023",
-    role: "Systèmes et support",
-    description:
-      "Découverte de Linux, préparation de serveurs, installation de systèmes et accompagnement des utilisateurs.",
+    code: [
+      {
+        titre: "Suivi des variations de prix · compare_and_save_prices",
+        explication:
+          "Cette fonction reprend le cœur du script archivé : elle récupère le prix courant, le compare au CSV précédent et conserve les variations détectées.",
+        extrait: `def compare_and_save_prices(urls, headers, old_prices):
+    changed_prices = []  # Pour enregistrer les changements de prix
+
+    for url in urls:
+        new_price = scrape_price(url, headers)
+
+        if new_price is not None:
+            if url in old_prices:
+                old_price = old_prices[url]
+                if new_price != old_price:
+                    print(f"Le prix du produit sur {url} a changé. Ancien prix: {old_price}, Nouveau prix: {new_price}")
+                    # Ajouter les informations du produit à la liste des prix changés
+                    changed_prices.append({'url': url, 'new_price': new_price})
+            else:
+                print(f"Le prix du produit sur {url} n'a pas d'ancien prix pour la comparaison.")
+        else:
+            print(f"Le prix du produit sur {url} n'a pas pu être récupéré.")
+
+    return changed_prices`,
+        fichier: "/code/suivi-prix-martingale.py",
+        nomFichier: "Télécharger le script de suivi des prix",
+      },
+      {
+        titre: "Prospection · extraction des fiches Pages Jaunes",
+        explication:
+          "Extrait du script Selenium conservé dans mes archives : ouverture des fiches, récupération de leurs coordonnées et ajout des champs avant l’export CSV.",
+        extrait: `for company_info in all_company_data:
+    driver.get(company_info['company_link'])
+    time.sleep(2)
+
+    website = "Site web non trouvé"
+    try:
+        website_element = driver.find_element(
+            By.CSS_SELECTOR,
+            "a[href^='http']:not([href*='pagesjaunes'])"
+        )
+        website = website_element.get_attribute("href")
+    except NoSuchElementException:
+        pass
+
+    address_element = WebDriverWait(driver, TIMEOUT).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "div.bi-address"))
+    )
+    address = address_element.get_attribute("textContent").replace("Voir le plan", "")
+
+    phone_element = WebDriverWait(driver, TIMEOUT).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "div.number-contact"))
+    )
+    phone = phone_element.get_attribute("textContent")
+
+    company_info.update({"address": address, "phone": phone, "website": website})`,
+        fichier: "/code/pages-jaunes-martingale.py",
+        nomFichier: "Télécharger le script Pages Jaunes",
+      },
+    ],
   },
 ];
 
