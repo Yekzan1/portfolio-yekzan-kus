@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 const SITE_URL = "https://portfolio-yekzan-kus.vercel.app";
-const TITRE = "Yekzan KUS — Développeur Web & Concepteur d'Applications";
+const TITRE = "Yekzan KUS — Développement web et logiciel";
 const DESCRIPTION =
-  "Portfolio de Yekzan KUS, étudiant en 2e année de BTS SIO SLAM à Limas (Business School by CSND) et futur étudiant en Licence 3 Informatique. Réalisations de stages en agence web et projets applicatifs.";
+  "Portfolio de Yekzan KUS : projets réalisés en stage, PHP et Laravel, Java, bases de données et recherche d’alternance en Licence 3 Informatique pour septembre 2027.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#f7f6f2",
   width: "device-width",
   initialScale: 1,
 };
