@@ -101,8 +101,16 @@ export default function Page() {
         </section>
 
         <section id="parcours" className="content-section">
-          <div className="section-title"><div><h2>Expériences</h2><p>Les autres stages et missions réalisés en agence.</p></div></div>
-          <div className="experience-list">{AUTRES_REALISATIONS.map((experience) => <article className="experience-row" key={experience.entreprise}><div className="experience-date">{experience.periode}</div><div><h3>{experience.entreprise}</h3><p className="experience-role">{experience.role}</p><p>{experience.description}</p></div></article>)}</div>
+          <div className="section-title"><div><h2>Autres expériences</h2><p>Les sites et outils que j’ai réalisés au cours de mes stages.</p></div></div>
+          <div className="experience-cards">{AUTRES_REALISATIONS.filter((experience) => experience.id !== undefined).map((experience) => <article className="experience-card" key={experience.entreprise}>
+            <header className="experience-card-header"><div><p className="experience-date">{experience.entreprise} · {experience.periode}</p><h3>{experience.role}</h3></div></header>
+            <div className="experience-gallery">{experience.captures?.map((capture) => <figure className="experience-capture" key={capture.src}>
+              {capture.url ? <a className="experience-shot" href={capture.url} target="_blank" rel="noreferrer" aria-label={`Ouvrir ${capture.titre}`}><Image src={capture.src} alt={capture.alt} fill sizes="(max-width: 700px) 100vw, 32vw" /></a> : <div className="experience-shot"><Image src={capture.src} alt={capture.alt} fill sizes="(max-width: 700px) 100vw, 32vw" /></div>}
+              <figcaption><span>{capture.titre}</span>{capture.url && <a href={capture.url} target="_blank" rel="noreferrer">Voir le site ↗</a>}</figcaption>
+            </figure>)}</div>
+            <div className="experience-card-copy"><p className="experience-summary">{experience.description}</p><ul className="experience-tasks">{experience.missions?.map((mission) => <li key={mission}>{mission}</li>)}</ul><p className="technology-line">{experience.technologies}</p></div>
+          </article>)}
+          {AUTRES_REALISATIONS.filter((experience) => experience.id === undefined).map((experience) => <article className="experience-card experience-no-image" key={experience.entreprise}><header className="experience-card-header"><div><p className="experience-date">{experience.entreprise} · {experience.periode}</p><h3>{experience.role}</h3></div></header><div className="experience-card-copy"><p>{experience.description}</p></div></article>)}</div>
         </section>
 
         <section className="content-section">

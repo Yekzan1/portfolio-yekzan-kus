@@ -102,25 +102,90 @@ export const REALISATIONS = [
 
 export const AUTRES_REALISATIONS = [
   {
+    id: "unimage",
     entreprise: "Unimage Communication",
     periode: "05/2025 – 07/2025",
-    role: "Sites vitrines et e-commerce",
+    role: "Deux sites WordPress et une boutique PrestaShop",
     description:
-      "Développement autonome de deux sites WordPress avec Elementor et Spectra, puis création d’un site PrestaShop avec catalogue, livraison et paiement.",
+      "J’ai réalisé deux sites vitrines WordPress pour Lyon et Villefranche-sur-Saône, puis participé à la mise en place de la boutique Cadéo Sport sous PrestaShop.",
+    missions: [
+      "Création de deux sites WordPress : pages et mise en page avec Spectra pour le site de Lyon, puis avec Elementor pour celui de Villefranche-sur-Saône.",
+      "Préparation et intégration des contenus des pages : services, tarifs, contact et éléments de référencement local.",
+      "Intégration d’un quiz de cinq questions pour orienter les visiteurs vers le type de site adapté, ainsi que d’un module de discussion et d’appels au contact ou au devis.",
+      "Mise en place de la gestion du consentement avec CookieYes et préparation des pages de mentions légales et de cookies.",
+      "Mise en place du catalogue PrestaShop Cadéo Sport : catégories et fiches produits à partir des éléments fournis.",
+    ],
+    technologies: "WordPress · Elementor · Spectra · PrestaShop · CookieYes · HTML · CSS · JavaScript",
+    captures: [
+      {
+        src: "/realisations/lyon-1216.webp",
+        alt: "Page d’accueil du site Agence Site Internet Lyon",
+        titre: "Site WordPress · Lyon",
+        url: "https://www.agence-site-internet-lyon.fr/",
+      },
+      {
+        src: "/realisations/villefranche-1216.webp",
+        alt: "Page d’accueil du site Création Site Internet Villefranche-sur-Saône",
+        titre: "Site WordPress · Villefranche",
+        url: "https://www.creation-site-internet-villefranche.fr/",
+      },
+      {
+        src: "/realisations/experiences/cadeo-catalogue.webp",
+        alt: "Catalogue de produits de la boutique Cadéo Sport sous PrestaShop",
+        titre: "Boutique PrestaShop · Cadéo Sport",
+      },
+    ],
   },
   {
+    id: "rougevert",
     entreprise: "Rougevert Communication",
-    periode: "03/2024 – 04/2024",
-    role: "Site de l’UNSA Défense",
+    periode: "18/03 – 12/04/2024",
+    role: "Sites de l’UNSA et d’un poète · Recherche PHP",
     description:
-      "Création du site en trois jours et développement d’un moteur de recherche documentaire en PHP et SQL.",
+      "J’ai créé un site WordPress pour l’UNSA en trois jours, construit un moteur de recherche de fiches métier et mis en ligne un second site consacré aux poèmes de Régis Chouette.",
+    missions: [
+      "Création en trois jours du site de l’UNSA sous WordPress et Elementor, avec navigation, pages et mise en page adaptées au contenu de l’organisation.",
+      "Création de catégories et d’une boucle WordPress pour publier et organiser les articles.",
+      "Développement d’un moteur de recherche en PHP intégré par shortcode : deux menus filtrent les fiches métier par employeur et filière, puis affichent les résultats et leurs documents PDF.",
+      "Ajout de la mise à jour des résultats avec Ajax et traitement des recherches sans résultat.",
+      "Conception et mise en ligne d’un site WordPress avec Elementor pour le poète Régis Chouette, avec ses poèmes répartis sur plusieurs pages et des liens directs vers chaque texte.",
+      "Consultation des données Google Analytics dans le cadre du suivi du site.",
+    ],
+    technologies: "WordPress · Elementor · PHP · WP_Query · Shortcodes · Ajax · Taxonomies · Google Analytics",
+    captures: [
+      {
+        src: "/realisations/experiences/unsa-recherche.webp",
+        alt: "Page de résultats du moteur de recherche de fiches métier de l’UNSA",
+        titre: "Recherche de fiches métier · UNSA",
+      },
+      {
+        src: "/realisations/experiences/rougevert-poemes.webp",
+        alt: "Liste de poèmes organisée sur le site de Régis Chouette",
+        titre: "Site de poésie · Régis Chouette",
+      },
+    ],
   },
   {
+    id: "martingale",
     entreprise: "Martingale & Céleste",
-    periode: "11/2023 – 12/2023",
-    role: "Collecte de données et site WordPress",
+    periode: "27/11 – 22/12/2023",
+    role: "Deux outils Python et un site WordPress",
     description:
-      "Écriture d’un script Python pour extraire des données d’entreprises et les exporter dans un fichier CSV, en complément d’un site WordPress.",
+      "J’ai créé deux outils Python de collecte de données et réalisé un site WordPress avec Divi pendant un stage de quatre semaines.",
+    missions: [
+      "Création d’un outil de suivi des prix sur des sites de vente : collecte des prix et des URL, export CSV exploitable dans Excel, puis filtrage pour ne garder que les prix qui ont changé.",
+      "Création d’un second outil qui parcourt plusieurs pages des Pages Jaunes et collecte le nom, l’adresse, le téléphone et le site web des entreprises pour la prospection.",
+      "Création d’un site WordPress avec Divi : personnalisation du thème et du menu, création des pages d’accueil, vitrine, e-commerce, articles et contact.",
+      "Rédaction et mise en page d’articles, ajustements CSS et premières optimisations pour le référencement.",
+    ],
+    technologies: "Python · Requests · BeautifulSoup · Pandas · Selenium · CSV · Excel · WordPress · Divi · CSS",
+    captures: [
+      {
+        src: "/realisations/martingale-1216.webp",
+        alt: "Page d’accueil du site WordPress de Martingale & Céleste",
+        titre: "Site WordPress · Divi",
+      },
+    ],
   },
   {
     entreprise: "Pharmagest · IK Formation",
