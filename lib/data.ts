@@ -22,8 +22,10 @@ export interface Realisation {
   libelleLien?: string;
   urlSecours?: string;
   libelleSecours?: string;
+  urlTertiaire?: string;
+  libelleTertiaire?: string;
   employeur: string;
-  annee: string;
+  periode: string;
   image: string;
   description: string;
   ceQueJaiFait: string[];
@@ -31,16 +33,6 @@ export interface Realisation {
   noteAcces?: string;
   galerie?: GalerieImage[];
   extraitsCode?: ExtraitCode[];
-}
-
-export interface Recommandation {
-  id: string;
-  auteur: string;
-  poste: string;
-  entreprise: string;
-  annee: string;
-  image: string;
-  citation: string;
 }
 
 export interface Experience {
@@ -72,71 +64,74 @@ export interface ProjetApplicatif {
 export const INFOS_PERSONNELLES = {
   nom: "Yekzan KUS",
   role: "Développeur Web & Concepteur d'Applications",
-  statutAlternance: "Recherche d'alternance • Licence 3 Informatique (Sept. 2027)",
-  localisation: "Limas (69400) • Lyon & Région Rhône-Alpes",
+  statutAlternance: "Recherche d'alternance • Développement web / Programmation / Automatisation • Septembre 2027 (1 an)",
+  localisation: "69400 Limas • Métropole de Lyon & Rhône-Alpes",
+  permis: "Permis B (en cours)",
+  anglais: "Anglais technique",
+  violon: "Violon au Conservatoire de Villefranche-sur-Saône (10 ans)",
   email: "yekzankus@icloud.com",
   telephone: "07 85 26 68 22",
   telephoneBrut: "+33785266822",
   github: "https://github.com/Yekzan1",
   linkedin: "https://www.linkedin.com/in/yekzan-kus-674483325/",
   cvPdf: "/cv-yekzan-kus.pdf",
-  bio: "Étudiant en 2e année de BTS SIO (option SLAM) et futur étudiant en Licence 3 Informatique. Développeur orienté produit et architecture web : Next.js 14, TypeScript, PostgreSQL/Prisma, PHP et WordPress/PrestaShop. Rigoureux sur la qualité du code, les flux d'authentification et l'autonomie en production.",
+  bio: "Étudiant en 2e année de BTS SIO (option SLAM) et admis en Licence 3 Informatique au Campus du Beaujolais pour septembre 2027. Développeur polyvalent axé sur la conception de plateformes web complètes, l'architecture logicielle (POO, MVC, APIs), les bases de données SQL et l'automatisation. Livraisons en production en agence (After'ish, SaaS Nexus Flow OS, UNSA, PrestaShop).",
 };
 
 export const REALISATIONS: Realisation[] = [
   {
     id: "afterish",
-    titre: "After'ish — Plateforme & Portail Événementiel",
-    badge: "Production • Livré en 2 semaines",
+    titre: "After'ish — Plateforme d'Association & Portail Membres",
+    badge: "Livré seul en 2 semaines • Production",
     roleCourt: "Développement full-stack complet en autonomie",
     hote: "afterish.agence-nexusflow.com",
     url: "https://afterish.agence-nexusflow.com",
-    libelleLien: "Visiter After'ish",
+    libelleLien: "Consulter afterish.agence-nexusflow.com",
     employeur: "Nexus Flow",
-    annee: "2026",
+    periode: "05/2026 – 07/2026",
     image: "/realisations/afterish-real-0.png",
-    description: "Refonte et livraison autonome du portail du club d'affaires After'ish en 2 semaines. Plateforme intégrant l'adhésion en ligne, un espace membre privé et la gestion dynamique des événements.",
+    description: "Plateforme d'association complète livrée seul en 2 semaines : adhésion en ligne, espace membres sécurisé, catalogue dynamique d'événements, dons, chatbot et conformité RGPD. 200 membres dont 23 payants dès le lancement.",
     ceQueJaiFait: [
-      "Développement autonome du portail avec thème DIVI et surcharges PHP personnalisées dans functions.php.",
-      "Développement d'une requête WP_Query optimisée pour afficher automatiquement les prochains événements à venir triés par date.",
-      "Conception d'un shortcode dynamique calculant les jours restants de la période d'adhésion (J-150) selon la date d'inscription SQL de chaque membre.",
-      "Intégration du système d'adhésion avec formulaires et paiements HelloAsso.",
-      "Configuration de l'hébergement, DNS et sécurisation SSL chez Infomaniak."
+      "Conception et livraison intégrale du site en autonomie en 2 semaines sur WordPress avec le thème DIVI.",
+      "Développement de requêtes WP_Query sur-mesure dans functions.php pour l'affichage dynamique et chronologique des 3 prochains événements.",
+      "Programmation d'un shortcode dynamique calculant la durée restante de la période d'adhésion (J-150) selon la date d'inscription SQL de chaque adhérent.",
+      "Mise en place de l'espace membre, gestion des profils et formulaire d'adhésion avec intégration HelloAsso.",
+      "Configuration complète de la production chez Infomaniak : zones DNS, sous-domaines et certificats SSL."
     ],
     stack: ["PHP 8", "WordPress", "DIVI Builder", "WP_Query", "API HelloAsso", "CSS3", "Infomaniak Cloud"],
     galerie: [
       {
         src: "/realisations/afterish-real-0.png",
-        titre: "Page d'accueil en production",
-        description: "Capture réelle du site After'ish déployé : bannière d'accueil, présentation des rencontres et adhésions."
+        titre: "Page d'accueil officielle en production",
+        description: "Capture réelle du site After'ish déployé : présentation du club, adhésions et rencontres réseau."
       },
       {
         src: "/realisations/afterish-real-1.png",
-        titre: "Section Événements & Adhésions",
-        description: "Module des événements alimenté par la boucle PHP WP_Query avec liens d'inscription directs."
+        titre: "Catalogue d'événements & Inscriptions",
+        description: "Section des événements alimentée par la boucle WP_Query avec liens d'inscription directs."
       },
       {
         src: "/realisations/afterish-admin.png",
         titre: "Espace membre & Profil adhérent",
-        description: "Vue du compte adhérent permettant la consultation des accès et événements inscrits."
+        description: "Tableau de bord membre permettant la gestion des informations personnelles et la consultation des événements."
       },
       {
         src: "/realisations/afterish-wordpress.png",
-        titre: "Back-office WordPress",
-        description: "Gestion des événements (Custom Post Types) avec métadonnées de dates et coordonnées."
+        titre: "Administration WordPress",
+        description: "Gestion des Custom Post Types avec métadonnées personnalisées (dates, lieux, intervenants)."
       },
       {
         src: "/realisations/afterish-infomaniak.png",
         titre: "Console Cloud Infomaniak",
-        description: "Paramétrage DNS, sous-domaines et certificats SSL Let's Encrypt."
+        description: "Supervision du serveur, configuration DNS et certificats SSL Let's Encrypt."
       }
     ],
     extraitsCode: [
       {
         fichier: "wp-content/themes/afterish-child/functions.php",
         langage: "php",
-        titre: "Boucle dynamique des 3 prochains événements (WP_Query)",
-        description: "Requête optimisée filtrant les publications personnalisées de type 'evenements' par date croissante.",
+        titre: "Boucle dynamique des prochains événements (WP_Query)",
+        description: "Filtrage et affichage chronologique des événements publiés avec récupération sécurisée des métadonnées.",
         code: `<?php
 function afterish_render_latest_events() {
     $args = [
@@ -175,8 +170,8 @@ add_shortcode('afterish_events', 'afterish_render_latest_events');`
       {
         fichier: "wp-content/themes/afterish-child/functions.php",
         langage: "php",
-        titre: "Compteur dynamique de fin d'adhésion (J-150)",
-        description: "Calcul en temps réel du nombre de jours restants à partir de la date d'inscription SQL du membre connecté.",
+        titre: "Calcul dynamique du compte à rebours d'adhésion (J-150)",
+        description: "Calcul en temps réel de l'échéance d'adhésion à partir du timestamp SQL de l'utilisateur connecté.",
         code: `<?php
 function afterish_membership_countdown() {
     if (!is_user_logged_in()) {
@@ -186,7 +181,7 @@ function afterish_membership_countdown() {
     $user_id         = get_current_user_id();
     $registered_date = get_the_author_meta('user_registered', $user_id);
     $start_timestamp = strtotime($registered_date);
-    $end_timestamp   = $start_timestamp + (150 * 86400); // 150 jours en secondes
+    $end_timestamp   = $start_timestamp + (150 * 86400); // 150 jours
     $now             = time();
 
     $days_left = max(0, ceil(($end_timestamp - $now) / 86400));
@@ -199,50 +194,50 @@ add_shortcode('afterish_compteur_adhesion', 'afterish_membership_countdown');`
   },
   {
     id: "crm-ia-nexusflow",
-    titre: "Nexus Flow OS — SaaS Multi-Tenant & RAG",
-    badge: "Architecture SaaS • Recette & Débogage",
-    roleCourt: "Débogage transactions, QA et routage multi-tenant",
+    titre: "Nexus Flow OS & HF Concept — SaaS Multi-Tenant & IA",
+    badge: "Architecture SaaS • Production",
+    roleCourt: "Débogage transactions, QA et intégration API IA Infomaniak",
     hote: "os.agence-nexusflow.com",
     url: "https://accounts.agence-nexusflow.com/sign-in?redirect_url=https%3A%2F%2Fhf.agence-nexusflow.com%2Fdashboard",
-    libelleLien: "Accéder à l'authentification SaaS",
+    libelleLien: "Portail de connexion Clerk",
     employeur: "Nexus Flow",
-    annee: "2026",
+    periode: "05/2026 – 07/2026",
     image: "/realisations/saas-real-0.png",
-    noteAcces: "Sous-domaine client en cours de bascule SSL. Vous pouvez accéder au portail d'authentification Clerk via le bouton ci-dessus, et consulter l'ensemble des modules réels (Dashboard, Kanban, RAG, Code source) directement documentés ci-dessous.",
-    description: "Nexus Flow OS est une plateforme SaaS multi-tenant structurée en monorepo (Next.js 14, Turborepo, Prisma, PostgreSQL). Mission axée sur la sécurisation des souscriptions, l'étanchéité multi-tenant et la recette fonctionnelle QA.",
+    noteAcces: "Sous-domaine client en cours de bascule SSL. Vous pouvez accéder à la page d'authentification Clerk du SaaS via le lien ci-dessus. L'ensemble des modules réels (Dashboard, Kanban, RAG IA, Code source) est détaillé et consultable ci-dessous.",
+    description: "Refonte du CRM utilisé par un client en production (showroom HF Concept) et intégration de l'API Infomaniak avec un assistant IA capable d'accéder aux données client, planifier les rendez-vous et rediriger l'utilisateur vers la page demandée.",
     ceQueJaiFait: [
-      "Correction d'un bug critique lors de l'inscription : implémentation d'une transaction avec schéma Zod et rollback atomique (suppression du compte Clerk si l'insertion de l'organisation PostgreSQL échoue).",
-      "Vérification de l'isolation multi-tenant : contrôle de l'étanchéité des données par organisation via Row-Level Security (RLS) PostgreSQL.",
-      "Revue et audit du middleware de routage Next.js pour réécriture transparente des requêtes par sous-domaine client (<tenant>.agence-nexusflow.com).",
-      "Exécution du plan de recette fonctionnelle QA : inscription, connexion Clerk, gestion de prospects Kanban, désabonnement RGPD.",
-      "Configuration de l'accès API Infomaniak AI (modèles LLM hébergés en Suisse) pour l'assistant documentaire RAG."
+      "Résolution du bug critique d'inscription : écriture d'une transaction serveur avec schéma Zod et rollback atomique (suppression immédiate de l'utilisateur Clerk si la création d'organisation échoue dans PostgreSQL).",
+      "Intégration de l'API Infomaniak IA pour le module assistant : connexion LLM sécurisée avec extraction de contexte et exécution d'actions (prise de rendez-vous, redirection dynamique).",
+      "Audit et tests d'isolation multi-tenant : validation de la séparation stricte des données entre organisations clientes via les politiques RLS (Row-Level Security) de PostgreSQL.",
+      "Vérification du middleware de routage Next.js pour la réécriture dynamique par sous-domaine client (<tenant>.agence-nexusflow.com).",
+      "Exécution du protocole complet de recette fonctionnelle QA (authentification Clerk, gestion des prospects en pipeline Kanban, conformité du lien /unsubscribe RGPD)."
     ],
-    stack: ["Next.js 14", "TypeScript", "Prisma ORM", "PostgreSQL", "Clerk Auth", "Inngest", "Tailwind CSS", "Turborepo"],
+    stack: ["Next.js 14", "TypeScript", "Prisma ORM", "PostgreSQL", "Clerk Auth", "API Infomaniak AI", "Inngest", "Tailwind CSS", "Turborepo"],
     galerie: [
       {
         src: "/realisations/saas-real-0.png",
-        titre: "Dashboard principal du SaaS",
-        description: "Vue d'ensemble de l'espace de travail : métriques d'activité, actions rapides et navigation organisationnelle."
+        titre: "Dashboard général du SaaS",
+        description: "Vue d'accueil de l'espace de travail en production : indicateurs de performance commerciale et accès rapides."
       },
       {
         src: "/realisations/saas-dashboard.png",
-        titre: "Métriques de performance & Chiffre d'affaires",
-        description: "Indicateurs de conversion commerciale et volume des opportunités en cours."
+        titre: "Métriques & Chiffre d'Affaires",
+        description: "Suivi des statistiques de conversion et du volume d'opportunités par commercial."
       },
       {
         src: "/realisations/saas-kanban.png",
-        titre: "Pipeline commercial Kanban",
-        description: "Gestion des étapes du cycle de vente : contact entrant, qualification, devis et signature."
+        titre: "Pipeline Commercial Kanban",
+        description: "Gestion des étapes du cycle de vente : contact, qualification, devis et signature."
       },
       {
         src: "/realisations/saas-ia-knowledge.png",
         titre: "Base documentaire RAG & Assistant IA",
-        description: "Indexation de documents techniques et catalogues produits pour alimenter l'assistant virtuel."
+        description: "Indexation documentaire pour permettre à l'assistant IA de répondre précisément sur les catalogues clients."
       },
       {
         src: "/realisations/saas-branding.png",
-        titre: "Paramétrage multi-tenant & Branding",
-        description: "Personnalisation graphique et configuration du sous-domaine par organisation cliente."
+        titre: "Gestion Multi-Tenant & Branding",
+        description: "Personnalisation des thèmes, logos et sous-domaines par organisation."
       }
     ],
     extraitsCode: [
@@ -250,7 +245,7 @@ add_shortcode('afterish_compteur_adhesion', 'afterish_membership_countdown');`
         fichier: "apps/web/src/app/signup/actions.ts",
         langage: "typescript",
         titre: "Provisionnement de workspace avec rollback atomique Clerk / PostgreSQL",
-        description: "Validation des entrées avec Zod. En cas d'échec d'écriture dans PostgreSQL, le compte Clerk créé est immédiatement purgé pour éliminer tout compte orphelin.",
+        description: "Validation des entrées avec Zod. En cas d'erreur dans l'écriture PostgreSQL, le compte Clerk est immédiatement purgé pour éliminer tout compte orphelin.",
         code: `'use server'
 
 import { z } from 'zod'
@@ -315,7 +310,7 @@ export async function provisionWorkspaceAction(formData: FormData) {
         fichier: "apps/web/src/middleware.ts",
         langage: "typescript",
         titre: "Middleware multi-tenant de réécriture d'URL",
-        description: "Interception des requêtes par nom de domaine et routage dynamique vers le dossier /tenant/<slug> correspondant.",
+        description: "Routage dynamique par sous-domaine vers le tenant isolé correspondant.",
         code: `import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextResponse, type NextRequest } from 'next/server'
 
@@ -333,13 +328,11 @@ export default clerkMiddleware((auth, req: NextRequest) => {
   const hostname = req.headers.get('host') || ''
   const subdomain = hostname.split('.')[0]
 
-  // Routes publiques et domaines racines
   if (RESERVED_SUBDOMAINS.has(subdomain) || hostname.includes('os.agence-nexusflow.com')) {
     if (!isPublicRoute(req)) auth().protect()
     return NextResponse.next()
   }
 
-  // Réécriture contextuelle vers le workspace tenant
   const url = req.nextUrl.clone()
   url.pathname = \`/tenant/\${subdomain}\${url.pathname}\`
   return NextResponse.rewrite(url)
@@ -351,101 +344,102 @@ export default clerkMiddleware((auth, req: NextRequest) => {
     id: "unsa-defense",
     titre: "UNSA Défense — Portail Web & Moteur de Recherche PHP",
     badge: "Livré en autonomie en 3 jours",
-    roleCourt: "Développement MVC PHP & intégration complète",
+    roleCourt: "Développement autonome du portail et moteur de recherche",
     hote: "unsa-defense.org",
     url: "https://www.unsa-defense.org",
     libelleLien: "Visiter unsa-defense.org",
     employeur: "Rougevert Communication",
-    annee: "2024",
+    periode: "03/2024 – 04/2024",
     image: "/realisations/unsa.webp",
-    description: "Création complète en autonomie d'un portail web pour le syndicat national UNSA Défense afin de diffuser leurs actualités et accords officiels.",
+    description: "Création en autonomie en 3 jours d'un site web complet pour l'organisation syndicale nationale UNSA Défense : développement d'un moteur de recherche documentaire en PHP, analyse des données et suivi Google Analytics.",
     ceQueJaiFait: [
-      "Développement en autonomie du portail sous architecture MVC en PHP avec base de données MySQL.",
-      "Programmation d'un moteur de recherche documentaire avec requêtes SQL indexées pour filtrer rapidement les articles et communiqués.",
-      "Mise en place d'un design responsive optimisé pour mobile et tablette.",
-      "Intégration du tag de mesure d'audience Google Analytics et configuration de la conformité des cookies."
+      "Développement autonome et livraison en 3 jours du site web officiel.",
+      "Programmation d'un moteur de recherche documentaire en PHP avec requêtes SQL indexées pour filtrer les communiqués syndicaux.",
+      "Conception d'une structure ergonomique et responsive adaptée aux adhérents.",
+      "Mise en place de Google Analytics pour le suivi d'audience et l'analyse des parcours."
     ],
     stack: ["PHP", "MySQL", "Architecture MVC", "JavaScript", "CSS3", "Google Analytics"],
   },
   {
     id: "unimage-sites",
-    titre: "Sites Satellites d'Agence & Référencement Local",
+    titre: "Sites Satellites d'Agence — Référencement & SEO Local",
     badge: "2 Sites Vitrines en Autonomie",
-    roleCourt: "Intégration WordPress, CSS personnalisé et RGPD",
+    roleCourt: "Développement WordPress, intégration CSS/JS et RGPD",
     hote: "agence-site-internet-lyon.fr",
-    url: "https://www.agence-site-internet-lyon.fr",
-    libelleLien: "Site Lyon",
+    url: "https://www.creation-site-web-lyon.fr",
+    libelleLien: "creation-site-web-lyon.fr",
     urlSecours: "https://www.creation-site-internet-villefranche.fr",
-    libelleSecours: "Site Villefranche",
+    libelleSecours: "creation-site-internet-villefranche.fr",
+    urlTertiaire: "https://www.agence-site-internet-lyon.fr",
+    libelleTertiaire: "agence-site-internet-lyon.fr",
     employeur: "Unimage Communication",
-    annee: "2025",
+    periode: "05/2025 – 07/2025",
     image: "/realisations/unimage.webp",
-    description: "Conception de deux sites vitrines autonomes dédiés au référencement local de l'agence à Lyon et Villefranche-sur-Saône.",
+    description: "Développement autonome de sites web vitrines sous WordPress (Elementor et Spectra) avec intégration CSS, PHP et JavaScript, optimisation du référencement local et conformité RGPD via CookieYes.",
     ceQueJaiFait: [
-      "Création complète des pages avec WordPress, Elementor et Spectra.",
-      "Développement de composants CSS et snippets JavaScript pour des animations interactives légères.",
-      "Intégration et paramétrage du bandeau de consentement RGPD avec CookieYes.",
-      "Optimisation des temps de chargement et du balisage sémantique SEO."
+      "Développement en autonomie de sites vitrines professionnels sous WordPress avec Elementor et Spectra.",
+      "Écriture de scripts JavaScript et composants CSS sur-mesure pour affiner l'interaction et le design.",
+      "Intégration et paramétrage du gestionnaire de consentement CookieYes conforme RGPD.",
+      "Optimisation SEO technique et balisage sémantique."
     ],
-    stack: ["WordPress", "Elementor", "PHP", "JavaScript", "CSS3", "CookieYes RGPD", "SEO Local"],
+    stack: ["WordPress", "Elementor", "Spectra", "PHP", "JavaScript", "CSS3", "CookieYes RGPD", "SEO Local"],
   },
   {
     id: "cadeo-sport",
-    titre: "Cadeosport — Boutique E-Commerce PrestaShop",
+    titre: "Cadeosport — Site E-Commerce PrestaShop",
     badge: "E-Commerce PrestaShop",
-    roleCourt: "Configuration PrestaShop & structuration du catalogue",
+    roleCourt: "Création autonome d'une boutique e-commerce complète",
     hote: "cadeo-sport.fr",
     url: "https://cadeo-sport.fr",
     libelleLien: "Visiter cadeo-sport.fr",
     employeur: "Unimage Communication",
-    annee: "2025",
+    periode: "05/2025 – 07/2025",
     image: "/realisations/lyon.webp",
-    description: "Mise en place complète d'une boutique en ligne dédiée au matériel sportif sous PrestaShop.",
+    description: "Création en autonomie d'un site e-commerce PrestaShop complet : structuration du catalogue produits, paramétrage des passerelles bancaires et logistique.",
     ceQueJaiFait: [
-      "Installation et paramétrage de PrestaShop sur serveur de production.",
-      "Organisation de l'arborescence du catalogue : catégories, attributs et fiches produits avec déclinaisons.",
-      "Configuration des passerelles de paiement bancaire et des zones de livraison/transporteurs.",
-      "Ajustements de la mise en page CSS pour s'adapter à la charte graphique du client."
+      "Installation et déploiement de PrestaShop sur serveur de production.",
+      "Arborescence du catalogue : fiches produits, déclinaisons de tailles et variantes d'équipements sportifs.",
+      "Configuration des modules de paiement sécurisé et des grilles tarifaires de livraison.",
+      "Ajustements CSS pour respecter l'identité de marque du client."
     ],
     stack: ["PrestaShop", "PHP", "MySQL", "Gestion Catalogue", "Paiements Sécurisés"],
   },
   {
-    id: "bow-studio",
-    titre: "Bow Studio — Site Vitrine & Identité de Marque",
-    badge: "Site Vitrine Réalisé Seul",
-    roleCourt: "Conception & développement web",
-    hote: "bowstudio.fr",
-    url: "https://bowstudio.fr",
-    libelleLien: "Visiter bowstudio.fr",
-    employeur: "Rougevert Communication",
-    annee: "2024",
+    id: "martingale-scraping",
+    titre: "Martingale & Céleste — Script de Scraping Python & Site WordPress",
+    badge: "Automatisation Python & WordPress",
+    roleCourt: "Développement script Python et intégration DIVI",
+    hote: "Pages Jaunes & DIVI",
+    url: "https://github.com/Yekzan1",
+    libelleLien: "GitHub @Yekzan1",
+    employeur: "Martingale & Céleste",
+    periode: "11/2023 – 12/2023",
     image: "/realisations/bow-studio.webp",
-    description: "Création intégrale d'un site vitrine moderne pour un studio d'architecture et de design.",
+    description: "Développement d'un script Python pour extraire les données d'entreprises de Pages Jaunes et les exporter en fichier CSV structuré. Développement d'un site web WordPress avec DIVI.",
     ceQueJaiFait: [
-      "Conception de la structure de navigation et mise en valeur des projets photographiques.",
-      "Intégration web responsive avec typographie soignée et animations fluides en CSS.",
-      "Formulaire de contact avec protection anti-spam et validation côté serveur.",
-      "Recette multi-navigateurs et livraison finale au client."
+      "Conception d'un scraper web en Python automatisant la collecte de coordonnées professionnelles.",
+      "Nettoyage, normalisation des données et export automatique au format CSV.",
+      "Intégration d'un site web WordPress avec le constructeur DIVI."
     ],
-    stack: ["WordPress", "PHP", "CSS3", "JavaScript", "Responsive Design"],
+    stack: ["Python", "Web Scraping", "Export CSV", "WordPress", "DIVI Builder"],
   },
 ];
 
 export const PROJETS_APPLICATIFS: ProjetApplicatif[] = [
   {
     titre: "Capte",
-    type: "Application d'Analyse & Conversion",
+    type: "Application Web Next.js",
     url: "https://capte.vercel.app",
     github: "https://github.com/Yekzan1/capte",
-    description: "Outil d'audit et de qualification des pages web : analyse des points de friction, métriques de lisibilité et recommandations d'optimisation.",
+    description: "Application d'analyse et d'audit de pages web : diagnostic de performance, métriques de lisibilité et axes d'optimisation.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
   },
   {
     titre: "MindLoop",
-    type: "Application de Productivité & Notes",
+    type: "Application Web Next.js",
     url: "https://mindloop-one.vercel.app",
     github: "https://github.com/Yekzan1/MindLoop",
-    description: "Interface de prise de notes et d'organisation par blocs avec persistance locale et synchronisation rapide.",
+    description: "Interface de productivité et de gestion de notes modulaires avec synchronisation d'état et persistance locale.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
   },
   {
@@ -453,159 +447,173 @@ export const PROJETS_APPLICATIFS: ProjetApplicatif[] = [
     type: "Projet Académique BTS SIO",
     url: "https://mairie-arnas.vercel.app",
     github: "https://github.com/Yekzan1/mairie-arnas",
-    description: "Portail citoyen respectant les normes d'accessibilité (RGAA), démarches administratives et annuaire des services municipaux.",
+    description: "Portail citoyen respectant les normes d'accessibilité numérique (RGAA), démarches administratives et annuaire municipal.",
     stack: ["Next.js", "Accessibilité RGAA", "Tailwind CSS"],
-  },
-];
-
-export const RECOMMANDATIONS: Recommandation[] = [
-  {
-    id: "nexus-flow",
-    auteur: "Sébastien PERRIN",
-    poste: "Président & Directeur",
-    entreprise: "Nexus Flow",
-    annee: "2026",
-    image: "/recommandations/recommandation-nexusflow.webp",
-    citation: "Yekzan a démontré une excellente autonomie technique sur la plateforme After'ish ainsi que sur notre SaaS multi-tenant. Capable de déboguer, tester et livrer du code propre en respectant les délais.",
-  },
-  {
-    id: "unimage",
-    auteur: "Christian CARLE",
-    poste: "Gérant & Directeur d'Agence",
-    entreprise: "Unimage Communication",
-    annee: "2025",
-    image: "/recommandations/recommandation-unimage.webp",
-    citation: "Très investi et rigoureux, Yekzan a su mener à bien la création de nos deux sites satellites et le paramétrage e-commerce avec une grande réactivité.",
-  },
-  {
-    id: "rougevert",
-    auteur: "Direction Technique",
-    poste: "Responsable de Production",
-    entreprise: "Rougevert Communication",
-    annee: "2024",
-    image: "/recommandations/recommandation-rougevert.webp",
-    citation: "Yekzan a livré le portail UNSA Défense en seulement 3 jours avec un moteur de recherche fonctionnel en PHP/MySQL, en faisant preuve d'une efficacité remarquable.",
-  },
-  {
-    id: "martingale",
-    auteur: "Équipe de Direction",
-    poste: "Tuteur de Stage",
-    entreprise: "Martingale",
-    annee: "2023",
-    image: "/recommandations/recommandation-martingale.webp",
-    citation: "Ponctuel, curieux et appliqué. Un profil prometteur qui sait rapidement monter en compétences sur des technologies variées.",
   },
 ];
 
 export const EXPERIENCES: Experience[] = [
   {
-    periode: "Janv. 2026 – Févr. 2026",
+    periode: "05/2026 – 07/2026",
     entreprise: "Nexus Flow",
     role: "Développeur Full-Stack (Stage)",
     lieu: "Limas (69400)",
-    description: "Développement en production chez un éditeur de logiciels web et agence digitale.",
+    description: "Stage chez un éditeur de logiciels et agence digitale.",
     missions: [
-      "Création intégrale et mise en ligne du site After'ish en 2 semaines (PHP, WordPress, DIVI, API HelloAsso).",
-      "Débogage critique de l'inscription SaaS Nexus Flow OS : validation Zod et rollback atomique Clerk / PostgreSQL.",
-      "Audit de sécurité multi-tenant : vérification de l'étanchéité RLS PostgreSQL et du middleware de sous-domaines.",
-      "Réalisation du cahier de recette fonctionnelle QA pour valider les flux avant ouverture client."
+      "Refonte du CRM utilisé par un client en production (HF Concept) et intégration de l'API Infomaniak avec un assistant IA : il accède aux données du client, planifie les rendez-vous et redirige l'utilisateur vers la page demandée.",
+      "After'ish : Plateforme d'association complète livrée seul en 2 semaines (adhésion en ligne, espace membres, événements, dons, chatbot, RGPD). 200 membres dont 23 payants dès le lancement + 4 articles et 3 événements publiés.",
+      "Débogage critique de l'action d'inscription avec schéma Zod et rollback atomique Clerk / PostgreSQL.",
+      "Audit d'isolation multi-tenant (RLS) et recette fonctionnelle QA complète."
     ],
-    tags: ["Next.js 14", "TypeScript", "Prisma", "PostgreSQL", "Clerk", "PHP", "WordPress", "Infomaniak"],
+    tags: ["Next.js 14", "TypeScript", "Prisma", "PostgreSQL", "Clerk Auth", "API Infomaniak AI", "PHP 8", "WordPress"],
   },
   {
-    periode: "Mai 2025 – Juin 2025",
+    periode: "05/2025 – 07/2025",
     entreprise: "Unimage Communication",
     role: "Développeur Web & E-Commerce (Stage)",
     lieu: "Villefranche-sur-Saône (69400)",
-    description: "Production de sites web professionnels et e-commerce pour le portefeuille clients de l'agence.",
+    description: "Production de sites web professionnels et e-commerce pour les clients de l'agence.",
     missions: [
-      "Conception et mise en ligne en autonomie de 2 sites vitrines dédiés au référencement local (Lyon et Villefranche).",
-      "Intégration de styles CSS sur-mesure, animations JavaScript et conformité RGPD (CookieYes).",
-      "Configuration complète de la boutique e-commerce Cadeosport sous PrestaShop (catalogue, paiements, transporteurs)."
+      "Développement autonome de 2 sites web (Elementor et Spectra) avec intégration CSS, PHP et JavaScript.",
+      "Création en autonomie d'un site e-commerce PrestaShop complet (catalogue, transporteurs, passerelles bancaires).",
+      "Conformité RGPD avec intégration CookieYes et optimisation du référencement local."
     ],
-    tags: ["WordPress", "Elementor", "PrestaShop", "PHP", "CSS3", "JavaScript", "RGPD"],
+    tags: ["WordPress", "Elementor", "Spectra", "PrestaShop", "PHP", "JavaScript", "CSS3", "CookieYes RGPD"],
   },
   {
-    periode: "Nov. 2024 – Déc. 2024",
+    periode: "03/2024 – 04/2024",
     entreprise: "Rougevert Communication",
     role: "Développeur Web (Stage)",
     lieu: "Gleizé (69400)",
-    description: "Développement web pour des organisations syndicales et des entreprises locales.",
+    description: "Développement web pour des organisations syndicales et des entreprises.",
     missions: [
-      "Création en autonomie du portail national UNSA Défense en 3 jours sous architecture MVC en PHP/MySQL.",
-      "Développement du moteur de recherche d'articles et d'accords syndicaux.",
-      "Conception du site vitrine Bow Studio avec typographie et mise en page soignées."
+      "Création en autonomie en 3 jours d'un site web pour l'UNSA.",
+      "Développement d'un moteur de recherche en PHP avec requêtes SQL.",
+      "Utilisation de Google Analytics et analyse des données de fréquentation."
     ],
-    tags: ["PHP", "MySQL", "Architecture MVC", "JavaScript", "HTML5", "CSS3"],
+    tags: ["PHP", "MySQL", "Architecture MVC", "JavaScript", "Google Analytics"],
+  },
+  {
+    periode: "11/2023 – 12/2023",
+    entreprise: "Martingale & Céleste",
+    role: "Développeur Python & Web (Stage)",
+    lieu: "Villefranche-sur-Saône (69400)",
+    description: "Automatisation de données et intégration web.",
+    missions: [
+      "Développement d'un script Python pour extraire les données d'entreprises de Pages Jaunes et les exporter en fichier CSV.",
+      "Développement d'un site web WordPress avec DIVI."
+    ],
+    tags: ["Python", "Web Scraping", "Export CSV", "WordPress", "DIVI"],
+  },
+  {
+    periode: "01/2023 – 02/2023",
+    entreprise: "Pharmagest",
+    role: "Systèmes & Serveurs (Stage)",
+    lieu: "Région Lyonnaise",
+    description: "Immersion dans l'administration système et le support technique.",
+    missions: [
+      "Découverte de l'environnement Linux et préparation de serveurs.",
+      "Installation de systèmes d'exploitation et relations clients."
+    ],
+    tags: ["Linux", "Serveurs", "Systèmes d'exploitation", "Support client"],
+  },
+  {
+    periode: "02/2022 – 04/2022",
+    entreprise: "IK FORMATION",
+    role: "Développeur Web (Stage)",
+    lieu: "Villefranche-sur-Saône",
+    description: "Projet web éditorial.",
+    missions: [
+      "Conception et mise en ligne d'un site web pour un poète."
+    ],
+    tags: ["WordPress", "Web Design", "Mise en ligne"],
   },
 ];
 
 export const FORMATIONS: Formation[] = [
   {
-    periode: "Sept. 2027 – Juin 2028",
+    periode: "Septembre 2027 – 2028 (1 an)",
     diplome: "Licence 3 Informatique (en alternance)",
-    etablissement: "Université Lyon 1 / Établissement partenaire — Lyon",
-    detail: "Spécialisation en génie logiciel, algorithmique avancée, architecture des systèmes distribués et bases de données relationnelles.",
+    etablissement: "Business School by CSND au Campus du Beaujolais",
+    detail: "Recherche active d'une alternance en Développement web / Programmation / Automatisation. Rythme 1 an.",
   },
   {
-    periode: "2024 – 2026",
-    diplome: "BTS SIO — Option SLAM (Solutions Logicielles et Applications Métiers)",
-    etablissement: "Business School by CSND — Limas (69400)",
-    detail: "Conception logicielle, programmation web & objet (PHP, JS/TS, Python, C#), modélisation SQL, gestion de versions Git, intégration continue.",
-  },
-  {
-    periode: "2021 – 2024",
-    diplome: "Baccalauréat Général (Mathématiques & SES)",
-    etablissement: "Lycée CSND — Villefranche-sur-Saône",
-    detail: "Obtenu avec mention. Fondations en logique, raisonnement quantitatif et modélisation.",
+    periode: "2025 – 2027 (2 ans)",
+    diplome: "BTS SIO option SLAM (Solutions Logicielles et Applications Métiers)",
+    etablissement: "Business School by CSND au Campus du Beaujolais",
+    detail: "Conception logicielle, POO, architecture MVC, DAO, bases de données relationnelles SQL, développement web & applicatif.",
   },
 ];
 
 export const COMPETENCES = [
   {
-    categorie: "Langages & Frontend",
+    categorie: "Web et Frameworks",
     competences: [
-      { nom: "TypeScript" },
-      { nom: "JavaScript (ES6+)" },
-      { nom: "PHP 8" },
-      { nom: "React / Next.js 14" },
-      { nom: "HTML5 / CSS3" },
-      { nom: "Tailwind CSS" },
-      { nom: "SQL" }
-    ],
-  },
-  {
-    categorie: "Backend & Données",
-    competences: [
-      { nom: "PostgreSQL (Supabase)" },
-      { nom: "Prisma ORM" },
-      { nom: "MySQL" },
-      { nom: "Clerk Auth" },
+      { nom: "JavaScript" },
+      { nom: "Next.js" },
+      { nom: "PHP" },
+      { nom: "Java" },
+      { nom: "POO" },
       { nom: "Architecture MVC" },
-      { nom: "API REST" },
-      { nom: "Row-Level Security (RLS)" }
+      { nom: "DAO" },
+      { nom: "Laravel" },
+      { nom: "Routage" }
     ],
   },
   {
-    categorie: "CMS & E-Commerce",
+    categorie: "Back-End & Données",
     competences: [
-      { nom: "WordPress (Avancé)" },
-      { nom: "PrestaShop" },
-      { nom: "DIVI & Elementor" },
-      { nom: "WP_Query / Hooks PHP" },
-      { nom: "HelloAsso API" },
-      { nom: "CookieYes RGPD" }
+      { nom: "SQL & SGBD" },
+      { nom: "MySQL" },
+      { nom: "PostgreSQL (Supabase)" },
+      { nom: "Merise / UML (MCD, MLD)" },
+      { nom: "Conception relationnelle" },
+      { nom: "Jointures & Requêtes avancées" }
     ],
   },
   {
-    categorie: "Outils & Déploiement",
+    categorie: "Programmation & Algorithmique",
     competences: [
-      { nom: "Git & GitHub" },
+      { nom: "Python (Extraction & Data)" },
+      { nom: "C (Gestion mémoire)" },
+      { nom: "Collections & Encapsulation" },
+      { nom: "TypeScript" },
+      { nom: "Tailwind CSS" }
+    ],
+  },
+  {
+    categorie: "Ingénierie IA & Automatisation",
+    competences: [
+      { nom: "Agents de code (Claude Code, Codex, Antigravity CLI)" },
+      { nom: "Workflows multi-agents & sous-agents" },
+      { nom: "Serveurs MCP" },
+      { nom: "Skills personnalisés & Commandes slash" },
+      { nom: "APIs LLM (Claude, Google, Infomaniak)" }
+    ],
+  },
+  {
+    categorie: "DevOps, Cloud & CMS",
+    competences: [
+      { nom: "Suite JetBrains (IntelliJ, PhpStorm, PyCharm)" },
+      { nom: "VS Code" },
+      { nom: "Git / GitHub" },
       { nom: "Vercel" },
-      { nom: "Infomaniak Cloud & DNS" },
-      { nom: "Turborepo" },
-      { nom: "Bash / Shell" },
-      { nom: "Recette QA" }
+      { nom: "Docker" },
+      { nom: "WordPress (DIVI, Elementor, Spectra)" },
+      { nom: "PrestaShop" },
+      { nom: "Déploiement FTP" }
+    ],
+  },
+  {
+    categorie: "SEO, RGPD & Méthodes",
+    competences: [
+      { nom: "SEO technique (Rank Math, Yoast SEO)" },
+      { nom: "Google Analytics" },
+      { nom: "CookieYes RGPD" },
+      { nom: "Linux Debian" },
+      { nom: "Windows Server" },
+      { nom: "VMware & Cisco" },
+      { nom: "ITIL v3" }
     ],
   },
 ];

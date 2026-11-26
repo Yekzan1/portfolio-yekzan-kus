@@ -9,19 +9,14 @@ import {
   EXPERIENCES,
   COMPETENCES,
   FORMATIONS,
-  RECOMMANDATIONS,
   Realisation,
 } from "@/lib/data";
 
 export default function Page() {
   const [projetModal, setProjetModal] = useState<Realisation | null>(null);
-  const [recommandationModal, setRecommandationModal] = useState<string | null>(null);
   const [menuMobile, setMenuMobile] = useState(false);
   const [imageAgrandie, setImageAgrandie] = useState<{ src: string; titre: string } | null>(null);
   const [codeCopie, setCodeCopie] = useState<string | null>(null);
-
-  const recommandationActive =
-    RECOMMANDATIONS.find((r) => r.id === recommandationModal) || RECOMMANDATIONS[0];
 
   const copierCode = (code: string, id: string) => {
     navigator.clipboard.writeText(code);
@@ -31,8 +26,8 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] text-neutral-900 selection:bg-neutral-900 selection:text-white">
-      {/* Barre de navigation discrète et sobre */}
-      <header className="sticky top-0 z-30 bg-[#fafafa]/90 backdrop-blur-md border-b border-neutral-200/80">
+      {/* Barre de navigation sobre et technique */}
+      <header className="sticky top-0 z-30 bg-[#fafafa]/90 backdrop-blur-md border-b border-neutral-200">
         <div className="conteneur flex items-center justify-between h-16">
           <a
             href="#"
@@ -46,7 +41,7 @@ export default function Page() {
               Projets
             </a>
             <a href="#parcours" className="hover:text-neutral-950 transition-colors">
-              Expérience
+              Expériences
             </a>
             <a href="#competences" className="hover:text-neutral-950 transition-colors">
               Compétences
@@ -93,7 +88,7 @@ export default function Page() {
               onClick={() => setMenuMobile(false)}
               className="block text-neutral-700 hover:text-neutral-950"
             >
-              Expérience
+              Expériences
             </a>
             <a
               href="#competences"
@@ -120,29 +115,50 @@ export default function Page() {
         )}
       </header>
 
-      <main className="conteneur py-14 sm:py-20 space-y-24">
-        {/* En-tête / Profil minimaliste & humain */}
-        <section className="flex flex-col-reverse md:flex-row items-start justify-between gap-8 md:gap-12 pb-14 border-b border-neutral-200">
-          <div className="space-y-5 max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-xs font-medium text-neutral-600 bg-neutral-100 px-3 py-1 rounded-full border border-neutral-200">
+      <main className="conteneur py-12 sm:py-16 space-y-20">
+        {/* En-tête / Profil conforme au CV */}
+        <section className="flex flex-col-reverse md:flex-row items-start justify-between gap-8 md:gap-12 pb-12 border-b border-neutral-200">
+          <div className="space-y-4 max-w-2xl">
+            <div className="inline-flex items-center gap-2 text-xs font-medium text-neutral-700 bg-neutral-100 px-3 py-1 rounded-full border border-neutral-200">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-              <span>{INFOS_PERSONNELLES.statutAlternance}</span>
+              <span>Septembre 2027 • Alternance 1 an (Licence 3 Informatique)</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-950">
-              Yekzan KUS
-            </h1>
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-950">
+                {INFOS_PERSONNELLES.nom}
+              </h1>
+              <p className="text-base text-neutral-600 mt-1 font-medium">
+                Développement web • Programmation • Automatisation
+              </p>
+            </div>
 
-            <p className="text-base sm:text-lg text-neutral-600 leading-relaxed font-normal">
+            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed font-normal">
               {INFOS_PERSONNELLES.bio}
             </p>
+
+            <div className="flex flex-wrap items-center gap-4 text-xs text-neutral-500 pt-1">
+              <span>📍 {INFOS_PERSONNELLES.localisation}</span>
+              <span>•</span>
+              <span>🚗 {INFOS_PERSONNELLES.permis}</span>
+              <span>•</span>
+              <span>🌐 {INFOS_PERSONNELLES.anglais}</span>
+              <span>•</span>
+              <span>🎻 {INFOS_PERSONNELLES.violon}</span>
+            </div>
 
             <div className="flex flex-wrap items-center gap-3 pt-2 text-sm">
               <a
                 href={`mailto:${INFOS_PERSONNELLES.email}`}
                 className="px-4 py-2 text-xs sm:text-sm font-medium bg-neutral-950 text-white rounded-md hover:bg-neutral-800 transition-colors"
               >
-                yekzankus@icloud.com
+                {INFOS_PERSONNELLES.email}
+              </a>
+              <a
+                href={`tel:${INFOS_PERSONNELLES.telephoneBrut}`}
+                className="px-4 py-2 text-xs sm:text-sm font-medium bg-white border border-neutral-200 text-neutral-800 rounded-md hover:bg-neutral-50 transition-colors"
+              >
+                {INFOS_PERSONNELLES.telephone}
               </a>
               <a
                 href={INFOS_PERSONNELLES.github}
@@ -177,26 +193,26 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Projets récents en agence */}
+        {/* Section 1 : Projets & Réalisations réelles */}
         <section id="projets" className="space-y-8">
           <div>
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-950">
-              Projets récents en entreprise
+              Réalisations en entreprise
             </h2>
             <p className="text-sm text-neutral-500 mt-1">
-              Réalisations en stage chez Nexus Flow, Unimage et Rougevert Communication.
+              Plateformes web, SaaS multi-tenant et outils livrés lors de mes stages professionnels.
             </p>
           </div>
 
-          <div className="space-y-12">
+          <div className="space-y-10">
             {REALISATIONS.map((projet) => (
               <article
                 key={projet.id}
-                className="bg-white border border-neutral-200/90 rounded-xl overflow-hidden hover:border-neutral-300 transition-colors"
+                className="bg-white border border-neutral-200 rounded-xl overflow-hidden hover:border-neutral-300 transition-colors shadow-xs"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-                  {/* Aperçu visuel réel */}
-                  <div className="lg:col-span-5 relative aspect-[16/10] lg:aspect-auto bg-neutral-100 border-b lg:border-b-0 lg:border-r border-neutral-100 overflow-hidden">
+                  {/* Capture d'écran du site */}
+                  <div className="lg:col-span-5 relative aspect-[16/10] lg:aspect-auto bg-neutral-100 border-b lg:border-b-0 lg:border-r border-neutral-200 overflow-hidden">
                     <Image
                       src={projet.image}
                       alt={projet.titre}
@@ -206,12 +222,12 @@ export default function Page() {
                     />
                   </div>
 
-                  {/* Détails du projet */}
-                  <div className="lg:col-span-7 p-6 sm:p-7 flex flex-col justify-between gap-6">
-                    <div className="space-y-3.5">
-                      <div className="flex items-center justify-between text-xs text-neutral-500">
-                        <span className="font-medium text-neutral-900">{projet.employeur}</span>
-                        <span>{projet.annee}</span>
+                  {/* Fiche d'intervention technique */}
+                  <div className="lg:col-span-7 p-6 sm:p-7 flex flex-col justify-between gap-5">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs text-neutral-500 font-mono">
+                        <span className="font-semibold text-neutral-900">{projet.employeur}</span>
+                        <span>{projet.periode}</span>
                       </div>
 
                       <h3 className="text-lg sm:text-xl font-semibold text-neutral-950">
@@ -241,7 +257,7 @@ export default function Page() {
                         ))}
                       </div>
 
-                      <div className="flex flex-wrap items-center gap-3 pt-1">
+                      <div className="flex flex-wrap items-center gap-2.5 pt-1">
                         <button
                           type="button"
                           onClick={() => setProjetModal(projet)}
@@ -254,9 +270,9 @@ export default function Page() {
                           href={projet.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3.5 py-1.5 text-xs font-medium bg-white border border-neutral-200 text-neutral-700 rounded-md hover:bg-neutral-50 transition-colors"
+                          className="px-3 py-1.5 text-xs font-medium bg-white border border-neutral-200 text-neutral-700 rounded-md hover:bg-neutral-50 transition-colors"
                         >
-                          {projet.libelleLien || "Lien externe"} ↗
+                          {projet.libelleLien || "Lien principal"} ↗
                         </a>
 
                         {projet.urlSecours && (
@@ -264,9 +280,20 @@ export default function Page() {
                             href={projet.urlSecours}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-3.5 py-1.5 text-xs font-medium bg-white border border-neutral-200 text-neutral-700 rounded-md hover:bg-neutral-50 transition-colors"
+                            className="px-3 py-1.5 text-xs font-medium bg-white border border-neutral-200 text-neutral-700 rounded-md hover:bg-neutral-50 transition-colors"
                           >
                             {projet.libelleSecours || "Site 2"} ↗
+                          </a>
+                        )}
+
+                        {projet.urlTertiaire && (
+                          <a
+                            href={projet.urlTertiaire}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-3 py-1.5 text-xs font-medium bg-white border border-neutral-200 text-neutral-700 rounded-md hover:bg-neutral-50 transition-colors"
+                          >
+                            {projet.libelleTertiaire || "Site 3"} ↗
                           </a>
                         )}
                       </div>
@@ -278,14 +305,14 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Projets applicatifs déployés */}
+        {/* Section 2 : Projets applicatifs déployés */}
         <section className="space-y-6">
           <div>
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-950">
               Projets applicatifs
             </h2>
             <p className="text-sm text-neutral-500 mt-1">
-              Applications web personnelles et projets d&apos;étude.
+              Applications web personnelles et projets académiques développés en autonomie.
             </p>
           </div>
 
@@ -296,9 +323,7 @@ export default function Page() {
                 className="bg-white border border-neutral-200 rounded-xl p-5 flex flex-col justify-between gap-4"
               >
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-neutral-500 font-mono">{app.type}</span>
-                  </div>
+                  <span className="text-xs text-neutral-500 font-mono">{app.type}</span>
                   <h3 className="font-semibold text-neutral-950 text-base">{app.titre}</h3>
                   <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                     {app.description}
@@ -333,7 +358,7 @@ export default function Page() {
                         rel="noopener noreferrer"
                         className="text-neutral-500 hover:text-neutral-950"
                       >
-                        GitHub
+                        Code GitHub
                       </a>
                     )}
                   </div>
@@ -343,50 +368,14 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Recommandations & Attestations */}
-        <section className="space-y-6">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-950">
-              Attestations &amp; Recommandations de stage
-            </h2>
-            <p className="text-sm text-neutral-500 mt-1">
-              Retours écrits et signés par les tuteurs et dirigeants d&apos;agence.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {RECOMMANDATIONS.map((rec) => (
-              <button
-                key={rec.id}
-                type="button"
-                onClick={() => setRecommandationModal(rec.id)}
-                className="text-left bg-white border border-neutral-200 rounded-xl p-5 hover:border-neutral-400 transition-colors flex flex-col justify-between gap-3 cursor-pointer"
-              >
-                <div className="space-y-2">
-                  <div>
-                    <p className="text-sm font-semibold text-neutral-950">{rec.entreprise}</p>
-                    <p className="text-xs text-neutral-500">{rec.auteur}</p>
-                  </div>
-                  <p className="text-xs text-neutral-600 italic line-clamp-3 leading-relaxed">
-                    « {rec.citation} »
-                  </p>
-                </div>
-                <span className="text-xs font-medium text-neutral-950 underline underline-offset-4">
-                  Consulter la lettre ↗
-                </span>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* Expérience professionnelle */}
+        {/* Section 3 : Parcours professionnel détaillé */}
         <section id="parcours" className="space-y-6">
           <div>
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-950">
-              Parcours professionnel
+              Expérience professionnelle
             </h2>
             <p className="text-sm text-neutral-500 mt-1">
-              Stages en agence web et développement logiciel.
+              Missions de développement en agence et administration de serveurs.
             </p>
           </div>
 
@@ -397,19 +386,21 @@ export default function Page() {
                 className="bg-white border border-neutral-200 rounded-xl p-5 sm:p-6 space-y-3"
               >
                 <div className="flex flex-wrap items-center justify-between gap-1 text-xs text-neutral-500">
-                  <span className="font-semibold text-neutral-950 text-sm">{exp.role}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-neutral-950 text-sm">{exp.role}</span>
+                    <span>•</span>
+                    <span className="text-neutral-700 font-medium">{exp.entreprise}</span>
+                  </div>
                   <span className="font-mono">{exp.periode}</span>
                 </div>
 
-                <p className="text-xs font-medium text-neutral-700">
-                  {exp.entreprise} — {exp.lieu}
-                </p>
+                <p className="text-xs text-neutral-500">{exp.lieu}</p>
 
                 <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                   {exp.description}
                 </p>
 
-                <ul className="space-y-1.5 text-xs text-neutral-600 pt-1">
+                <ul className="space-y-1.5 text-xs text-neutral-700 pt-1">
                   {exp.missions.map((m, mIdx) => (
                     <li key={mIdx} className="flex items-start gap-2">
                       <span className="text-neutral-400">•</span>
@@ -431,9 +422,24 @@ export default function Page() {
               </div>
             ))}
           </div>
+
+          {/* Mention discrète et professionnelle des lettres de recommandation fournies avec le dossier */}
+          <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-5 text-xs sm:text-sm text-neutral-600 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="space-y-0.5">
+              <p className="font-semibold text-neutral-950">
+                Attestations &amp; Lettres de recommandation de stage
+              </p>
+              <p className="text-neutral-500">
+                Signées par les tuteurs et dirigeants d&apos;agence (Nexus Flow, Unimage Communication, Rougevert Communication, Martingale).
+              </p>
+            </div>
+            <span className="shrink-0 text-xs text-neutral-700 font-medium bg-white px-3 py-1.5 rounded-md border border-neutral-200">
+              Jointes à mon dossier de candidature
+            </span>
+          </div>
         </section>
 
-        {/* Compétences & Formations */}
+        {/* Section 4 : Compétences & Formation */}
         <section id="competences" className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-5">
             <div>
@@ -441,7 +447,7 @@ export default function Page() {
                 Compétences techniques
               </h2>
               <p className="text-sm text-neutral-500 mt-1">
-                Technologies pratiquées en production et en projet.
+                Conformes au référentiel de compétences de mon CV.
               </p>
             </div>
 
@@ -469,10 +475,10 @@ export default function Page() {
           <div className="space-y-5">
             <div>
               <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-950">
-                Formations
+                Formation
               </h2>
               <p className="text-sm text-neutral-500 mt-1">
-                Cursus académique et diplômes.
+                Cursus supérieur en informatique de gestion et développement logiciel.
               </p>
             </div>
 
@@ -490,17 +496,26 @@ export default function Page() {
                 </div>
               ))}
             </div>
+
+            <div className="bg-white border border-neutral-200 rounded-xl p-4 space-y-1.5">
+              <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider font-mono">
+                Centres d&apos;intérêt &amp; Pratique artistique
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-700">
+                <strong>Violon</strong> — Pratique instrumentale au Conservatoire de Villefranche-sur-Saône pendant 10 ans. Rigueur, écoute et persévérance.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Contact direct */}
+        {/* Section 5 : Contact direct */}
         <section id="contact" className="bg-white border border-neutral-200 rounded-2xl p-7 sm:p-9 space-y-5">
           <div>
             <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-950">
-              Coordonnées
+              Coordonnées &amp; Candidature
             </h2>
             <p className="text-sm text-neutral-600 mt-1">
-              À la recherche d&apos;une alternance en Licence 3 Informatique pour septembre 2027 (rythme 1 an).
+              À la recherche d&apos;une alternance en Développement web / Programmation / Automatisation pour septembre 2027 (rythme 1 an, Licence 3 Informatique).
             </p>
           </div>
 
@@ -535,7 +550,7 @@ export default function Page() {
       {/* Pied de page sobre */}
       <footer className="border-t border-neutral-200 py-8 text-xs text-neutral-500 bg-white">
         <div className="conteneur flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} {INFOS_PERSONNELLES.nom}. Tous droits réservés.</p>
+          <p>© {new Date().getFullYear()} {INFOS_PERSONNELLES.nom}.</p>
           <div className="flex items-center gap-4">
             <a href={INFOS_PERSONNELLES.github} target="_blank" rel="noopener noreferrer" className="hover:text-neutral-950 transition-colors">
               GitHub
@@ -552,7 +567,7 @@ export default function Page() {
         </div>
       </footer>
 
-      {/* Modal d'Étude de Cas Pro (Projet) */}
+      {/* Modal d'Étude de Cas Technique (Projet) */}
       {projetModal && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-neutral-900/60 backdrop-blur-xs"
@@ -570,7 +585,7 @@ export default function Page() {
                 <div className="flex items-center gap-2 text-xs text-neutral-500 font-mono">
                   <span>{projetModal.employeur}</span>
                   <span>•</span>
-                  <span>{projetModal.annee}</span>
+                  <span>{projetModal.periode}</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-semibold text-neutral-950">
                   {projetModal.titre}
@@ -590,7 +605,7 @@ export default function Page() {
               </button>
             </div>
 
-            {/* Note d'accès éventuelle */}
+            {/* Note d'accès */}
             {projetModal.noteAcces && (
               <div className="p-3.5 rounded-md bg-neutral-50 border border-neutral-200 text-xs text-neutral-700 leading-relaxed">
                 {projetModal.noteAcces}
@@ -607,7 +622,7 @@ export default function Page() {
               />
             </div>
 
-            {/* Ce que j'ai fait concrètement */}
+            {/* Actions techniques concrètes */}
             <div className="space-y-3">
               <h4 className="text-sm font-semibold text-neutral-950">
                 Interventions techniques réalisées
@@ -626,7 +641,7 @@ export default function Page() {
             {projetModal.galerie && projetModal.galerie.length > 0 && (
               <div className="space-y-3 pt-2">
                 <h4 className="text-sm font-semibold text-neutral-950">
-                  Captures d&apos;écran du projet
+                  Captures d&apos;écran réelles du projet
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {projetModal.galerie.map((item, idx) => (
@@ -698,14 +713,27 @@ export default function Page() {
                 ))}
               </div>
 
-              <a
-                href={projetModal.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 text-xs font-medium bg-neutral-950 text-white rounded-md hover:bg-neutral-800 transition-colors"
-              >
-                {projetModal.libelleLien || "Accéder au projet"} ↗
-              </a>
+              <div className="flex items-center gap-2">
+                <a
+                  href={projetModal.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 text-xs font-medium bg-neutral-950 text-white rounded-md hover:bg-neutral-800 transition-colors"
+                >
+                  {projetModal.libelleLien || "Accéder au projet"} ↗
+                </a>
+
+                {projetModal.urlSecours && (
+                  <a
+                    href={projetModal.urlSecours}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-2 text-xs font-medium bg-white border border-neutral-200 text-neutral-700 rounded-md hover:bg-neutral-50 transition-colors"
+                  >
+                    {projetModal.libelleSecours || "Site 2"} ↗
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -738,74 +766,6 @@ export default function Page() {
                 fill
                 className="object-contain"
               />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Modal Recommandation / Lettre signée */}
-      {recommandationModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/60 backdrop-blur-xs"
-          onClick={() => setRecommandationModal(null)}
-          role="dialog"
-          aria-modal="true"
-        >
-          <div
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-xl p-6 sm:p-7 space-y-5 shadow-xl border border-neutral-200"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs text-neutral-500 font-mono">
-                  Attestation officielle • {recommandationActive.annee}
-                </p>
-                <h3 className="text-lg sm:text-xl font-semibold text-neutral-950 mt-0.5">
-                  {recommandationActive.entreprise}
-                </h3>
-                <p className="text-xs text-neutral-600">
-                  {recommandationActive.auteur} — {recommandationActive.poste}
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setRecommandationModal(null)}
-                className="w-8 h-8 rounded-md bg-neutral-100 hover:bg-neutral-200 text-neutral-700 flex items-center justify-center text-xs cursor-pointer"
-                aria-label="Fermer"
-              >
-                ✕
-              </button>
-            </div>
-
-            <blockquote className="p-3.5 bg-neutral-50 border-l-2 border-neutral-950 text-xs sm:text-sm text-neutral-700 italic">
-              « {recommandationActive.citation} »
-            </blockquote>
-
-            <div className="relative aspect-[4/3] w-full max-h-[55vh] rounded-lg overflow-hidden border border-neutral-200 bg-neutral-50">
-              <Image
-                src={recommandationActive.image}
-                alt={`Lettre de recommandation de ${recommandationActive.entreprise}`}
-                fill
-                className="object-contain p-2"
-              />
-            </div>
-
-            <div className="flex flex-wrap gap-2 pt-2 border-t border-neutral-100">
-              {RECOMMANDATIONS.map((r) => (
-                <button
-                  key={r.id}
-                  type="button"
-                  onClick={() => setRecommandationModal(r.id)}
-                  className={`px-3 py-1 text-xs rounded-md transition-colors cursor-pointer ${
-                    r.id === recommandationModal
-                      ? "bg-neutral-950 text-white font-medium"
-                      : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200"
-                  }`}
-                >
-                  {r.entreprise}
-                </button>
-              ))}
             </div>
           </div>
         </div>
