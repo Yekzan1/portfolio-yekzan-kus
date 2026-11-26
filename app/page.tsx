@@ -17,13 +17,14 @@ export default function Page() {
   const [projetModal, setProjetModal] = useState<Realisation | null>(null);
   const [recommandationModal, setRecommandationModal] = useState<string | null>(null);
   const [menuMobile, setMenuMobile] = useState(false);
+  const [imageAgrandie, setImageAgrandie] = useState<{ src: string; titre: string } | null>(null);
 
   const recommandationActive =
     RECOMMANDATIONS.find((r) => r.id === recommandationModal) || RECOMMANDATIONS[0];
 
   return (
     <div className="min-h-screen bg-white text-gray-900 selection:bg-gray-200 antialiased">
-      {/* Navigation responsive avec menu mobile */}
+      {/* Navigation responsive */}
       <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-200">
         <div className="conteneur flex items-center justify-between h-18">
           <a
@@ -33,7 +34,6 @@ export default function Page() {
             {INFOS_PERSONNELLES.nom}
           </a>
 
-          {/* Navigation bureau */}
           <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-gray-600">
             <a href="#projets" className="hover:text-gray-950 transition-colors">
               Projets
@@ -56,7 +56,6 @@ export default function Page() {
             </a>
           </nav>
 
-          {/* Bouton burger mobile */}
           <button
             type="button"
             onClick={() => setMenuMobile(!menuMobile)}
@@ -73,7 +72,6 @@ export default function Page() {
           </button>
         </div>
 
-        {/* Menu déroulant mobile */}
         {menuMobile && (
           <div className="md:hidden border-t border-gray-100 bg-white px-5 py-4 space-y-3">
             <a
@@ -116,7 +114,7 @@ export default function Page() {
       </header>
 
       <main className="conteneur py-12 sm:py-16 md:py-20 space-y-20 md:space-y-28">
-        {/* Présentation / Hero visible et lisible */}
+        {/* Présentation / Hero */}
         <section className="flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-8 md:gap-12 pb-14 md:pb-20 border-b border-gray-200">
           <div className="space-y-6 max-w-2xl text-center md:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
@@ -131,9 +129,8 @@ export default function Page() {
             <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
               Étudiant en 2<sup>e</sup> année de BTS SIO (option SLAM) à la Business School by CSND
               à Limas, et futur étudiant en Licence 3 Informatique pour septembre 2027.
-              J&apos;ai réalisé plusieurs missions en agence web (création de sites complets WordPress,
-              PrestaShop, PHP, JavaScript) et je conçois des applications avec Next.js, React,
-              TypeScript et PostgreSQL.
+              J&apos;ai travaillé en agence web sur la création de sites complets (WordPress, PrestaShop, PHP, JavaScript)
+              et sur la fiabilisation d&apos;un SaaS en production (Next.js 14, TypeScript, Prisma, PostgreSQL).
             </p>
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
@@ -183,7 +180,8 @@ export default function Page() {
               Réalisations en entreprise
             </h2>
             <p className="text-base text-gray-600 mt-2">
-              Sites web et applications développés en autonomie lors de mes stages en agence web.
+              Sites web, applications SaaS et outils développés en autonomie lors de mes stages.
+              Cliquez sur <strong className="text-gray-900 font-semibold">« Détails, code &amp; captures ↗ »</strong> pour inspecter l&apos;architecture, les écrans réels et les extraits de code source.
             </p>
           </div>
 
@@ -201,6 +199,11 @@ export default function Page() {
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover object-top hover:scale-[1.02] transition-transform duration-300"
                   />
+                  {projet.galerie && (
+                    <div className="absolute bottom-3 right-3 bg-black/75 text-white text-xs px-2.5 py-1 rounded-md backdrop-blur-xs font-medium">
+                      📷 {projet.galerie.length} captures réelles
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-6 sm:p-7 flex flex-col flex-grow justify-between gap-6">
@@ -222,6 +225,12 @@ export default function Page() {
                       <strong className="text-gray-950 font-semibold">Ce que j&apos;ai fait : </strong>
                       {projet.solution}
                     </div>
+
+                    {projet.noteAcces && (
+                      <p className="text-xs text-amber-800 bg-amber-50/70 border border-amber-200/70 p-2.5 rounded-lg">
+                        ℹ️ {projet.noteAcces}
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-4 pt-4 border-t border-gray-100">
@@ -240,21 +249,20 @@ export default function Page() {
                       <button
                         type="button"
                         onClick={() => setProjetModal(projet)}
-                        className="text-xs sm:text-sm font-semibold text-gray-700 hover:text-gray-950 underline underline-offset-4 cursor-pointer"
+                        className="text-xs sm:text-sm font-bold text-indigo-700 hover:text-indigo-900 underline underline-offset-4 cursor-pointer"
                       >
-                        Détails &amp; résultats ↗
+                        Détails, code &amp; captures ↗
                       </button>
 
                       <div className="flex items-center gap-2">
-                        <a
-                          href={projet.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-4 py-2 text-xs sm:text-sm font-semibold bg-gray-950 text-white rounded-lg hover:bg-gray-800 transition-colors inline-flex items-center gap-1.5 shadow-xs"
+                        <button
+                          type="button"
+                          onClick={() => setProjetModal(projet)}
+                          className="px-4 py-2 text-xs sm:text-sm font-semibold bg-gray-950 text-white rounded-lg hover:bg-gray-800 transition-colors inline-flex items-center gap-1.5 shadow-xs cursor-pointer"
                         >
-                          <span>{projet.libelleLien || "Visiter le site"}</span>
+                          <span>{projet.libelleLien || "Consulter le projet"}</span>
                           <span aria-hidden="true">↗</span>
-                        </a>
+                        </button>
 
                         {projet.urlSecours && (
                           <a
@@ -527,37 +535,54 @@ export default function Page() {
         </div>
       </footer>
 
-      {/* Modale d'Étude de Cas */}
+      {/* Modale d'Étude de Cas Détaillée avec Galerie & Code */}
       {projetModal && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/70 backdrop-blur-xs"
           onClick={() => setProjetModal(null)}
           role="dialog"
           aria-modal="true"
         >
           <div
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl p-6 sm:p-8 space-y-5 shadow-2xl border border-gray-200"
+            className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto bg-white rounded-2xl p-6 sm:p-10 space-y-8 shadow-2xl border border-gray-200"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Bouton fermer */}
             <button
               type="button"
               onClick={() => setProjetModal(null)}
-              className="absolute top-4 right-4 w-9 h-9 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center text-base cursor-pointer"
+              className="sticky top-0 float-right -mt-2 -mr-2 z-10 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center text-base cursor-pointer shadow-sm"
               aria-label="Fermer"
             >
               ✕
             </button>
 
-            <div>
-              <p className="text-xs sm:text-sm text-gray-500 font-semibold">
-                {projetModal.employeur} • {projetModal.annee}
-              </p>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-950 mt-1">
+            {/* En-tête */}
+            <div className="space-y-2">
+              <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-semibold text-gray-500">
+                <span className="text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  {projetModal.badge}
+                </span>
+                <span>•</span>
+                <span>{projetModal.employeur}</span>
+                <span>•</span>
+                <span>{projetModal.annee}</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-950 leading-tight">
                 {projetModal.titre}
               </h3>
             </div>
 
-            <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-gray-200 bg-gray-100">
+            {/* Note d'accès bien visible */}
+            {projetModal.noteAcces && (
+              <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-sm leading-relaxed">
+                <strong className="font-semibold">Statut d&apos;accès en ligne : </strong>
+                {projetModal.noteAcces}
+              </div>
+            )}
+
+            {/* Image principale */}
+            <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-gray-200 bg-gray-100 shadow-xs">
               <Image
                 src={projetModal.image}
                 alt={projetModal.titre}
@@ -566,50 +591,179 @@ export default function Page() {
               />
             </div>
 
-            <div className="space-y-3.5 text-sm sm:text-base text-gray-700 leading-relaxed">
-              <p>
-                <strong className="text-gray-950">Contexte : </strong>
-                {projetModal.contexte}
-              </p>
-              <p>
-                <strong className="text-gray-950">Défi technique : </strong>
-                {projetModal.probleme}
-              </p>
-              <p>
-                <strong className="text-gray-950">Travail réalisé : </strong>
-                {projetModal.solution}
-              </p>
+            {/* Grille Contexte / Problème / Solution */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-6 sm:p-7 rounded-2xl border border-gray-200">
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-xs uppercase font-bold tracking-wider text-gray-500 mb-1">
+                    1. Contexte du stage
+                  </h4>
+                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                    {projetModal.contexte}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-xs uppercase font-bold tracking-wider text-red-600 mb-1">
+                    2. Défi technique &amp; Problème à résoudre
+                  </h4>
+                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                    {projetModal.probleme}
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-xs uppercase font-bold tracking-wider text-emerald-700 mb-1">
+                    3. Travail réalisé &amp; Architecture
+                  </h4>
+                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                    {projetModal.solution}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-xs uppercase font-bold tracking-wider text-gray-500 mb-1">
+                    4. Résultats mesurés &amp; Livrables
+                  </h4>
+                  <ul className="space-y-1.5 text-xs sm:text-sm text-gray-700">
+                    {projetModal.resultats.map((res, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="text-emerald-600 font-bold">✓</span>
+                        <span>{res}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <p className="text-sm font-bold text-gray-950 mb-2">Résultats et livrables :</p>
-              <ul className="space-y-2 text-xs sm:text-sm text-gray-600">
-                {projetModal.resultats.map((res, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5">
-                    <span className="text-emerald-600 font-bold">✓</span>
-                    <span>{res}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* Galerie d'écrans réels */}
+            {projetModal.galerie && projetModal.galerie.length > 0 && (
+              <div className="space-y-4 pt-2">
+                <div>
+                  <h4 className="text-lg font-bold text-gray-950">
+                    Captures d&apos;écran réelles du projet
+                  </h4>
+                  <p className="text-xs sm:text-sm text-gray-500">
+                    Extraites du travail de stage et du rapport officiel. Cliquez sur une image pour l&apos;agrandir.
+                  </p>
+                </div>
 
-            <div className="pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {projetModal.galerie.map((item, idx) => (
+                    <div
+                      key={idx}
+                      onClick={() => setImageAgrandie({ src: item.src, titre: item.titre })}
+                      className="group border border-gray-200 rounded-xl overflow-hidden hover:border-gray-400 transition-all bg-white cursor-pointer shadow-xs"
+                    >
+                      <div className="relative aspect-[16/10] w-full bg-gray-100 overflow-hidden">
+                        <Image
+                          src={item.src}
+                          alt={item.titre}
+                          fill
+                          className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <div className="p-3.5 space-y-1 bg-white">
+                        <p className="text-xs sm:text-sm font-bold text-gray-950 group-hover:text-indigo-600 transition-colors">
+                          {item.titre}
+                        </p>
+                        <p className="text-xs text-gray-600 leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Extraits de code source annotés */}
+            {projetModal.extraitsCode && projetModal.extraitsCode.length > 0 && (
+              <div className="space-y-4 pt-2">
+                <div>
+                  <h4 className="text-lg font-bold text-gray-950">
+                    Code source développé &amp; annoté
+                  </h4>
+                  <p className="text-xs sm:text-sm text-gray-500">
+                    Implémentation réelle (TypeScript / PHP) réalisée durant le stage.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  {projetModal.extraitsCode.map((extrait, idx) => (
+                    <div key={idx} className="border border-gray-200 rounded-xl overflow-hidden shadow-xs">
+                      <div className="bg-gray-100 px-4 py-2 border-b border-gray-200 flex items-center justify-between text-xs font-mono text-gray-700">
+                        <span className="font-semibold text-gray-900">{extrait.fichier}</span>
+                        <span className="uppercase text-[0.65rem] bg-gray-200 px-2 py-0.5 rounded font-bold">{extrait.langage}</span>
+                      </div>
+                      <p className="text-xs text-gray-600 px-4 pt-3 bg-gray-900 text-gray-300">
+                        {extrait.description}
+                      </p>
+                      <pre className="p-4 bg-gray-900 text-gray-100 text-xs font-mono overflow-x-auto leading-relaxed">
+                        <code>{extrait.code}</code>
+                      </pre>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Barre d'actions en bas de modale */}
+            <div className="pt-6 border-t border-gray-200 flex flex-wrap items-center justify-between gap-4">
               <div className="flex flex-wrap gap-1.5">
                 {projetModal.stack.map((t) => (
-                  <span key={t} className="px-2.5 py-1 text-xs bg-gray-100 rounded-md text-gray-800 font-mono">
+                  <span key={t} className="px-2.5 py-1 text-xs bg-gray-100 rounded-md text-gray-800 font-mono font-medium">
                     {t}
                   </span>
                 ))}
               </div>
 
-              <a
-                href={projetModal.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 text-sm font-semibold bg-gray-950 text-white rounded-lg hover:bg-gray-800 transition-colors"
+              <div className="flex items-center gap-3">
+                <a
+                  href={projetModal.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-2.5 text-sm font-semibold bg-gray-950 text-white rounded-lg hover:bg-gray-800 transition-colors inline-flex items-center gap-2 shadow-xs"
+                >
+                  <span>{projetModal.libelleLien || "Consulter le site en direct"}</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modale d'agrandissement d'image de capture */}
+      {imageAgrandie && (
+        <div
+          className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
+          onClick={() => setImageAgrandie(null)}
+        >
+          <div
+            className="relative max-w-5xl w-full bg-white rounded-2xl p-4 sm:p-6 space-y-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between">
+              <p className="font-bold text-gray-950 text-base">{imageAgrandie.titre}</p>
+              <button
+                type="button"
+                onClick={() => setImageAgrandie(null)}
+                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 flex items-center justify-center text-sm cursor-pointer"
               >
-                {projetModal.libelleLien || "Consulter le site"} ↗
-              </a>
+                ✕
+              </button>
+            </div>
+            <div className="relative aspect-[16/10] w-full max-h-[75vh] rounded-xl overflow-hidden bg-gray-100 border border-gray-200">
+              <Image
+                src={imageAgrandie.src}
+                alt={imageAgrandie.titre}
+                fill
+                className="object-contain"
+              />
             </div>
           </div>
         </div>
