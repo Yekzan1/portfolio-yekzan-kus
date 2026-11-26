@@ -91,185 +91,60 @@ export const INFOS_PERSONNELLES = {
 
 export const REALISATIONS: Realisation[] = [
   {
-    id: "crm-ia-nexusflow",
-    titre: "Refonte & Fiabilisation du SaaS « Nexus Flow OS » (HF Concept)",
-    badge: "SaaS Multi-Tenant • Recette QA & Débogage",
-    categorie: "ia",
-    hote: "os.agence-nexusflow.com",
-    url: "https://accounts.agence-nexusflow.com/sign-in?redirect_url=https%3A%2F%2Fhf.agence-nexusflow.com%2Fdashboard",
-    libelleLien: "Accéder au portail SaaS",
-    employeur: "Nexus Flow",
-    annee: "2026",
-    image: "/realisations/saas-dashboard.png",
-    noteAcces: "Note d'accès : ce lien correspond à la landing page officielle de connexion. Le sous-domaine direct étant en renouvellement de certificat SSL, l'intégralité des écrans réels (Dashboard, Kanban, RAG IA, Code source) est documentée en détail ci-dessous.",
-    contexte: "Stage de première année de BTS SIO SLAM chez Nexus Flow. L'agence édite Nexus Flow OS, une application SaaS multi-tenant qui centralise les opérations commerciales d'entreprises partenaires, notamment le showroom HF Concept.",
-    probleme: "Fiabiliser le SaaS en production : résoudre un bug critique lors de la création d'organisation (comptes orphelins dans Clerk Auth sans rollback en base), exécuter un cahier de recette complet (QA), sécuriser le middleware multi-tenant et auditer la conformité RGPD sur les relances Inngest.",
-    solution: "Refonte de l'action serveur d'inscription avec validation Zod et rollback atomique (suppression Clerk + cascade PostgreSQL si échec). Exécution du cahier de recette fonctionnelle (authentification Clerk, isolation RLS, pipeline Kanban, lien /unsubscribe). Vérification du middleware de routage par sous-domaine et assistance au déploiement VPS Infomaniak sous PM2.",
-    stack: ["Next.js 14 (App Router)", "TypeScript", "Prisma ORM", "PostgreSQL (Supabase)", "Clerk Auth", "Inngest Workflows", "Tailwind CSS", "Turborepo"],
-    resultats: [
-      "Bug bloquant A02 résolu : rollback atomique garantissant zéro compte orphelin",
-      "Cahier de recette QA complet exécuté (A01, B01, C01, D01 validés)",
-      "Sécurité PostgreSQL Row-Level Security (RLS) vérifiée entre chaque client",
-      "Pipeline Kanban commercial et gestion des relances Inngest conformes RGPD"
-    ],
-    miseEnAvant: true,
-    galerie: [
-      {
-        src: "/realisations/saas-dashboard.png",
-        titre: "Tableau de Bord Principal (Dashboard)",
-        description: "Vue d'ensemble de l'activité du workspace client : métriques de conversion, contacts actifs, chiffre d'affaires et raccourcis d'actions rapides."
-      },
-      {
-        src: "/realisations/saas-kanban.png",
-        titre: "Pipeline Commercial en Vue Kanban",
-        description: "Gestion et déplacement en temps réel des opportunités commerciales par statut de vente (Prospect, Contacté, Rendez-vous, Devis, Gagné)."
-      },
-      {
-        src: "/realisations/saas-ia-knowledge.png",
-        titre: "Base de Connaissances IA & RAG",
-        description: "Interface d'ingestion documentaire permettant d'alimenter la base vectorielle pour que l'assistant IA réponde précisément à partir des catalogues et tarifs."
-      },
-      {
-        src: "/realisations/saas-branding.png",
-        titre: "Personnalisation Multi-Tenant (White-Label)",
-        description: "Paramétrage du branding par entreprise : logo, couleurs du thème, sous-domaine dédié et mentions légales personnalisées."
-      },
-      {
-        src: "/realisations/saas-signup-code.png",
-        titre: "Audit de Code & Analyse IDE",
-        description: "Débogage sous VS Code avec analyse statique TypeScript, schémas Zod et tests de non-régression sur le serveur de dev."
-      }
-    ],
-    extraitsCode: [
-      {
-        fichier: "apps/web/src/app/signup/actions.ts",
-        langage: "typescript",
-        description: "Action serveur avec schéma Zod strict et Rollback Atomique (suppression Clerk + annulation base si erreur) :",
-        code: `'use server'
-
-import { z } from 'zod'
-import { clerkClient } from '@clerk/nextjs/server'
-import { prisma } from '@hf/db'
-
-// Schéma de validation Zod strict
-const provisionSchema = z.object({
-  workspaceName: z.string().trim().min(2).max(80),
-  slug: z.string().trim().min(2).max(50).regex(/^[a-z0-9-]+$/, 'Minuscules et tirets uniquement'),
-  email: z.string().trim().toLowerCase().email(),
-  password: z.string().min(8).max(120),
-  firstName: z.string().trim().min(1),
-  lastName: z.string().trim().min(1),
-})
-
-export async function provisionWorkspaceAction(formData: FormData) {
-  const validated = provisionSchema.parse(Object.fromEntries(formData))
-  let clerkUserId: string | null = null
-  let createdOrgId: string | null = null
-
-  try {
-    // 1. Création du compte utilisateur dans Clerk Auth
-    const clerkUser = await clerkClient.users.createUser({
-      emailAddress: [validated.email],
-      password: validated.password,
-      firstName: validated.firstName,
-      lastName: validated.lastName,
-    })
-    clerkUserId = clerkUser.id
-
-    // 2. Création de l'Organisation dans PostgreSQL (Prisma)
-    const org = await prisma.organization.create({
-      data: {
-        name: validated.workspaceName,
-        slug: validated.slug,
-        plan: 'TRIAL',
-      }
-    })
-    createdOrgId = org.id
-
-    // 3. Liaison de l'utilisateur avec le rôle ADMIN
-    await prisma.user.create({
-      data: {
-        clerkId: clerkUserId,
-        email: validated.email,
-        role: 'ADMIN',
-        organizationId: org.id,
-      }
-    })
-
-    return { success: true, redirectUrl: \`https://\${org.slug}.agence-nexusflow.com\` }
-
-  } catch (error) {
-    // ROLLBACK ATOMIQUE : Nettoyage immédiat pour éviter tout compte orphelin
-    if (clerkUserId) await clerkClient.users.deleteUser(clerkUserId).catch(() => null)
-    if (createdOrgId) await prisma.organization.delete({ where: { id: createdOrgId } }).catch(() => null)
-    throw new Error("Échec du provisionnement du workspace. Annulation complète effectuée.")
-  }
-}`
-      }
-    ]
-  },
-  {
     id: "afterish",
-    titre: "Plateforme Web & Portail Communautaire « After'ish »",
+    titre: "Plateforme & Portail du Club After'ish",
     badge: "Production • Livré en 2 semaines",
     categorie: "fullstack",
     hote: "afterish.agence-nexusflow.com",
     url: "https://afterish.agence-nexusflow.com",
+    libelleLien: "Ouvrir afterish.agence-nexusflow.com",
     employeur: "Nexus Flow",
     annee: "2026",
-    image: "/realisations/afterish-home.png",
-    contexte: "Stage chez Nexus Flow. Refonte complète du site web du club d'affaires After'ish présidé par le dirigeant de l'agence, regroupant entrepreneurs et jeunes actifs autour d'événements et de rencontres professionnelles.",
-    probleme: "Livrer en autonomie en 2 semaines un portail complet : affichage dynamique des prochains événements, système de réservation et adhésion en ligne via HelloAsso, espace membre avec permissions et compte à rebours dynamique de période d'adhésion.",
-    solution: "Conception du site sous WordPress avec DIVI et développement de fonctions PHP sur-mesure dans functions.php du thème enfant : boucle personnalisée WP_Query triée par date d'événement, shortcode de calcul des jours restants d'adhésion (J-150), intégration HelloAsso et optimisation du référencement local.",
-    stack: ["WordPress 6.x", "PHP 8", "DIVI Builder", "WP_Query", "API HelloAsso", "CSS3 personnalisé", "Infomaniak Cloud"],
+    image: "/realisations/afterish-real-0.png",
+    contexte: "Stage de BTS SIO chez Nexus Flow. Refonte complète du site web du club d'affaires After'ish (présidé par le dirigeant de l'agence) pour fédérer 200 membres autour d'événements et de rencontres régulières.",
+    probleme: "Livrer seul en 2 semaines un portail complet avec adhésions en ligne, espace membre sécurisé, affichage dynamique des prochains événements et calcul du temps restant d'adhésion.",
+    solution: "Développement du site avec DIVI et écriture de fonctions PHP sur-mesure dans functions.php du thème enfant : boucle personnalisée WP_Query pour filtrer les 3 prochains événements par date, shortcode dynamique de compte à rebours (J-150) calculé depuis la date d'inscription SQL, et intégration des paiements HelloAsso.",
+    stack: ["PHP 8", "WordPress 6.x", "DIVI Builder", "WP_Query", "API HelloAsso", "CSS3", "Infomaniak Cloud"],
     resultats: [
-      "Plateforme livrée en autonomie complète en 2 semaines",
-      "200 membres inscrits dès le lancement, dont 23 adhésions payantes",
-      "Fonctions PHP personnalisées pour l'affichage dynamique des 3 prochains événements",
-      "Shortcode dynamique calculant le temps restant d'adhésion pour chaque membre"
+      "Site livré et mis en ligne en autonomie en 2 semaines",
+      "200 membres inscrits dès le lancement officiel, dont 23 adhésions payantes",
+      "Fonction PHP personnalisée pour la boucle dynamique des événements",
+      "Shortcode de calcul automatique de l'échéance d'adhésion pour chaque membre"
     ],
     miseEnAvant: true,
     galerie: [
       {
-        src: "/realisations/afterish-home.png",
-        titre: "Page d'Accueil & Présentation du Club",
-        description: "Présentation des 4 pôles d'activités, du manifeste du club et de la proposition de valeur pour les membres."
+        src: "/realisations/afterish-real-0.png",
+        titre: "Page d'accueil officielle en ligne",
+        description: "Capture réelle du site After'ish en production : présentation des activités, adhésions et prochains événements."
       },
       {
-        src: "/realisations/afterish-events.png",
-        titre: "Module Dynamique des Événements",
-        description: "Affichage dynamique des 3 prochaines rencontres généré par la fonction PHP personnalisée afterish_render_latest_events()."
-      },
-      {
-        src: "/realisations/afterish-membership.png",
-        titre: "Adhésion en Ligne & HelloAsso",
-        description: "Grille tarifaire claire et intégration directe des formulaires de paiement et adhésion sécurisés HelloAsso."
+        src: "/realisations/afterish-real-1.png",
+        titre: "Section Événements & Adhésions",
+        description: "Vue du module d'événements alimenté par la requête PHP WP_Query et formulaire d'inscription direct."
       },
       {
         src: "/realisations/afterish-admin.png",
-        titre: "Espace Membre & Profil Administrateur",
-        description: "Interface permettant au responsable de gérer l'annuaire des membres et aux adhérents de consulter leurs participations."
+        titre: "Espace membre & Profil adhérent",
+        description: "Espace personnel permettant aux adhérents de gérer leur profil et voir les événements auxquels ils participent."
       },
       {
         src: "/realisations/afterish-wordpress.png",
-        titre: "Administration WordPress & Thème Enfant",
-        description: "Back-office configuré avec gestion des types de contenus personnalisés (evenements) et métadonnées associées."
+        titre: "Back-office WordPress & Custom Post Types",
+        description: "Configuration du type de publication personnalisé 'evenements' avec ses métadonnées de date et lieu."
       },
       {
         src: "/realisations/afterish-infomaniak.png",
-        titre: "Gestion Hébergement & Domaines Infomaniak",
-        description: "Configuration DNS, gestion des sous-domaines et certificats SSL sur la console d'hébergement Infomaniak."
+        titre: "Gestion DNS & Domaines chez Infomaniak",
+        description: "Configuration de la zone DNS, des sous-domaines et des certificats SSL sur le tableau de bord Infomaniak."
       }
     ],
     extraitsCode: [
       {
         fichier: "wp-content/themes/afterish-child/functions.php",
         langage: "php",
-        description: "Fonction PHP sur-mesure utilisant WP_Query pour lister dynamiquement les 3 événements à venir triés par date :",
+        description: "Boucle dynamique WP_Query affichant les 3 prochains événements triés par date croissante :",
         code: `<?php
-/**
- * Récupère et affiche dynamiquement les 3 derniers événements sur l'accueil
- */
 function afterish_render_latest_events() {
     $args = array(
         'post_type'      => 'evenements',
@@ -308,11 +183,8 @@ add_shortcode('afterish_events', 'afterish_render_latest_events');`
       {
         fichier: "wp-content/themes/afterish-child/functions.php",
         langage: "php",
-        description: "Shortcode de calcul dynamique des jours restants d'adhésion (J-150) selon la date d'inscription du membre :",
+        description: "Shortcode de calcul dynamique du nombre de jours restants sur la période d'adhésion (J-150) :",
         code: `<?php
-/**
- * Calcul dynamique des jours restants d'adhésion (J-150)
- */
 function afterish_days_remaining_shortcode() {
     if (!is_user_logged_in()) {
         return '<span class="countdown-guest">Rejoignez le club pour activer vos 150 jours !</span>';
@@ -333,17 +205,194 @@ add_shortcode('afterish_compteur_adhesion', 'afterish_days_remaining_shortcode')
     ]
   },
   {
+    id: "crm-ia-nexusflow",
+    titre: "Application SaaS Nexus Flow OS & HF Concept",
+    badge: "SaaS Multi-Tenant • Recette QA & Débogage",
+    categorie: "ia",
+    hote: "os.agence-nexusflow.com",
+    url: "https://accounts.agence-nexusflow.com/sign-in?redirect_url=https%3A%2F%2Fhf.agence-nexusflow.com%2Fdashboard",
+    libelleLien: "Accéder au portail de connexion SaaS",
+    employeur: "Nexus Flow",
+    annee: "2026",
+    image: "/realisations/saas-real-0.png",
+    noteAcces: "Ce lien pointe vers la page d'authentification Clerk du SaaS. Comme le sous-domaine direct de production est en cours de renouvellement de certificat SSL, tous les écrans du SaaS (Dashboard, Kanban, RAG IA, Code source) sont directement consultables et expliqués ci-dessous.",
+    contexte: "Stage de BTS SIO chez Nexus Flow. L'agence édite Nexus Flow OS, un SaaS multi-tenant structuré en monorepo (Next.js 14, Turborepo, Prisma, PostgreSQL) qui centralise les opérations commerciales de clients comme le showroom HF Concept.",
+    probleme: "Fiabiliser le produit avant déploiement client : un bug critique sur le formulaire d'inscription bloquait les utilisateurs (l'utilisateur était créé dans Clerk Auth mais si la création d'organisation échouait dans PostgreSQL, le compte restait orphelin et bloqué). Il fallait aussi tester l'étanchéité des données multi-tenants (RLS) et sécuriser le middleware de routage par sous-domaine.",
+    solution: "1. Réécriture de l'action serveur signup/actions.ts avec schéma de validation Zod et rollback atomique (suppression Clerk + cascade PostgreSQL si échec dans le try/catch). 2. Exécution du cahier de recette fonctionnelle (authentification Clerk, RLS Postgres, pipeline Kanban, lien /unsubscribe conforme RGPD). 3. Audit de middleware.ts pour vérifier l'étanchéité des sous-domaines réservés et organisationnels. 4. Configuration de l'API Infomaniak IA (modèles mixtes LLM) via script d'automatisation.",
+    stack: ["Next.js 14 (App Router)", "TypeScript", "Prisma ORM", "PostgreSQL (Supabase)", "Clerk Auth", "Inngest", "Tailwind CSS", "Turborepo"],
+    resultats: [
+      "Bug critique A02 résolu : rollback atomique assurant zéro compte orphelin",
+      "Cahier de recette fonctionnelle QA validé (A01, B01, C01, D01 validés)",
+      "Isolation stricte des données garantie entre chaque tenant via PostgreSQL RLS",
+      "Pipeline Kanban commercial et gestion des relances Inngest opérationnels"
+    ],
+    miseEnAvant: true,
+    galerie: [
+      {
+        src: "/realisations/saas-real-0.png",
+        titre: "Écran d'accueil et Dashboard du SaaS",
+        description: "Vue principale de l'application SaaS Nexus Flow OS en environnement réel : indicateurs de performance, opportunités et raccourcis."
+      },
+      {
+        src: "/realisations/saas-dashboard.png",
+        titre: "Tableau de Bord Métriques & Chiffre d'Affaires",
+        description: "Suivi du volume des ventes, taux de conversion des prospects et statut des dossiers clients."
+      },
+      {
+        src: "/realisations/saas-kanban.png",
+        titre: "Pipeline Commercial Kanban",
+        description: "Suivi des étapes de prospection par cartes déplaçables (Contact, Rendez-vous, Devis, Signature)."
+      },
+      {
+        src: "/realisations/saas-ia-knowledge.png",
+        titre: "Interface RAG & Base Documentaire IA",
+        description: "Module permettant d'uploader des catalogues PDF pour alimenter la base de connaissances de l'assistant IA."
+      },
+      {
+        src: "/realisations/saas-branding.png",
+        titre: "Branding Personnalisé Multi-Tenant",
+        description: "Personnalisation graphique par client (logo, couleurs d'accent, nom du workspace)."
+      }
+    ],
+    extraitsCode: [
+      {
+        fichier: "apps/web/src/app/signup/actions.ts",
+        langage: "typescript",
+        description: "Action serveur avec schéma Zod strict et Rollback Atomique (suppression immédiate du compte Clerk en cas d'erreur de base de données) :",
+        code: `'use server'
+
+import { z } from 'zod'
+import { clerkClient } from '@clerk/nextjs/server'
+import { prisma } from '@hf/db'
+
+// Schéma de validation Zod strict
+const provisionSchema = z.object({
+  workspaceName: z.string().trim().min(2).max(80),
+  slug: z.string().trim().min(2).max(50).regex(/^[a-z0-9-]+$/, 'Minuscules et tirets uniquement'),
+  email: z.string().trim().toLowerCase().email(),
+  password: z.string().min(8).max(120),
+  firstName: z.string().trim().min(1),
+  lastName: z.string().trim().min(1),
+})
+
+export async function provisionWorkspaceAction(formData: FormData) {
+  const validated = provisionSchema.parse(Object.fromEntries(formData))
+  let clerkUserId: string | null = null
+  let createdOrgId: string | null = null
+
+  try {
+    // 1. Création du compte dans Clerk Auth
+    const clerkUser = await clerkClient.users.createUser({
+      emailAddress: [validated.email],
+      password: validated.password,
+      firstName: validated.firstName,
+      lastName: validated.lastName,
+    })
+    clerkUserId = clerkUser.id
+
+    // 2. Création de l'Organisation dans PostgreSQL via Prisma
+    const org = await prisma.organization.create({
+      data: {
+        name: validated.workspaceName,
+        slug: validated.slug,
+        plan: 'TRIAL',
+      }
+    })
+    createdOrgId = org.id
+
+    // 3. Liaison de l'utilisateur avec le rôle ADMIN
+    await prisma.user.create({
+      data: {
+        clerkId: clerkUserId,
+        email: validated.email,
+        role: 'ADMIN',
+        organizationId: org.id,
+      }
+    })
+
+    return { success: true, redirectUrl: \`https://\${org.slug}.agence-nexusflow.com\` }
+
+  } catch (error) {
+    // ROLLBACK ATOMIQUE : Nettoyage immédiat pour éviter tout compte orphelin
+    if (clerkUserId) await clerkClient.users.deleteUser(clerkUserId).catch(() => null)
+    if (createdOrgId) await prisma.organization.delete({ where: { id: createdOrgId } }).catch(() => null)
+    throw new Error("Échec du provisionnement du workspace. Annulation complète effectuée.")
+  }
+}`
+      },
+      {
+        fichier: "apps/web/src/middleware.ts",
+        langage: "typescript",
+        description: "Routage dynamique multi-tenant et vérification des sous-domaines réservés :",
+        code: `import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { NextResponse, type NextRequest } from 'next/server'
+
+const isPublicRoute = createRouteMatcher([
+  '/',
+  '/signup(.*)',
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+  '/api/health',
+  '/api/inngest(.*)',
+  '/unsubscribe/(.*)',
+])
+
+const RESERVED_SUBDOMAINS = new Set(['www', 'app', 'api', 'admin', 'mail', 'auth'])
+
+export default clerkMiddleware((auth, req) => {
+  const hostname = req.headers.get('host') || ''
+  const subdomain = hostname.split('.')[0]
+
+  // Si c'est un sous-domaine réservé ou la landing page, laisser passer vers les routes publiques
+  if (RESERVED_SUBDOMAINS.has(subdomain) || hostname.includes('os.agence-nexusflow.com')) {
+    if (!isPublicRoute(req)) auth().protect()
+    return NextResponse.next()
+  }
+
+  // Routage tenant : réécriture d'URL contextuelle pour isoler le workspace
+  const url = req.nextUrl.clone()
+  url.pathname = \`/tenant/\${subdomain}\${url.pathname}\`
+  return NextResponse.rewrite(url)
+})`
+      },
+      {
+        fichier: "scripts/fix-infomaniak-ai.sh",
+        langage: "bash",
+        description: "Script shell automatisant la mise à jour des clés et endpoints de l'API Infomaniak sur le VPS de production :",
+        code: `#!/bin/bash
+# Configuration de l'API Infomaniak AI (Product ID + Token)
+SSH_KEY=~/.ssh/nexus-hf.pem
+VPS=ubuntu@185.143.103.110
+
+read -p "Product ID Infomaniak AI : " PRODUCT_ID
+read -s -p "API Token : " AI_TOKEN
+
+BASE_URL="https://api.infomaniak.com/1/ai/\${PRODUCT_ID}/openai/v1"
+
+ssh -i $SSH_KEY $VPS "
+  sed -i '/^INFOMANIAK_AI_PRODUCT_ID=/d' ~/hf-growth-os/.env
+  sed -i '/^INFOMANIAK_AI_API_TOKEN=/d' ~/hf-growth-os/.env
+  echo 'INFOMANIAK_AI_PRODUCT_ID=\${PRODUCT_ID}' >> ~/hf-growth-os/.env
+  echo 'INFOMANIAK_AI_API_TOKEN=\${AI_TOKEN}' >> ~/hf-growth-os/.env
+  pm2 restart hf-web
+"
+echo "Configuration IA mise à jour avec succès sur le VPS !"`
+      }
+    ]
+  },
+  {
     id: "unsa-defense",
-    titre: "Portail UNSA Défense & Moteur PHP",
+    titre: "Portail UNSA Défense & Moteur de Recherche PHP",
     badge: "Livré en autonomie en 3 jours",
     categorie: "fullstack",
     hote: "unsa-defense.org",
     url: "https://www.unsa-defense.org",
+    libelleLien: "Visiter unsa-defense.org",
     employeur: "Rougevert Communication",
     annee: "2024",
     image: "/realisations/unsa.webp",
-    contexte: "Stage chez Rougevert Communication. L'organisation syndicale nationale UNSA Défense devait publier rapidement ses actualités et documents officiels.",
-    probleme: "Créer un site web complet en 3 jours avec un moteur de recherche interne capable de filtrer efficacement un volume dense d'articles et d'archives syndicales.",
+    contexte: "Stage chez Rougevert Communication. L'organisation syndicale nationale UNSA Défense devait publier rapidement ses actualités et accords officiels.",
+    probleme: "Créer un site web complet en 3 jours avec un moteur de recherche interne capable de filtrer efficacement un volume dense d'articles et d'archives.",
     solution: "Développement autonome du portail en PHP avec modélisation MySQL, programmation d'un moteur de recherche documentaire avec requêtes SQL optimisées et configuration du suivi d'audience Google Analytics.",
     stack: ["PHP", "MySQL", "Architecture MVC", "JavaScript", "HTML5 / CSS3", "Google Analytics"],
     resultats: [
@@ -367,8 +416,8 @@ add_shortcode('afterish_compteur_adhesion', 'afterish_days_remaining_shortcode')
     employeur: "Unimage Communication",
     annee: "2025",
     image: "/realisations/unimage.webp",
-    contexte: "Stage chez Unimage Communication. L'agence souhaitait déployer des sites satellites spécialisés pour cibler les recherches locales à Lyon et Villefranche-sur-Saône.",
-    probleme: "Créer deux sites vitrines performants et conformes au RGPD, avec des composants sur mesure sans surcharger le code.",
+    contexte: "Stage chez Unimage Communication. L'agence souhaitait déployer des vitrines spécialisées pour cibler les recherches locales à Lyon et Villefranche-sur-Saône.",
+    probleme: "Créer deux sites vitrines performants et conformes au RGPD avec des composants sur mesure sans surcharger le code.",
     solution: "Création autonome des pages sous WordPress avec Elementor et Spectra, ajout de styles CSS personnalisés, ajustements en PHP et JavaScript, et intégration du gestionnaire de cookies CookieYes.",
     stack: ["WordPress", "Elementor", "Spectra", "PHP", "JavaScript", "CSS3", "CookieYes RGPD", "SEO Local"],
     resultats: [
@@ -385,6 +434,7 @@ add_shortcode('afterish_compteur_adhesion', 'afterish_days_remaining_shortcode')
     categorie: "web",
     hote: "cadeo-sport.fr",
     url: "https://cadeo-sport.fr",
+    libelleLien: "Visiter cadeo-sport.fr",
     employeur: "Unimage Communication",
     annee: "2025",
     image: "/realisations/lyon.webp",
@@ -406,6 +456,7 @@ add_shortcode('afterish_compteur_adhesion', 'afterish_days_remaining_shortcode')
     categorie: "web",
     hote: "creation-site-web-lyon.fr",
     url: "https://www.creation-site-web-lyon.fr",
+    libelleLien: "Visiter creation-site-web-lyon.fr",
     employeur: "Martingale & Céleste",
     annee: "2023",
     image: "/realisations/bowstudio.webp",
