@@ -119,10 +119,9 @@ export default function Page() {
         {/* En-tête / Profil conforme au CV */}
         <section className="flex flex-col-reverse md:flex-row items-start justify-between gap-8 md:gap-12 pb-12 border-b border-neutral-200">
           <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-xs font-medium text-neutral-700 bg-neutral-100 px-3 py-1 rounded-full border border-neutral-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-              <span>Septembre 2027 • Alternance 1 an (Licence 3 Informatique)</span>
-            </div>
+            <p className="text-sm text-neutral-600">
+              Septembre 2027 • Alternance 1 an (Licence 3 Informatique)
+            </p>
 
             <div>
               <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-950">
