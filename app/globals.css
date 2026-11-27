@@ -72,6 +72,9 @@ img { max-width: 100%; }
 .experience-card { display: flex; min-width: 0; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
 .experience-card-preview { display: block; position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; padding: 0; border: 0; border-bottom: 1px solid var(--line); background: #f1f1f1; text-align: left; cursor: pointer; }
 .experience-card-preview img { object-fit: cover; object-position: top center; transition: transform .2s ease; }
+.experience-card-preview--unsa { background: #fff; }
+.experience-card-preview--unsa img { object-fit: contain; object-position: center; }
+.experience-card-preview--unsa:hover img { transform: none; }
 .experience-card-preview:hover img { transform: scale(1.02); }
 .experience-card-body { display: flex; flex: 1; flex-direction: column; padding: 15px 16px 16px; }
 .experience-card-header { display: flex; align-items: flex-start; justify-content: space-between; }

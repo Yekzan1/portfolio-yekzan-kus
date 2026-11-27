@@ -15,7 +15,7 @@ import {
 type Projet = (typeof REALISATIONS)[number];
 type Experience = (typeof AUTRES_REALISATIONS)[number];
 
-const pseudoCodeInscription = `valider les informations saisies\ncreer le compte utilisateur\ncreer l'espace de travail\n\nsi une etape echoue :\n    supprimer les elements deja crees\n    retourner une erreur explicite\n\nsinon :\n    attribuer le role administrateur\n    ouvrir l'espace de travail`;
+const pseudoCodeInscription = `donnees = valider_le_formulaire_avec_zod(formulaire)\nutilisateur_id = null\norganisation_id = null\n\nessayer :\n    utilisateur = creer_le_compte_clerk(donnees)\n    utilisateur_id = utilisateur.id\n\n    organisation = creer_le_workspace(donnees)\n    organisation_id = organisation.id\n\n    rattacher_utilisateur(organisation, role="ADMIN")\n    ouvrir_le_sous_domaine(organisation.slug)\n\nsauf erreur :\n    si utilisateur_id existe : supprimer_le_compte_clerk(utilisateur_id)\n    si organisation_id existe : supprimer_le_workspace(organisation_id)\n    retourner_une_erreur_explicite`;
 
 export default function Page() {
   const [projetOuvert, setProjetOuvert] = useState<Projet | null>(null);
@@ -53,9 +53,10 @@ export default function Page() {
           image: projetOuvert.capture.image,
           alt: projetOuvert.capture.alt,
           legende: projetOuvert.capture.legende,
-          width: projetOuvert.id === "afterish" ? 1299 : 2224,
-          height: projetOuvert.id === "afterish" ? 675 : 1200,
+          width: projetOuvert.id === "afterish" ? 1299 : 1297,
+          height: projetOuvert.id === "afterish" ? 675 : 777,
         },
+        ...("capturesSupplementaires" in projetOuvert ? projetOuvert.capturesSupplementaires ?? [] : []),
       ]
     : [];
 
@@ -131,7 +132,7 @@ export default function Page() {
               : experience.captures[0];
             return <article className="experience-card" key={experience.id}>
               {preview.url
-                ? <a className="experience-card-preview" href={preview.url} target="_blank" rel="noreferrer" aria-label={`Ouvrir le site : ${preview.titre}`}><Image src={preview.src} alt={preview.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 500px" /></a>
+                ? <a className={`experience-card-preview${experience.id === "rougevert" ? " experience-card-preview--unsa" : ""}`} href={preview.url} target="_blank" rel="noreferrer" aria-label={`Ouvrir le site : ${preview.titre}`}><Image src={preview.src} alt={preview.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 500px" /></a>
                 : <button className="experience-card-preview" type="button" onClick={() => setExperienceOuverte(experience)} aria-label={`Voir les détails : ${experience.entreprise}`}><Image src={preview.src} alt={preview.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 500px" /></button>}
               <div className="experience-card-body">
                 <header className="experience-card-header"><div><p className="experience-date">{experience.entreprise} · {experience.periode}</p><h3>{experience.role}</h3></div></header>
@@ -168,7 +169,7 @@ export default function Page() {
           <div className="modal-section"><h3>Ce que j’ai fait</h3><ul>{projetOuvert.mission.map((mission) => <li key={mission}>{mission}</li>)}</ul></div>
           <div className="modal-section"><h3>Captures du projet</h3><div className="modal-gallery">{capturesProjet.map((capture) => <figure key={capture.image}><Image src={capture.image} alt={capture.alt} width={capture.width} height={capture.height} sizes="(max-width: 720px) 100vw, 50vw" /><figcaption>{capture.legende}</figcaption></figure>)}</div></div>
           {projetOuvert.code && <div className="modal-section"><h3>Exemple de code PHP</h3><p>{projetOuvert.code.explication}</p><div className="code-window"><div>{projetOuvert.code.fichier}</div><pre><code>{projetOuvert.code.extrait}</code></pre></div></div>}
-          {projetOuvert.id === "nexus-flow" && <div className="modal-section"><h3>Logique du parcours d’inscription</h3><p>Schéma simplifié du traitement que j’ai corrigé, présenté en pseudo-code.</p><div className="code-window"><div>Inscription · étapes et nettoyage en cas d’échec</div><pre><code>{pseudoCodeInscription}</code></pre></div><ol className="modal-steps">{projetOuvert.etapesInscription?.map((etape) => <li key={etape}>{etape}</li>)}</ol></div>}
+          {projetOuvert.id === "nexus-flow" && <div className="modal-section"><h3>Correction du parcours d’inscription</h3><p>Le rapport décrit un compte qui pouvait rester créé sans workspace utilisable. J’ai corrigé le flux pour valider les données, créer l’utilisateur et son organisation, puis supprimer les éléments déjà créés si une étape échoue.</p><div className="code-window"><div>Provisionnement · extrait schématique fidèle au correctif</div><pre><code>{pseudoCodeInscription}</code></pre></div><ol className="modal-steps">{projetOuvert.etapesInscription?.map((etape) => <li key={etape}>{etape}</li>)}</ol></div>}
           <div className="modal-bottom"><span className="technology-line">{projetOuvert.technologies}</span><a className="button button-dark" href={projetOuvert.lien} target="_blank" rel="noreferrer">{projetOuvert.id === "afterish" ? "Aller sur le site" : "Ouvrir la connexion"}<span aria-hidden="true"> ↗</span></a></div>
         </section>
       </div>}

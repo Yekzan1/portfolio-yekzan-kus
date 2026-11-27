@@ -81,11 +81,13 @@ export const REALISATIONS = [
       { valeur: "Recette", libelle: "parcours CRM testés et anomalies consignées" },
     ],
     mission: [
-      "J’ai repéré un cas où le compte utilisateur pouvait être créé sans que l’espace de travail soit correctement enregistré.",
-      "Avec la validation de mon tuteur, j’ai ajouté le contrôle des champs et le nettoyage des éléments déjà créés lorsque l’inscription échoue.",
-      "J’ai vérifié les règles PostgreSQL qui empêchent une entreprise d’accéder aux données d’une autre.",
-      "J’ai exécuté des tests fonctionnels sur la connexion, l’inscription, le pipeline Kanban et le lien de désinscription des courriels.",
-      "J’ai relu le routage par sous-domaine et vérifié le comportement des espaces clients.",
+      "J’ai étudié l’architecture de Nexus Flow OS et ses espaces clients afin de comprendre le parcours d’inscription, les organisations et leurs utilisateurs.",
+      "J’ai isolé un échec d’inscription qui pouvait laisser un compte créé dans le service d’authentification sans espace de travail utilisable.",
+      "Avec la validation de mon tuteur, j’ai renforcé la validation des champs et corrigé le nettoyage des ressources créées si une étape du provisionnement échoue.",
+      "J’ai vérifié le rattachement du compte à son organisation et les règles d’isolation des données entre entreprises (Row-Level Security).",
+      "J’ai contrôlé le routage par sous-domaine et le middleware qui associe un espace client à son organisation.",
+      "J’ai rédigé et exécuté une recette fonctionnelle : connexion, inscription, isolation des données, création et déplacement d’opportunités dans le Kanban, désinscription des courriels.",
+      "J’ai vérifié que les campagnes de relance respectent la liste de désinscription et participé aux vérifications de mise en production sur le VPS (migrations, processus PM2 et certificats SSL).",
     ],
     etapesInscription: [
       "Valider les informations saisies et refuser les sous-domaines réservés.",
@@ -93,10 +95,33 @@ export const REALISATIONS = [
       "Si une étape échoue, supprimer les éléments déjà créés pour éviter un compte orphelin.",
     ],
     capture: {
-      image: "/realisations/portfolio/saas-branding-card.webp",
-      alt: "Réglages de marque et de domaine d’un espace client dans Nexus Flow OS",
-      legende: "Personnalisation de l’espace client",
+      image: "/realisations/saas-ia-knowledge.png",
+      alt: "Réglages des documents de la base de connaissances d’un espace client",
+      legende: "Documents et base de connaissances",
     },
+    capturesSupplementaires: [
+      {
+        image: "/realisations/saas-dashboard.png",
+        alt: "Vue générale du tableau de bord Nexus Flow OS",
+        legende: "Vue générale du CRM",
+        width: 1322,
+        height: 797,
+      },
+      {
+        image: "/realisations/saas-kanban.png",
+        alt: "Paramètres de marque d’un autre workspace Nexus Flow OS",
+        legende: "Thème d’un autre espace client",
+        width: 1278,
+        height: 884,
+      },
+      {
+        image: "/realisations/saas-branding.png",
+        alt: "Formulaire de personnalisation du workspace Nexus Flow OS",
+        legende: "Paramètres de marque et du workspace",
+        width: 1159,
+        height: 705,
+      },
+    ],
     technologies: "PostgreSQL · Clerk · Prisma · Inngest",
   },
 ];
@@ -147,8 +172,8 @@ export const AUTRES_REALISATIONS = [
     description:
       "J’ai créé un site WordPress pour l’UNSA en trois jours, construit un moteur de recherche de fiches métier et mis en ligne un second site consacré aux poèmes de Régis Chouette.",
     vignette: {
-      src: "/realisations/experiences/unsa-recherche-card.webp",
-      alt: "Filtres Marine et Administratif et résultat du moteur de recherche de fiches métier UNSA",
+      src: "/realisations/experiences/unsa-home-card.webp",
+      alt: "Page d’accueil du site UNSA Défense, capture fournie par Yekzan",
     },
     missions: [
       "Création en trois jours du site de l’UNSA sous WordPress et Elementor, avec navigation, pages et mise en page adaptées au contenu de l’organisation.",
