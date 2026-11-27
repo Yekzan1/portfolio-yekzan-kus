@@ -46,8 +46,8 @@ img { max-width: 100%; }
 .featured-card:hover { border-color: #cecece; }
 .featured-image { min-height: 100%; min-height: 310px; position: relative; overflow: hidden; border-right: 1px solid var(--line); background: #f0f0f0; }
 .featured-image img { object-fit: cover; object-position: top center; }
-.featured-image--contain { background: #f5f4fc; }
-.featured-image--contain img { object-fit: contain; }
+.featured-image--dashboard { min-height: 250px; background: #f1f3f1; }
+.featured-image--dashboard img { object-fit: contain; object-position: center; }
 .featured-content { display: flex; flex-direction: column; align-items: flex-start; padding: 23px 25px; }
 .card-meta { display: flex; width: 100%; justify-content: space-between; gap: 14px; margin: 0; color: #777; font-size: 11px; }
 .card-meta span:first-child { color: #333; font-weight: 600; }
@@ -183,6 +183,7 @@ img { max-width: 100%; }
   .section-title p { font-size: 11px; }
   .featured-card { grid-template-columns: 1fr; }
   .featured-image { min-height: 0; height: 220px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .featured-image--dashboard { height: auto; aspect-ratio: 2.4; }
   .featured-content { padding: 17px; }
   .featured-content h3 { font-size: 20px; }
   .card-description { font-size: 12px; }

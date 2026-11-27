@@ -45,25 +45,16 @@ export default function Page() {
         {
           image: projetOuvert.image,
           alt: projetOuvert.imageAlt,
-          legende: projetOuvert.id === "afterish" ? "Page d’accueil After’ish" : "Page de présentation de Nexus Flow OS",
-          width: 1920,
-          height: 1200,
+          legende: projetOuvert.id === "afterish" ? "Page d’accueil After’ish" : "Tableau de bord de Nexus Flow OS",
+          width: projetOuvert.id === "afterish" ? 1920 : 2396,
+          height: projetOuvert.id === "afterish" ? 1200 : 727,
         },
-        ...(projetOuvert.id === "nexus-flow"
-          ? [{
-              image: "/realisations/portfolio/saas-dashboard.webp",
-              alt: "Tableau de bord commercial de Nexus Flow OS",
-              legende: "Tableau de bord du CRM",
-              width: 2466,
-              height: 1620,
-            }]
-          : []),
         {
           image: projetOuvert.capture.image,
           alt: projetOuvert.capture.alt,
           legende: projetOuvert.capture.legende,
-          width: projetOuvert.id === "afterish" ? 1299 : 2466,
-          height: projetOuvert.id === "afterish" ? 675 : 1620,
+          width: projetOuvert.id === "afterish" ? 1299 : 2224,
+          height: projetOuvert.id === "afterish" ? 675 : 1200,
         },
       ]
     : [];
@@ -113,14 +104,14 @@ export default function Page() {
           <div className="project-cards">
             {REALISATIONS.map((projet) => (
               <article className="featured-card" key={projet.id}>
-                <div className={`featured-image${projet.id === "nexus-flow" ? " featured-image--contain" : ""}`}><Image src={projet.image} alt={projet.imageAlt} fill sizes="(max-width: 900px) 100vw, 42vw" /></div>
+                <div className={`featured-image${projet.id === "nexus-flow" ? " featured-image--dashboard" : ""}`}><Image src={projet.image} alt={projet.imageAlt} fill sizes="(max-width: 700px) 100vw, 42vw" /></div>
                 <div className="featured-content">
                   <div className="card-meta"><span>{projet.entreprise}</span><span>{projet.periode}</span></div>
                   <p className="card-kicker">{projet.id === "afterish" ? "Site associatif · WordPress" : "CRM multi-entreprise"}</p>
                   <h3>{projet.titre}</h3>
                   <p className="card-subtitle">{projet.sousTitre}</p>
-                  <p className="card-description">{projet.introduction}</p>
-                  <div className="card-facts">{projet.resultats.map((resultat) => <span key={resultat.libelle}><strong>{resultat.valeur}</strong> {resultat.libelle}</span>)}</div>
+                  <p className="card-description">{"resume" in projet ? projet.resume : projet.introduction}</p>
+                  {projet.id !== "nexus-flow" && <div className="card-facts">{projet.resultats.map((resultat) => <span key={resultat.libelle}><strong>{resultat.valeur}</strong> {resultat.libelle}</span>)}</div>}
                   <div className="technology-line">{projet.technologies}</div>
                   <div className="card-actions">
                     <button className="button button-dark" type="button" onClick={() => setProjetOuvert(projet)}>Voir les détails</button>
@@ -135,7 +126,9 @@ export default function Page() {
         <section id="parcours" className="content-section">
           <div className="section-title"><div><h2>Autres expériences</h2><p>Les sites et outils que j’ai réalisés au cours de mes stages.</p></div></div>
           <div className="experience-cards">{AUTRES_REALISATIONS.map((experience) => {
-            const preview = experience.captures[0];
+            const preview = "vignette" in experience
+              ? { ...experience.captures[0], ...experience.vignette }
+              : experience.captures[0];
             return <article className="experience-card" key={experience.id}>
               {preview.url
                 ? <a className="experience-card-preview" href={preview.url} target="_blank" rel="noreferrer" aria-label={`Ouvrir le site : ${preview.titre}`}><Image src={preview.src} alt={preview.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 500px" /></a>

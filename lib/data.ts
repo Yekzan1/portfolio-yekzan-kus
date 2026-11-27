@@ -70,8 +70,9 @@ export const REALISATIONS = [
     sousTitre: "Fiabiliser les inscriptions d’un CRM multi-entreprise",
     introduction:
       "Nexus Flow OS regroupe le suivi commercial, les devis et factures, le support client et les relances. Pendant mon stage, j’ai travaillé sur la fiabilité de l’inscription, les contrôles de séparation des comptes et la recette fonctionnelle.",
-    image: "/realisations/nexusflow-1216.webp",
-    imageAlt: "Page d’accueil de Nexus Flow OS et aperçu du CRM",
+    resume: "Inscription fiable, données séparées par entreprise et parcours CRM vérifiés.",
+    image: "/realisations/portfolio/saas-dashboard-card.webp",
+    imageAlt: "Indicateurs et activité du tableau de bord Nexus Flow OS",
     lien: "https://accounts.agence-nexusflow.com/sign-in?redirect_url=https%3A%2F%2Fhf.agence-nexusflow.com%2Fdashboard",
     lienLabel: "Ouvrir le portail de connexion",
     resultats: [
@@ -92,7 +93,7 @@ export const REALISATIONS = [
       "Si une étape échoue, supprimer les éléments déjà créés pour éviter un compte orphelin.",
     ],
     capture: {
-      image: "/realisations/portfolio/saas-branding.webp",
+      image: "/realisations/portfolio/saas-branding-card.webp",
       alt: "Réglages de marque et de domaine d’un espace client dans Nexus Flow OS",
       legende: "Personnalisation de l’espace client",
     },
@@ -145,6 +146,10 @@ export const AUTRES_REALISATIONS = [
     role: "Sites de l’UNSA et d’un poète · Recherche PHP",
     description:
       "J’ai créé un site WordPress pour l’UNSA en trois jours, construit un moteur de recherche de fiches métier et mis en ligne un second site consacré aux poèmes de Régis Chouette.",
+    vignette: {
+      src: "/realisations/experiences/unsa-recherche-card.webp",
+      alt: "Filtres Marine et Administratif et résultat du moteur de recherche de fiches métier UNSA",
+    },
     missions: [
       "Création en trois jours du site de l’UNSA sous WordPress et Elementor, avec navigation, pages et mise en page adaptées au contenu de l’organisation.",
       "Création de catégories et d’une boucle WordPress pour publier et organiser les articles.",
