@@ -318,15 +318,6 @@ export const PROJETS_APPLICATIFS = [
     github: "https://github.com/Yekzan1/MindLoop",
     donnees: "Supabase · PostgreSQL · présence en temps réel",
   },
-  {
-    titre: "Portail de la mairie d’Arnas",
-    type: "Projet de BTS",
-    description:
-      "Un portail citoyen qui rassemble les informations municipales, l’annuaire et les démarches en ligne.",
-    url: "https://mairie-arnas.vercel.app",
-    github: "https://github.com/Yekzan1/mairie-arnas",
-    donnees: "Accessibilité · démarches administratives",
-  },
 ];
 
 export const COMPETENCES = [
@@ -358,12 +349,17 @@ export const COMPETENCES = [
   {
     titre: "Qualité et référencement",
     description:
-      "Recette fonctionnelle, suivi des anomalies, SEO technique, Google Analytics et conformité RGPD.",
+      "Référencement WordPress avec Rank Math SEO et Yoast SEO, optimisation des pages et balises, suivi Google Analytics et conformité RGPD.",
   },
   {
     titre: "Autres langages et environnements",
     description:
-      "Python pour l’extraction de données, C pour la gestion mémoire, Linux Debian, Windows Server, VMware et Cisco.",
+      "Python pour l’extraction de données, C pour la gestion mémoire et Linux Debian.",
+  },
+  {
+    titre: "Assistants de développement et automatisation",
+    description:
+      "Claude Code, Codex et Antigravity CLI : orchestration de workflows avec sous-agents, serveurs MCP, skills personnalisés GitHub, commandes slash et intégration d’APIs LLM Claude, Google et Infomaniak.",
   },
 ];
 
