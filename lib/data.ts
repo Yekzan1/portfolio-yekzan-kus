@@ -8,7 +8,7 @@ export const INFOS_PERSONNELLES = {
   linkedin: "https://www.linkedin.com/in/yekzan-kus-674483325/",
   cvPdf: "/cv-yekzan-kus.pdf",
   portrait: "/photo-cv.webp",
-  bio: "Je développe des sites web, des applications et des outils informatiques. J’aime partir d’une idée, chercher comment la réaliser et régler les problèmes au fur et à mesure. Je m’intéresse surtout au développement web, à la programmation et à l’automatisation. Ce que je préfère, c’est voir un projet avancer et pouvoir l’utiliser concrètement.",
+  bio: "Je pars d’un besoin concret et je cherche comment le résoudre avec du code. Je développe des sites et des applications, et je crée des automatisations pour éviter les tâches répétitives. J’aime aussi configurer des workflows avec Claude Code, Codex ou Antigravity CLI : sous-agents, serveurs MCP, skills personnalisés et commandes slash.",
 };
 
 export const REALISATIONS = [
@@ -357,7 +357,7 @@ export const COMPETENCES = [
       "Python pour l’extraction de données, C pour la gestion mémoire et Linux Debian.",
   },
   {
-    titre: "Assistants de développement et automatisation",
+    titre: "Automatisation et assistants de développement",
     description:
       "Claude Code, Codex et Antigravity CLI : orchestration de workflows avec sous-agents, serveurs MCP, skills personnalisés GitHub, commandes slash et intégration d’APIs LLM Claude, Google et Infomaniak.",
   },
