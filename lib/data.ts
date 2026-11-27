@@ -8,7 +8,7 @@ export const INFOS_PERSONNELLES = {
   linkedin: "https://www.linkedin.com/in/yekzan-kus-674483325/",
   cvPdf: "/cv-yekzan-kus.pdf",
   portrait: "/photo-cv.webp",
-  bio: "Étudiant en BTS SIO, option SLAM, je suis admis en Licence 3 Informatique au Campus du Beaujolais pour septembre 2027. Je cherche une alternance d’un an en développement web et logiciel.",
+  bio: "Je développe des sites web, des applications et des outils informatiques. J’aime partir d’une idée, chercher comment la réaliser et régler les problèmes au fur et à mesure. Je m’intéresse surtout au développement web, à la programmation et à l’automatisation. Ce que je préfère, c’est voir un projet avancer et pouvoir l’utiliser concrètement.",
 };
 
 export const REALISATIONS = [
