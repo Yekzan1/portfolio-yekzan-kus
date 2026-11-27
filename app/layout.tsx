@@ -4,7 +4,7 @@ import "./globals.css";
 const SITE_URL = "https://portfolio-yekzan-kus.vercel.app";
 const TITRE = "Yekzan KUS — Développement web et logiciel";
 const DESCRIPTION =
-  "Portfolio de Yekzan KUS : projets réalisés en stage, PHP et Laravel, Java, bases de données et recherche d’alternance en Licence 3 Informatique pour septembre 2027.";
+  "Portfolio de Yekzan KUS, étudiant en BTS SIO option SLAM : projets de développement web et logiciel, Laravel, Java, bases de données et automatisation.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

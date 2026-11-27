@@ -8,7 +8,7 @@ export const INFOS_PERSONNELLES = {
   linkedin: "https://www.linkedin.com/in/yekzan-kus-674483325/",
   cvPdf: "/cv-yekzan-kus.pdf",
   portrait: "/photo-cv.webp",
-  bio: "Je pars d’un besoin concret et je cherche comment le résoudre avec du code. Je développe des sites et des applications, et je crée des automatisations pour éviter les tâches répétitives. J’aime aussi configurer des workflows avec Claude Code, Codex ou Antigravity CLI : sous-agents, serveurs MCP, skills personnalisés et commandes slash.",
+  bio: "Je développe des sites web et des applications, et j’automatise des tâches avec des scripts et des workflows. J’aime comprendre comment un outil fonctionne, repérer ce qui ralentit le travail et le simplifier. J’utilise Claude Code, Codex et Antigravity CLI pour configurer des workflows avec sous-agents, serveurs MCP et skills personnalisés.",
 };
 
 export const REALISATIONS = [
@@ -31,7 +31,7 @@ export const REALISATIONS = [
       { valeur: "23", libelle: "adhésions payantes" },
     ],
     mission: [
-      "J’ai construit les pages du site sous WordPress et intégré les besoins de l’association dans le thème DIVI.",
+      "J’ai créé les pages du portail sous WordPress et DIVI : accueil, événements, adhésions, dons et espace membre.",
       "J’ai écrit une boucle WP_Query qui récupère trois événements publiés et les trie par date à partir de leurs métadonnées.",
       "J’ai ajouté un shortcode PHP qui calcule la période d’adhésion de 150 jours à partir de la date d’inscription du membre.",
       "J’ai mis en place l’espace membre et configuré HelloAsso pour les adhésions et les dons en ligne.",
@@ -375,7 +375,7 @@ export const FORMATIONS = [
     diplome: "Licence 3 Informatique",
     periode: "À partir de septembre 2027",
     etablissement: "Business School by CSND · Campus du Beaujolais",
-    detail: "Formation en alternance sur un an.",
+    detail: "Rentrée prévue en septembre 2027.",
   },
 ];
 

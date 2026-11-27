@@ -85,7 +85,7 @@ export default function Page() {
       <main id="contenu" className="conteneur main-content">
         <section className="profile-section" id="accueil">
           <div className="profile-copy">
-            <p className="profile-date">Septembre 2027 · Alternance d’un an · Licence 3 Informatique</p>
+            <p className="profile-date">Développement web · Programmation · Automatisation</p>
             <h1>{INFOS_PERSONNELLES.nom}</h1>
             <p className="profile-role">Développement web et logiciel</p>
             <p className="profile-bio">{INFOS_PERSONNELLES.bio}</p>
@@ -156,7 +156,7 @@ export default function Page() {
           <div><div className="section-title"><div><h2>Formation</h2><p>Mon parcours en informatique.</p></div></div><div className="education-list">{FORMATIONS.map((formation) => <article className="education-card" key={formation.diplome}><div><h3>{formation.diplome}</h3><p>{formation.etablissement}</p></div><span>{formation.periode}</span><p>{formation.detail}</p></article>)}</div><div className="interest-card"><h3>En dehors du développement</h3><p>{LOISIR}</p></div></div>
         </section>
 
-        <section id="contact" className="contact-section"><div><h2>Contact</h2><p>Je recherche une alternance d’un an en développement web ou logiciel pour ma Licence 3, à partir de septembre 2027.</p></div><div className="contact-list"><a href={`mailto:${INFOS_PERSONNELLES.email}`}>{INFOS_PERSONNELLES.email}</a><a href={`tel:${INFOS_PERSONNELLES.telephoneBrut}`}>{INFOS_PERSONNELLES.telephone}</a><span>{INFOS_PERSONNELLES.localisation}</span></div></section>
+        <section id="contact" className="contact-section"><div><h2>Contact</h2><p>Je poursuis un BTS SIO, option SLAM, et j’intègre la Licence 3 Informatique au Campus du Beaujolais en septembre 2027. Contacte-moi pour échanger sur mes projets et mon parcours.</p></div><div className="contact-list"><a href={`mailto:${INFOS_PERSONNELLES.email}`}>{INFOS_PERSONNELLES.email}</a><a href={`tel:${INFOS_PERSONNELLES.telephoneBrut}`}>{INFOS_PERSONNELLES.telephone}</a><span>{INFOS_PERSONNELLES.localisation}</span></div></section>
       </main>
 
       <footer className="old-footer"><div className="conteneur footer-inner"><p>© {new Date().getFullYear()} {INFOS_PERSONNELLES.nom}</p><div><a href={INFOS_PERSONNELLES.github} target="_blank" rel="noreferrer">GitHub</a><a href={INFOS_PERSONNELLES.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={INFOS_PERSONNELLES.cvPdf} download>CV PDF</a></div></div></footer>
