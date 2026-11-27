@@ -89,7 +89,7 @@ export default function Page() {
             <h1>{INFOS_PERSONNELLES.nom}</h1>
             <p className="profile-role">Développement web et logiciel</p>
             <p className="profile-bio">{INFOS_PERSONNELLES.bio}</p>
-            <div className="profile-facts"><span>{INFOS_PERSONNELLES.localisation}</span><span>Anglais technique</span><span>Violon au conservatoire</span></div>
+            <div className="profile-facts"><span>Villefranche-sur-Saône · Rhône</span><span>Sites web &amp; applications en production</span><span>PHP · JavaScript · Python</span><span>Automatisation &amp; intégration d’API</span></div>
             <div className="profile-links">
               <a className="button button-dark" href={`mailto:${INFOS_PERSONNELLES.email}`}>Me contacter</a>
               <a className="button button-light" href={INFOS_PERSONNELLES.github} target="_blank" rel="noreferrer">GitHub</a>
